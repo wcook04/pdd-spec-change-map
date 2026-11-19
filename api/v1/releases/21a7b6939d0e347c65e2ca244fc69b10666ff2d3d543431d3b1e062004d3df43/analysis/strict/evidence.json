@@ -1,0 +1,10 @@
+{
+  "api_version": 1,
+  "data": {
+    "authority": "unavailable",
+    "contexts": {},
+    "receipts": []
+  },
+  "kind": "verification_evidence",
+  "release_id": "21a7b6939d0e347c65e2ca244fc69b10666ff2d3d543431d3b1e062004d3df43"
+}

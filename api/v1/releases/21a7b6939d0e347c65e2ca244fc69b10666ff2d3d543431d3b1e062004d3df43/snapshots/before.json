@@ -1,0 +1,480 @@
+{
+  "api_version": 1,
+  "data": {
+    "coverage": "published_excerpts",
+    "edges": [
+      {
+        "from": "check_password",
+        "kind": "ensures",
+        "to": "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d"
+      },
+      {
+        "from": "check_password",
+        "kind": "ensures",
+        "to": "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208"
+      },
+      {
+        "from": "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d",
+        "kind": "mentions",
+        "to": "bcrypt_verdict"
+      },
+      {
+        "from": "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208",
+        "kind": "mentions",
+        "to": "bcrypt_verdict"
+      },
+      {
+        "from": "ex_customer_find_by_email",
+        "kind": "ensures",
+        "to": "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7"
+      },
+      {
+        "from": "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7",
+        "kind": "mentions",
+        "to": "customer_on_file"
+      },
+      {
+        "from": "login_flow",
+        "kind": "ensures",
+        "to": "login_flow::admin-role"
+      },
+      {
+        "from": "login_flow",
+        "kind": "ensures",
+        "to": "login_flow::correct-password"
+      },
+      {
+        "from": "login_flow",
+        "kind": "ensures",
+        "to": "login_flow::email-role"
+      },
+      {
+        "from": "login_flow",
+        "kind": "ensures",
+        "to": "login_flow::missing-identity"
+      },
+      {
+        "from": "login_flow",
+        "kind": "ensures",
+        "to": "login_flow::unknown-account"
+      },
+      {
+        "from": "login_flow",
+        "kind": "ensures",
+        "to": "login_flow::unreadable-hash"
+      },
+      {
+        "from": "login_flow",
+        "kind": "ensures",
+        "to": "login_flow::valid-token"
+      },
+      {
+        "from": "login_flow",
+        "kind": "ensures",
+        "to": "login_flow::wrong-password"
+      },
+      {
+        "from": "login_flow::admin-role",
+        "kind": "mentions",
+        "to": "admin_on_file"
+      },
+      {
+        "from": "login_flow::admin-role",
+        "kind": "mentions",
+        "to": "admin_role"
+      },
+      {
+        "from": "login_flow::admin-role",
+        "kind": "mentions",
+        "to": "token_claims"
+      },
+      {
+        "from": "login_flow::correct-password",
+        "kind": "mentions",
+        "to": "named_account"
+      },
+      {
+        "from": "login_flow::correct-password",
+        "kind": "mentions",
+        "to": "password_matches"
+      },
+      {
+        "from": "login_flow::email-role",
+        "kind": "mentions",
+        "to": "customer_role"
+      },
+      {
+        "from": "login_flow::email-role",
+        "kind": "mentions",
+        "to": "token_claims"
+      },
+      {
+        "from": "login_flow::missing-identity",
+        "kind": "mentions",
+        "to": "missing_identity_text"
+      },
+      {
+        "from": "login_flow::unknown-account",
+        "kind": "mentions",
+        "to": "named_account"
+      },
+      {
+        "from": "login_flow::unreadable-hash",
+        "kind": "mentions",
+        "to": "bcrypt_verdict"
+      },
+      {
+        "from": "login_flow::unreadable-hash",
+        "kind": "mentions",
+        "to": "named_account"
+      },
+      {
+        "from": "login_flow::valid-token",
+        "kind": "mentions",
+        "to": "named_account"
+      },
+      {
+        "from": "login_flow::valid-token",
+        "kind": "mentions",
+        "to": "password_matches"
+      },
+      {
+        "from": "login_flow::valid-token",
+        "kind": "mentions",
+        "to": "token_claims"
+      },
+      {
+        "from": "login_flow::wrong-password",
+        "kind": "mentions",
+        "to": "bcrypt_verdict"
+      },
+      {
+        "from": "login_flow::wrong-password",
+        "kind": "mentions",
+        "to": "named_account"
+      },
+      {
+        "from": "named_account",
+        "kind": "definition_uses",
+        "to": "admin_on_file"
+      },
+      {
+        "from": "named_account",
+        "kind": "definition_uses",
+        "to": "admin_role"
+      },
+      {
+        "from": "named_account",
+        "kind": "definition_uses",
+        "to": "customer_on_file"
+      },
+      {
+        "from": "named_account",
+        "kind": "definition_uses",
+        "to": "customer_role"
+      },
+      {
+        "from": "password_matches",
+        "kind": "definition_uses",
+        "to": "bcrypt_verdict"
+      }
+    ],
+    "login_clause_alignment": [
+      "missing-identity",
+      "valid-token",
+      "correct-password",
+      "unknown-account",
+      "wrong-password",
+      "unreadable-hash",
+      "admin-role",
+      "email-role"
+    ],
+    "nodes": [
+      {
+        "id": "admin_on_file",
+        "kind": "referenced_only",
+        "source": null
+      },
+      {
+        "id": "admin_role",
+        "kind": "referenced_only",
+        "source": null
+      },
+      {
+        "id": "bcrypt_verdict",
+        "kind": "abstract_symbol",
+        "source": {
+          "document": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+          "from": 12,
+          "to": 13
+        }
+      },
+      {
+        "body_sha256": "5f0fb1ce1c324ac453ea54a3aae4c022dc978dd396fde70b6b703e990b1a17d0",
+        "id": "check_password",
+        "kind": "trusted_function",
+        "source": {
+          "document": "microsoft:check_password",
+          "from": 6,
+          "to": 15
+        }
+      },
+      {
+        "code_sha256": "2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d",
+        "english_sha256": "f3edd4b718f62fce978e2cff0f7e2b0bb34011bc03751962f7187fa9603f3018",
+        "function": "check_password",
+        "id": "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d",
+        "kind": "ensures_clause",
+        "ordinal": 2,
+        "source": {
+          "document": "microsoft:check_password",
+          "from": 12,
+          "to": 12
+        }
+      },
+      {
+        "code_sha256": "c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208",
+        "english_sha256": "9b57b80abdc0a2fd84502df8db6bf80933ae51f4d59c86c14587543d2cf95684",
+        "function": "check_password",
+        "id": "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208",
+        "kind": "ensures_clause",
+        "ordinal": 1,
+        "source": {
+          "document": "microsoft:check_password",
+          "from": 9,
+          "to": 9
+        }
+      },
+      {
+        "id": "customer_on_file",
+        "kind": "abstract_symbol",
+        "source": {
+          "document": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+          "from": 5,
+          "to": 5
+        }
+      },
+      {
+        "id": "customer_role",
+        "kind": "referenced_only",
+        "source": null
+      },
+      {
+        "body_sha256": "19b8e0a6d008d4035dda3581d704442ddb4d62a76d122fbe0155d2bd9525de79",
+        "id": "ex_customer_find_by_email",
+        "kind": "trusted_function",
+        "source": {
+          "document": "microsoft:ex_customer_find_by_email",
+          "from": 5,
+          "to": 13
+        }
+      },
+      {
+        "code_sha256": "296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7",
+        "english_sha256": "7163804023ce9a1a972d6397dc1357c6e66073b01ee2a3a7702b4a01746b746d",
+        "function": "ex_customer_find_by_email",
+        "id": "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7",
+        "kind": "ensures_clause",
+        "ordinal": 1,
+        "source": {
+          "document": "microsoft:ex_customer_find_by_email",
+          "from": 10,
+          "to": 10
+        }
+      },
+      {
+        "body_sha256": "00a836835bb4708523abb2dbfb2c02fc605a7e6eb4ee7559585885c3d41a1797",
+        "id": "login_flow",
+        "kind": "specified_function",
+        "proof_run": "unavailable",
+        "source": {
+          "document": "microsoft:login_flow",
+          "from": 4,
+          "to": 50
+        },
+        "source_body": "placeholder"
+      },
+      {
+        "code_sha256": "f9933fdd6ba95c9d995fd05db966a7dc2031682e28ca3f01e5d123c56d190d5c",
+        "english_sha256": "4775ffa2ffa0cd655866fc547e7513105e0005656fa5e13a7acc2e35bc1de923",
+        "function": "login_flow",
+        "id": "login_flow::admin-role",
+        "kind": "ensures_clause",
+        "ordinal": 7,
+        "source": {
+          "document": "microsoft:login_flow",
+          "from": 40,
+          "to": 43
+        },
+        "syntax_diagnostics": [
+          "right_hand_matches_needs_parentheses"
+        ]
+      },
+      {
+        "code_sha256": "abd9387b4d967288a12c90390532aaf0b37cbeee29521ef00d4ac943d37ca437",
+        "english_sha256": "6566d8443b8304a4bae5d188381c426c86efd4aa938756bbcaea084346d2682a",
+        "function": "login_flow",
+        "id": "login_flow::correct-password",
+        "kind": "ensures_clause",
+        "ordinal": 3,
+        "source": {
+          "document": "microsoft:login_flow",
+          "from": 20,
+          "to": 22
+        }
+      },
+      {
+        "code_sha256": "6ac3591b2688c737f93b0455ed6e8f5b58f12ad1f829e7e83b1094c79a81e4f9",
+        "english_sha256": "8b1a8a5c55e5ef1fb72463edcf5c93ce48631e5a4bda81d31f4034bae17489b2",
+        "function": "login_flow",
+        "id": "login_flow::email-role",
+        "kind": "ensures_clause",
+        "ordinal": 8,
+        "source": {
+          "document": "microsoft:login_flow",
+          "from": 45,
+          "to": 47
+        }
+      },
+      {
+        "code_sha256": "26b2f7877b99bd0edfcea35b92ed845fe15ad95b56ad343ad04cc3dff094a632",
+        "english_sha256": "c4a47dd69adfd22438e4a43e48d87815b4ed5555d2834d29b77f735b359ddd5b",
+        "function": "login_flow",
+        "id": "login_flow::missing-identity",
+        "kind": "ensures_clause",
+        "ordinal": 1,
+        "source": {
+          "document": "microsoft:login_flow",
+          "from": 9,
+          "to": 11
+        }
+      },
+      {
+        "code_sha256": "f823f1fbc74bed6ef8570550f07550a6969d9f2ab15a301b8af1a57445050c87",
+        "english_sha256": "5cbdeb99e4c767db3fa88cc577a426bd96a75a53a233649699db2b0f4e017b3e",
+        "function": "login_flow",
+        "id": "login_flow::unknown-account",
+        "kind": "ensures_clause",
+        "ordinal": 4,
+        "source": {
+          "document": "microsoft:login_flow",
+          "from": 25,
+          "to": 27
+        }
+      },
+      {
+        "code_sha256": "fd51102f96cd832653290a8da4b6defc46986dc53e30398d3efb6b57e45a3405",
+        "english_sha256": "b11daf15385f680d5c75df87a28a87bc68895d38eb74fed0c5f1651d912f86ce",
+        "function": "login_flow",
+        "id": "login_flow::unreadable-hash",
+        "kind": "ensures_clause",
+        "ordinal": 6,
+        "source": {
+          "document": "microsoft:login_flow",
+          "from": 35,
+          "to": 37
+        }
+      },
+      {
+        "code_sha256": "9cd58f71b17695059badc029bc28488d2b7cf97fab5dba65b791cc56dc1e9167",
+        "english_sha256": "eb5f942a06157f759b27a9da28caab972764f656868b120870573a5350be82c5",
+        "function": "login_flow",
+        "id": "login_flow::valid-token",
+        "kind": "ensures_clause",
+        "ordinal": 2,
+        "source": {
+          "document": "microsoft:login_flow",
+          "from": 14,
+          "to": 17
+        },
+        "syntax_diagnostics": [
+          "right_hand_matches_needs_parentheses"
+        ]
+      },
+      {
+        "code_sha256": "427bb6e799dcd89e13cc5857e5833074dc5e3b6a70361175be02dc3ec916108e",
+        "english_sha256": "1201b7bfd9a610c49871dbba12d117218995c728a254749d2ca04fab07267834",
+        "function": "login_flow",
+        "id": "login_flow::wrong-password",
+        "kind": "ensures_clause",
+        "ordinal": 5,
+        "source": {
+          "document": "microsoft:login_flow",
+          "from": 30,
+          "to": 33
+        }
+      },
+      {
+        "id": "missing_identity_text",
+        "kind": "referenced_only",
+        "source": null
+      },
+      {
+        "body_sha256": "67ccaa96e1e782ab2b9afea8668749a664556bbf67c58eb0061ea29990b0dd3f",
+        "id": "named_account",
+        "kind": "spec_function",
+        "source": {
+          "document": "microsoft:named_account",
+          "from": 4,
+          "to": 21
+        }
+      },
+      {
+        "body_sha256": "e1e26ebe7b809fb66676e98b83c5c84116413274fe59ed2c94a10c37c7c5d59f",
+        "id": "password_matches",
+        "kind": "spec_function",
+        "source": {
+          "document": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+          "from": 16,
+          "to": 18
+        }
+      },
+      {
+        "id": "token_claims",
+        "kind": "referenced_only",
+        "source": null
+      }
+    ],
+    "publication": "microsoft",
+    "snapshot_sha256": "300922cd675e14e8f94194339b0709004187ff9ac1358d9a1b7bfd4e006e394b",
+    "sources": [
+      {
+        "id": "microsoft:ex_customer_find_by_email",
+        "kind": "published_excerpt",
+        "lines": 13,
+        "sha256": "fa69dd3f8ece8c03ff7a239fab150056310e8c6e03d99fcfc2af55ac4faf5a96",
+        "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-4-where-proof-stops"
+      },
+      {
+        "id": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+        "kind": "published_excerpt",
+        "lines": 18,
+        "sha256": "862a58b86647c101eb5c2b6b2f9e74a96c3726b637e3f235a874a59f10bfd2f8",
+        "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+      },
+      {
+        "id": "microsoft:named_account",
+        "kind": "published_excerpt",
+        "lines": 21,
+        "sha256": "a19991359bca26c483d5b982f6a4a711532bbde7d9fb6e13cb426040accae7e2",
+        "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+      },
+      {
+        "id": "microsoft:login_flow",
+        "kind": "published_excerpt",
+        "lines": 50,
+        "sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+        "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+      },
+      {
+        "id": "microsoft:check_password",
+        "kind": "published_excerpt",
+        "lines": 15,
+        "sha256": "7c19a8471e515fcae1e23aa54577d16fc257550bedb5747899a60064cecd5e77",
+        "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+      }
+    ]
+  },
+  "kind": "snapshot",
+  "release_id": "21a7b6939d0e347c65e2ca244fc69b10666ff2d3d543431d3b1e062004d3df43"
+}

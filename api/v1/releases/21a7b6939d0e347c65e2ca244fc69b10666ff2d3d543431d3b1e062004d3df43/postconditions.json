@@ -1,0 +1,611 @@
+{
+  "api_version": 1,
+  "data": {
+    "assumed_contracts": {
+      "ex_admin_find_by_username": {
+        "after_source": {
+          "document": "github-next:login.rs",
+          "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+          "from": 154,
+          "to": 162,
+          "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+        },
+        "before_source": null,
+        "published_contract_comparison": null
+      },
+      "ex_customer_find_by_email": {
+        "after_source": {
+          "document": "github-next:login.rs",
+          "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+          "from": 140,
+          "to": 148,
+          "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+        },
+        "before_source": {
+          "document": "microsoft:ex_customer_find_by_email",
+          "document_sha256": "fa69dd3f8ece8c03ff7a239fab150056310e8c6e03d99fcfc2af55ac4faf5a96",
+          "from": 5,
+          "to": 13,
+          "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-4-where-proof-stops"
+        },
+        "published_contract_comparison": {
+          "clauses_added": [
+            "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02"
+          ],
+          "clauses_removed": [],
+          "id": "ex_customer_find_by_email"
+        }
+      },
+      "ex_generate_token": {
+        "after_source": {
+          "document": "github-next:login.rs",
+          "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+          "from": 202,
+          "to": 212,
+          "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+        },
+        "before_source": null,
+        "published_contract_comparison": null
+      }
+    },
+    "function": "login_flow",
+    "items": [
+      {
+        "after": {
+          "code_sha256": "26b2f7877b99bd0edfcea35b92ed845fe15ad95b56ad343ad04cc3dff094a632",
+          "english_sha256": "c4a47dd69adfd22438e4a43e48d87815b4ed5555d2834d29b77f735b359ddd5b",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "missing_identity_text"
+          ],
+          "ordinal": 1,
+          "source": {
+            "document": "github-next:login.rs",
+            "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+            "from": 265,
+            "to": 265,
+            "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+          }
+        },
+        "analysis_by_mode": {
+          "interpreted": {
+            "examples": [],
+            "modeled_case_count": 0,
+            "status": "interpreted_publication_model"
+          },
+          "strict": {
+            "examples": [],
+            "modeled_case_count": null,
+            "status": "source_interpretation_required"
+          }
+        },
+        "before": {
+          "code_sha256": "26b2f7877b99bd0edfcea35b92ed845fe15ad95b56ad343ad04cc3dff094a632",
+          "english_sha256": "c4a47dd69adfd22438e4a43e48d87815b4ed5555d2834d29b77f735b359ddd5b",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "missing_identity_text"
+          ],
+          "ordinal": 1,
+          "source": {
+            "document": "microsoft:login_flow",
+            "document_sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+            "from": 9,
+            "to": 11,
+            "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+          }
+        },
+        "id": "login_flow::missing-identity",
+        "source_change": "unchanged"
+      },
+      {
+        "after": {
+          "code_sha256": "9cd58f71b17695059badc029bc28488d2b7cf97fab5dba65b791cc56dc1e9167",
+          "english_sha256": "eb5f942a06157f759b27a9da28caab972764f656868b120870573a5350be82c5",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "named_account",
+            "password_matches",
+            "token_claims"
+          ],
+          "ordinal": 2,
+          "source": {
+            "document": "github-next:login.rs",
+            "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+            "from": 267,
+            "to": 267,
+            "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+          }
+        },
+        "analysis_by_mode": {
+          "interpreted": {
+            "examples": [],
+            "modeled_case_count": 0,
+            "status": "interpreted_publication_model"
+          },
+          "strict": {
+            "examples": [],
+            "modeled_case_count": null,
+            "status": "source_interpretation_required"
+          }
+        },
+        "before": {
+          "code_sha256": "9cd58f71b17695059badc029bc28488d2b7cf97fab5dba65b791cc56dc1e9167",
+          "english_sha256": "eb5f942a06157f759b27a9da28caab972764f656868b120870573a5350be82c5",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "named_account",
+            "password_matches",
+            "token_claims"
+          ],
+          "ordinal": 2,
+          "source": {
+            "document": "microsoft:login_flow",
+            "document_sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+            "from": 14,
+            "to": 17,
+            "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+          }
+        },
+        "id": "login_flow::valid-token",
+        "source_change": "unchanged"
+      },
+      {
+        "after": {
+          "code_sha256": "7ad853f67e300b2caa128929b0f60e341fae6cfd573f7b442ed22be2dda73b8e",
+          "english_sha256": "3e108e6bed626ed0bd461cab6ba573180ebf31d301f91c32f1d307aeab35c9e2",
+          "failure_assumption_paths": [
+            {
+              "failure_contract_clause": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+              "trusted_function": "ex_admin_find_by_username",
+              "via": [
+                "login_flow::correct-password",
+                "lookup_fails",
+                "admin_lookup_fails"
+              ]
+            },
+            {
+              "failure_contract_clause": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+              "trusted_function": "ex_customer_find_by_email",
+              "via": [
+                "login_flow::correct-password",
+                "lookup_fails",
+                "customer_lookup_fails"
+              ]
+            },
+            {
+              "failure_contract_clause": "ex_generate_token::6b106964bbf6aed9cb231ccdce7f3d39f3cb76dc6efb9bb3825cda7af4bf0d37",
+              "trusted_function": "ex_generate_token",
+              "via": [
+                "login_flow::correct-password",
+                "signing_fails"
+              ]
+            }
+          ],
+          "mentions": [
+            "lookup_fails",
+            "named_account",
+            "password_matches",
+            "signing_fails"
+          ],
+          "ordinal": 3,
+          "source": {
+            "document": "github-next:login.rs",
+            "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+            "from": 269,
+            "to": 269,
+            "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+          }
+        },
+        "analysis_by_mode": {
+          "interpreted": {
+            "examples": [
+              {
+                "after_allowed": [
+                  "token:customer-id:customer"
+                ],
+                "after_rejected_by": [
+                  "login_flow::correct-password"
+                ],
+                "before_allowed": [
+                  "token:customer-id:customer",
+                  "500"
+                ],
+                "before_rejected_by": [],
+                "direction": "removed",
+                "inputs": {
+                  "admin_lookup_fails": false,
+                  "admin_verdict": null,
+                  "customer_lookup_fails": false,
+                  "customer_verdict": "matching",
+                  "identity": "email",
+                  "signing_fails": false
+                },
+                "outcome_id": "500",
+                "outcome_kind": "500",
+                "request_case": "correct-password",
+                "world_id": 6
+              }
+            ],
+            "modeled_case_count": 10,
+            "status": "interpreted_publication_model"
+          },
+          "strict": {
+            "examples": [],
+            "modeled_case_count": null,
+            "status": "source_interpretation_required"
+          }
+        },
+        "before": {
+          "code_sha256": "abd9387b4d967288a12c90390532aaf0b37cbeee29521ef00d4ac943d37ca437",
+          "english_sha256": "6566d8443b8304a4bae5d188381c426c86efd4aa938756bbcaea084346d2682a",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "named_account",
+            "password_matches"
+          ],
+          "ordinal": 3,
+          "source": {
+            "document": "microsoft:login_flow",
+            "document_sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+            "from": 20,
+            "to": 22,
+            "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+          }
+        },
+        "id": "login_flow::correct-password",
+        "source_change": "english_and_code"
+      },
+      {
+        "after": {
+          "code_sha256": "da3611aaec63bf6be356fe25f3d5a84f4bc95e6fc2f15e3eaf6625158330ffa1",
+          "english_sha256": "5cbdeb99e4c767db3fa88cc577a426bd96a75a53a233649699db2b0f4e017b3e",
+          "failure_assumption_paths": [
+            {
+              "failure_contract_clause": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+              "trusted_function": "ex_admin_find_by_username",
+              "via": [
+                "login_flow::unknown-account",
+                "lookup_fails",
+                "admin_lookup_fails"
+              ]
+            },
+            {
+              "failure_contract_clause": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+              "trusted_function": "ex_customer_find_by_email",
+              "via": [
+                "login_flow::unknown-account",
+                "lookup_fails",
+                "customer_lookup_fails"
+              ]
+            }
+          ],
+          "mentions": [
+            "lookup_fails",
+            "named_account"
+          ],
+          "ordinal": 4,
+          "source": {
+            "document": "github-next:login.rs",
+            "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+            "from": 271,
+            "to": 271,
+            "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+          }
+        },
+        "analysis_by_mode": {
+          "interpreted": {
+            "examples": [
+              {
+                "after_allowed": [
+                  "401"
+                ],
+                "after_rejected_by": [
+                  "login_flow::unknown-account"
+                ],
+                "before_allowed": [
+                  "401",
+                  "500"
+                ],
+                "before_rejected_by": [],
+                "direction": "removed",
+                "inputs": {
+                  "admin_lookup_fails": false,
+                  "admin_verdict": null,
+                  "customer_lookup_fails": false,
+                  "customer_verdict": null,
+                  "identity": "email",
+                  "signing_fails": false
+                },
+                "outcome_id": "500",
+                "outcome_kind": "500",
+                "request_case": "unknown-account",
+                "world_id": 2
+              }
+            ],
+            "modeled_case_count": 20,
+            "status": "interpreted_publication_model"
+          },
+          "strict": {
+            "examples": [],
+            "modeled_case_count": null,
+            "status": "source_interpretation_required"
+          }
+        },
+        "before": {
+          "code_sha256": "f823f1fbc74bed6ef8570550f07550a6969d9f2ab15a301b8af1a57445050c87",
+          "english_sha256": "5cbdeb99e4c767db3fa88cc577a426bd96a75a53a233649699db2b0f4e017b3e",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "named_account"
+          ],
+          "ordinal": 4,
+          "source": {
+            "document": "microsoft:login_flow",
+            "document_sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+            "from": 25,
+            "to": 27,
+            "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+          }
+        },
+        "id": "login_flow::unknown-account",
+        "source_change": "code_only"
+      },
+      {
+        "after": {
+          "code_sha256": "2db6e217f1f44e5bc65ad12b411087ebef5f976268530cce027271e88de98b5d",
+          "english_sha256": "1201b7bfd9a610c49871dbba12d117218995c728a254749d2ca04fab07267834",
+          "failure_assumption_paths": [
+            {
+              "failure_contract_clause": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+              "trusted_function": "ex_admin_find_by_username",
+              "via": [
+                "login_flow::wrong-password",
+                "lookup_fails",
+                "admin_lookup_fails"
+              ]
+            },
+            {
+              "failure_contract_clause": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+              "trusted_function": "ex_customer_find_by_email",
+              "via": [
+                "login_flow::wrong-password",
+                "lookup_fails",
+                "customer_lookup_fails"
+              ]
+            }
+          ],
+          "mentions": [
+            "bcrypt_verdict",
+            "lookup_fails",
+            "named_account"
+          ],
+          "ordinal": 5,
+          "source": {
+            "document": "github-next:login.rs",
+            "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+            "from": 273,
+            "to": 273,
+            "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+          }
+        },
+        "analysis_by_mode": {
+          "interpreted": {
+            "examples": [
+              {
+                "after_allowed": [
+                  "401"
+                ],
+                "after_rejected_by": [
+                  "login_flow::wrong-password"
+                ],
+                "before_allowed": [
+                  "401",
+                  "500"
+                ],
+                "before_rejected_by": [],
+                "direction": "removed",
+                "inputs": {
+                  "admin_lookup_fails": false,
+                  "admin_verdict": null,
+                  "customer_lookup_fails": false,
+                  "customer_verdict": "wrong",
+                  "identity": "email",
+                  "signing_fails": false
+                },
+                "outcome_id": "500",
+                "outcome_kind": "500",
+                "request_case": "wrong-password",
+                "world_id": 10
+              }
+            ],
+            "modeled_case_count": 20,
+            "status": "interpreted_publication_model"
+          },
+          "strict": {
+            "examples": [],
+            "modeled_case_count": null,
+            "status": "source_interpretation_required"
+          }
+        },
+        "before": {
+          "code_sha256": "427bb6e799dcd89e13cc5857e5833074dc5e3b6a70361175be02dc3ec916108e",
+          "english_sha256": "1201b7bfd9a610c49871dbba12d117218995c728a254749d2ca04fab07267834",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "bcrypt_verdict",
+            "named_account"
+          ],
+          "ordinal": 5,
+          "source": {
+            "document": "microsoft:login_flow",
+            "document_sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+            "from": 30,
+            "to": 33,
+            "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+          }
+        },
+        "id": "login_flow::wrong-password",
+        "source_change": "code_only"
+      },
+      {
+        "after": {
+          "code_sha256": "fd51102f96cd832653290a8da4b6defc46986dc53e30398d3efb6b57e45a3405",
+          "english_sha256": "b11daf15385f680d5c75df87a28a87bc68895d38eb74fed0c5f1651d912f86ce",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "bcrypt_verdict",
+            "named_account"
+          ],
+          "ordinal": 6,
+          "source": {
+            "document": "github-next:login.rs",
+            "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+            "from": 275,
+            "to": 275,
+            "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+          }
+        },
+        "analysis_by_mode": {
+          "interpreted": {
+            "examples": [],
+            "modeled_case_count": 0,
+            "status": "interpreted_publication_model"
+          },
+          "strict": {
+            "examples": [],
+            "modeled_case_count": null,
+            "status": "source_interpretation_required"
+          }
+        },
+        "before": {
+          "code_sha256": "fd51102f96cd832653290a8da4b6defc46986dc53e30398d3efb6b57e45a3405",
+          "english_sha256": "b11daf15385f680d5c75df87a28a87bc68895d38eb74fed0c5f1651d912f86ce",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "bcrypt_verdict",
+            "named_account"
+          ],
+          "ordinal": 6,
+          "source": {
+            "document": "microsoft:login_flow",
+            "document_sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+            "from": 35,
+            "to": 37,
+            "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+          }
+        },
+        "id": "login_flow::unreadable-hash",
+        "source_change": "unchanged"
+      },
+      {
+        "after": {
+          "code_sha256": "f9933fdd6ba95c9d995fd05db966a7dc2031682e28ca3f01e5d123c56d190d5c",
+          "english_sha256": "4775ffa2ffa0cd655866fc547e7513105e0005656fa5e13a7acc2e35bc1de923",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "admin_on_file",
+            "admin_role",
+            "token_claims"
+          ],
+          "ordinal": 7,
+          "source": {
+            "document": "github-next:login.rs",
+            "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+            "from": 277,
+            "to": 277,
+            "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+          }
+        },
+        "analysis_by_mode": {
+          "interpreted": {
+            "examples": [],
+            "modeled_case_count": 0,
+            "status": "interpreted_publication_model"
+          },
+          "strict": {
+            "examples": [],
+            "modeled_case_count": null,
+            "status": "source_interpretation_required"
+          }
+        },
+        "before": {
+          "code_sha256": "f9933fdd6ba95c9d995fd05db966a7dc2031682e28ca3f01e5d123c56d190d5c",
+          "english_sha256": "4775ffa2ffa0cd655866fc547e7513105e0005656fa5e13a7acc2e35bc1de923",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "admin_on_file",
+            "admin_role",
+            "token_claims"
+          ],
+          "ordinal": 7,
+          "source": {
+            "document": "microsoft:login_flow",
+            "document_sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+            "from": 40,
+            "to": 43,
+            "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+          }
+        },
+        "id": "login_flow::admin-role",
+        "source_change": "unchanged"
+      },
+      {
+        "after": {
+          "code_sha256": "6ac3591b2688c737f93b0455ed6e8f5b58f12ad1f829e7e83b1094c79a81e4f9",
+          "english_sha256": "8b1a8a5c55e5ef1fb72463edcf5c93ce48631e5a4bda81d31f4034bae17489b2",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "customer_role",
+            "token_claims"
+          ],
+          "ordinal": 8,
+          "source": {
+            "document": "github-next:login.rs",
+            "document_sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+            "from": 279,
+            "to": 279,
+            "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs"
+          }
+        },
+        "analysis_by_mode": {
+          "interpreted": {
+            "examples": [],
+            "modeled_case_count": 0,
+            "status": "interpreted_publication_model"
+          },
+          "strict": {
+            "examples": [],
+            "modeled_case_count": null,
+            "status": "source_interpretation_required"
+          }
+        },
+        "before": {
+          "code_sha256": "6ac3591b2688c737f93b0455ed6e8f5b58f12ad1f829e7e83b1094c79a81e4f9",
+          "english_sha256": "8b1a8a5c55e5ef1fb72463edcf5c93ce48631e5a4bda81d31f4034bae17489b2",
+          "failure_assumption_paths": [],
+          "mentions": [
+            "customer_role",
+            "token_claims"
+          ],
+          "ordinal": 8,
+          "source": {
+            "document": "microsoft:login_flow",
+            "document_sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+            "from": 45,
+            "to": 47,
+            "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec"
+          }
+        },
+        "id": "login_flow::email-role",
+        "source_change": "unchanged"
+      }
+    ],
+    "snapshot_sha256": {
+      "after": "a4940ad7a9dd694612c95ed60db3c3674ac4a06f81dd4cbc40c706d540ce4b74",
+      "before": "300922cd675e14e8f94194339b0709004187ff9ac1358d9a1b7bfd4e006e394b"
+    }
+  },
+  "kind": "postcondition_comparison",
+  "release_id": "21a7b6939d0e347c65e2ca244fc69b10666ff2d3d543431d3b1e062004d3df43"
+}

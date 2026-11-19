@@ -1,0 +1,141 @@
+{
+  "api_version": 1,
+  "data": {
+    "after_snapshot_sha256": "a4940ad7a9dd694612c95ed60db3c3674ac4a06f81dd4cbc40c706d540ce4b74",
+    "before_snapshot_sha256": "300922cd675e14e8f94194339b0709004187ff9ac1358d9a1b7bfd4e006e394b",
+    "clauses_changed": [
+      {
+        "code_changed": true,
+        "english_changed": true,
+        "id": "login_flow::correct-password"
+      },
+      {
+        "code_changed": true,
+        "english_changed": false,
+        "id": "login_flow::unknown-account"
+      },
+      {
+        "code_changed": true,
+        "english_changed": false,
+        "id": "login_flow::wrong-password"
+      }
+    ],
+    "failure_condition_paths_after": {
+      "login_flow::correct-password": [
+        {
+          "failure_contract_clause": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "trusted_function": "ex_admin_find_by_username",
+          "via": [
+            "login_flow::correct-password",
+            "lookup_fails",
+            "admin_lookup_fails"
+          ]
+        },
+        {
+          "failure_contract_clause": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "trusted_function": "ex_customer_find_by_email",
+          "via": [
+            "login_flow::correct-password",
+            "lookup_fails",
+            "customer_lookup_fails"
+          ]
+        },
+        {
+          "failure_contract_clause": "ex_generate_token::6b106964bbf6aed9cb231ccdce7f3d39f3cb76dc6efb9bb3825cda7af4bf0d37",
+          "trusted_function": "ex_generate_token",
+          "via": [
+            "login_flow::correct-password",
+            "signing_fails"
+          ]
+        }
+      ],
+      "login_flow::unknown-account": [
+        {
+          "failure_contract_clause": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "trusted_function": "ex_admin_find_by_username",
+          "via": [
+            "login_flow::unknown-account",
+            "lookup_fails",
+            "admin_lookup_fails"
+          ]
+        },
+        {
+          "failure_contract_clause": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "trusted_function": "ex_customer_find_by_email",
+          "via": [
+            "login_flow::unknown-account",
+            "lookup_fails",
+            "customer_lookup_fails"
+          ]
+        }
+      ],
+      "login_flow::wrong-password": [
+        {
+          "failure_contract_clause": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "trusted_function": "ex_admin_find_by_username",
+          "via": [
+            "login_flow::wrong-password",
+            "lookup_fails",
+            "admin_lookup_fails"
+          ]
+        },
+        {
+          "failure_contract_clause": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "trusted_function": "ex_customer_find_by_email",
+          "via": [
+            "login_flow::wrong-password",
+            "lookup_fails",
+            "customer_lookup_fails"
+          ]
+        }
+      ]
+    },
+    "login_clause_edges_added": [
+      {
+        "from": "login_flow::correct-password",
+        "kind": "mentions",
+        "to": "lookup_fails"
+      },
+      {
+        "from": "login_flow::correct-password",
+        "kind": "mentions",
+        "to": "signing_fails"
+      },
+      {
+        "from": "login_flow::unknown-account",
+        "kind": "mentions",
+        "to": "lookup_fails"
+      },
+      {
+        "from": "login_flow::wrong-password",
+        "kind": "mentions",
+        "to": "lookup_fails"
+      }
+    ],
+    "login_clause_edges_removed": [],
+    "login_clauses_added": [],
+    "login_clauses_removed": [],
+    "shared_trusted_contracts": [
+      {
+        "clauses_added": [],
+        "clauses_removed": [],
+        "id": "check_password"
+      },
+      {
+        "clauses_added": [
+          "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02"
+        ],
+        "clauses_removed": [],
+        "id": "ex_customer_find_by_email"
+      }
+    ],
+    "trusted_contracts_unavailable_before": [
+      "database_error",
+      "ex_admin_find_by_username",
+      "ex_generate_token",
+      "expiry_from_now"
+    ]
+  },
+  "kind": "graph_diff",
+  "release_id": "21a7b6939d0e347c65e2ca244fc69b10666ff2d3d543431d3b1e062004d3df43"
+}

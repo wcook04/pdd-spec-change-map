@@ -1,0 +1,7 @@
+{
+  "check": "exact_finite_outcome_difference",
+  "status": "accepted",
+  "scope": "region memberships, outcome differences and condition truth sets in the supplied finite table",
+  "bundle_sha256": "b64c7acb9832c571523f17caedbbfeb8033e4030bdb644dd4302888a53c10093",
+  "generated_kernel_sha256": "af2019d7e89c78dee0e6c8ddf19421ea645e8e3e1119eae934c446ef98485246"
+}

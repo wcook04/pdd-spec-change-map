@@ -1,0 +1,52 @@
+{
+  "api_version": 1,
+  "data": {
+    "diagnostics": [
+      {
+        "clause_id": "login_flow::valid-token",
+        "interpreted": false,
+        "kind": "right_hand_matches_needs_parentheses",
+        "publication": "microsoft"
+      },
+      {
+        "clause_id": "login_flow::admin-role",
+        "interpreted": false,
+        "kind": "right_hand_matches_needs_parentheses",
+        "publication": "microsoft"
+      },
+      {
+        "clause_id": "login_flow::email-role",
+        "interpreted": false,
+        "kind": "unbound_pattern_name",
+        "names": [
+          "t"
+        ],
+        "publication": "microsoft"
+      },
+      {
+        "clause_id": "login_flow::valid-token",
+        "interpreted": false,
+        "kind": "right_hand_matches_needs_parentheses",
+        "publication": "github_next"
+      },
+      {
+        "clause_id": "login_flow::admin-role",
+        "interpreted": false,
+        "kind": "right_hand_matches_needs_parentheses",
+        "publication": "github_next"
+      },
+      {
+        "clause_id": "login_flow::email-role",
+        "interpreted": false,
+        "kind": "unbound_pattern_name",
+        "names": [
+          "t"
+        ],
+        "publication": "github_next"
+      }
+    ],
+    "status": "source_interpretation_required"
+  },
+  "kind": "analysis",
+  "release_id": "fb2763acfb7b7b27aa813849a96b006e2c96e59540c20aa56c9a688ec20ffbc3"
+}

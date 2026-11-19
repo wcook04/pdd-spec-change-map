@@ -1,0 +1,116 @@
+{
+  "api_version": 1,
+  "data": {
+    "authority": "supplied_expectations",
+    "results": [
+      {
+        "by_revision": {
+          "github_next": {
+            "example_violation": null,
+            "status": "holds",
+            "violating_world_count": 0
+          },
+          "microsoft": {
+            "example_violation": {
+              "allowed_outcomes": [
+                "token:customer-id:customer",
+                "500"
+              ],
+              "world_id": 6
+            },
+            "status": "refuted",
+            "violating_world_count": 10
+          }
+        },
+        "expectation": {
+          "expect": "forbid",
+          "id": "healthy-correct-password-forbids-500",
+          "result_kind": "500",
+          "when": {
+            "lookup_fails": [
+              false
+            ],
+            "request_case": [
+              "correct-password"
+            ],
+            "signing_fails": [
+              false
+            ]
+          }
+        },
+        "matching_world_count": 10
+      },
+      {
+        "by_revision": {
+          "github_next": {
+            "example_violation": null,
+            "status": "holds",
+            "violating_world_count": 0
+          },
+          "microsoft": {
+            "example_violation": null,
+            "status": "holds",
+            "violating_world_count": 0
+          }
+        },
+        "expectation": {
+          "expect": "forbid",
+          "id": "lookup-failure-on-correct-password-forbids-401",
+          "result_kind": "401",
+          "when": {
+            "lookup_fails": [
+              true
+            ],
+            "request_case": [
+              "correct-password"
+            ]
+          }
+        },
+        "matching_world_count": 20
+      },
+      {
+        "by_revision": {
+          "github_next": {
+            "example_violation": {
+              "allowed_outcomes": [
+                "token:customer-id:customer",
+                "500"
+              ],
+              "world_id": 8
+            },
+            "status": "refuted",
+            "violating_world_count": 20
+          },
+          "microsoft": {
+            "example_violation": {
+              "allowed_outcomes": [
+                "token:customer-id:customer",
+                "500"
+              ],
+              "world_id": 8
+            },
+            "status": "refuted",
+            "violating_world_count": 20
+          }
+        },
+        "expectation": {
+          "expect": "only",
+          "id": "does-lookup-failure-force-500",
+          "result_kind": "500",
+          "when": {
+            "lookup_fails": [
+              true
+            ],
+            "request_case": [
+              "correct-password"
+            ]
+          }
+        },
+        "matching_world_count": 20
+      }
+    ],
+    "status": "evaluated"
+  },
+  "kind": "expectations",
+  "release_id": "fb2763acfb7b7b27aa813849a96b006e2c96e59540c20aa56c9a688ec20ffbc3"
+}

@@ -1,0 +1,123 @@
+{
+  "api_version": 1,
+  "data": {
+    "comparison_id": "published-login",
+    "graph_diff": {
+      "bytes": 4494,
+      "href": "graph-diff.json",
+      "media_type": "application/json",
+      "sha256": "b6ccf4299b15a4e8a0a7906319a6ad592bf1195e15c4d09b4c182821a9b92a02"
+    },
+    "modes": {
+      "interpreted": {
+        "analysis_status": "interpreted_publication_model",
+        "evidence_status": "unavailable",
+        "expectation_status": "evaluated",
+        "links": {
+          "expectations": {
+            "bytes": 2928,
+            "href": "analysis/interpreted/expectations.json",
+            "media_type": "application/json",
+            "sha256": "24f37d2d4cddf15b8f8e6056a030e4282f5cac27235def252043a0a60468ae75"
+          },
+          "input": {
+            "bytes": 213762,
+            "href": "analysis/interpreted/input.json",
+            "media_type": "application/json",
+            "sha256": "b64c7acb9832c571523f17caedbbfeb8033e4030bdb644dd4302888a53c10093"
+          },
+          "region_check": {
+            "bytes": 365,
+            "href": "analysis/interpreted/region-check.json",
+            "media_type": "application/json",
+            "sha256": "5bb084a8d25c3f3aaacb5c1e4fe100ae5df4b626c220b027fb4f1324dcf1571a"
+          },
+          "summary": {
+            "bytes": 28714,
+            "href": "analysis/interpreted/summary.json",
+            "media_type": "application/json",
+            "sha256": "a14a20424a7ae11da08751dbfd22c071b6f01b58806404eaa133dab74dc49558"
+          },
+          "verification_evidence": {
+            "bytes": 230,
+            "href": "analysis/interpreted/evidence.json",
+            "media_type": "application/json",
+            "sha256": "2835f7fa0189284cb8f5929bc239d8a0b40acb15de6ffcbda6ea0f55b4d806fa"
+          },
+          "worlds": {
+            "bytes": 114494,
+            "href": "analysis/interpreted/worlds.json",
+            "media_type": "application/json",
+            "sha256": "3b50e01cbd053adf310537fde098c48686eeb6fb6b00a91bd7d8262cc525ef96"
+          }
+        }
+      },
+      "strict": {
+        "analysis_status": "source_interpretation_required",
+        "evidence_status": "unavailable",
+        "expectation_status": "not_supplied",
+        "links": {
+          "expectations": null,
+          "input": {
+            "bytes": 69960,
+            "href": "analysis/strict/input.json",
+            "media_type": "application/json",
+            "sha256": "adf374ea069d1e0223bfd7f20984109780edb4e0182b2cb2461d26495e2748b1"
+          },
+          "region_check": null,
+          "summary": {
+            "bytes": 1394,
+            "href": "analysis/strict/summary.json",
+            "media_type": "application/json",
+            "sha256": "2f849a9e623aacd3b42d508a16e6f2f145b9635465fe02d0f3a89a8cd7e6d39f"
+          },
+          "verification_evidence": {
+            "bytes": 230,
+            "href": "analysis/strict/evidence.json",
+            "media_type": "application/json",
+            "sha256": "2835f7fa0189284cb8f5929bc239d8a0b40acb15de6ffcbda6ea0f55b4d806fa"
+          },
+          "worlds": null
+        }
+      }
+    },
+    "postconditions": {
+      "bytes": 23128,
+      "href": "postconditions.json",
+      "media_type": "application/json",
+      "sha256": "92ac0f72acba738c64ae6a3b0634bf88ad27d8bbe0eef8612bce63c392e52211"
+    },
+    "revisions": {
+      "after": {
+        "resource": {
+          "bytes": 45808,
+          "href": "snapshots/after.json",
+          "media_type": "application/json",
+          "sha256": "9500689679f068b4871367376d72a91210995b16cdee65b581cdb8d1c81d2368"
+        },
+        "revision": "github_next",
+        "snapshot_sha256": "a4940ad7a9dd694612c95ed60db3c3674ac4a06f81dd4cbc40c706d540ce4b74",
+        "source_coverage": "published_module"
+      },
+      "before": {
+        "resource": {
+          "bytes": 14935,
+          "href": "snapshots/before.json",
+          "media_type": "application/json",
+          "sha256": "b257320e020b180aa33ca3ff1e47d0e136bdfe761bec6120bcd7d5d51f312308"
+        },
+        "revision": "microsoft",
+        "snapshot_sha256": "300922cd675e14e8f94194339b0709004187ff9ac1358d9a1b7bfd4e006e394b",
+        "source_coverage": "published_excerpts"
+      }
+    },
+    "schema": {
+      "bytes": 45701,
+      "href": "schema.json",
+      "media_type": "application/json",
+      "sha256": "d04efc1445800117139bb3358cdb8d44ea3036fa024f31c2454f637806374a26"
+    }
+  },
+  "kind": "release",
+  "release_id": "21a7b6939d0e347c65e2ca244fc69b10666ff2d3d543431d3b1e062004d3df43"
+}
