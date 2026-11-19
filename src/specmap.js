@@ -86,7 +86,7 @@ export function createSpecMap(root, model, hooks = {}) {
      allows there, and each block carries its own label, so nothing is left
      empty. Outside the wedge is what fails in that situation. ---- */
   const cols = new Map();
-  const COND = ['nothing fails', 'signing fails', 'lookup fails', 'both fail'];
+  const COND = ['neither fails', 'signing fails', 'lookup fails', 'both fail'];
   model.situations.forEach((x, n) => {
     const { mid, half } = slot.get(x.key);
     const g = svg('g', { class: `sm-col${x.changed ? ' is-changed' : ''}`, 'data-key': x.key });
