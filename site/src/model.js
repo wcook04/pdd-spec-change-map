@@ -4,12 +4,12 @@
 // Nothing here decides what a version permits; every permitted response,
 // changed clause and path to an assumed contract is read from the release.
 
-// The words PDD Kit's own login explorer uses for a request.
+// Request categories adapted from PDD Kit's login explorer.
 export const CASES = [
-  { id: 'missing-identity', name: 'Neither sent', account: null, password: null },
+  { id: 'missing-identity', name: 'No email or username', account: null, password: null },
   { id: 'correct-password', name: 'Right password', account: 'Yes', password: 'Right' },
   { id: 'wrong-password', name: 'Wrong password', account: 'Yes', password: 'Wrong' },
-  { id: 'unreadable-hash', name: 'Bad hash', account: 'Yes', password: 'Bad hash' },
+  { id: 'unreadable-hash', name: 'Unreadable hash', account: 'Yes', password: 'Bad hash' },
   { id: 'unknown-account', name: 'Account not on file', account: 'No', password: null },
 ];
 
@@ -26,9 +26,7 @@ export const VERSIONS = {
   after: { short: 'Corrected', name: 'Corrected spec', where: 'GitHub Next page' },
 };
 
-const INFRA = ['Works', 'Signer fails', 'DB fails', 'DB and signer fail'];
-// 'DB' keeps its capitals inside a title.
-const inTitle = (words) => (words.startsWith('DB') ? words : words[0].toLowerCase() + words.slice(1));
+const FAILURE_CASES = ['Neither lookup nor signing fails', 'Signing fails', 'Lookup fails', 'Lookup and signing fail'];
 const SENDS = { email: 'Email', username: 'Username', both: 'Both', neither: 'Neither' };
 const TRUSTED_NAMES = {
   ex_customer_find_by_email: 'Customer::find_by_email',
@@ -48,9 +46,9 @@ const CLAUSE_CASE = {
 const HEADLINE = {
   'missing-identity': 'With neither an email nor a username, login returns 400',
   'valid-token': 'Login returns a token only for the account the request names, and only with its right password',
-  'correct-password': 'With the right password, login returns a token. A 500 is allowed only if the lookup or the signing fails',
-  'unknown-account': 'For an account that is not on file, login returns 401. A 500 is allowed only if the lookup fails',
-  'wrong-password': 'With a wrong password, login returns 401. A 500 is allowed only if the lookup fails',
+  'correct-password': 'With the right password, login must return a token when lookup and signing succeed',
+  'unknown-account': 'If lookup succeeds and finds no account, login must return 401',
+  'wrong-password': 'With the wrong password, login must return 401 when lookup succeeds',
   'unreadable-hash': 'If bcrypt cannot read the stored hash, login returns 500',
   'admin-role': 'A token has the admin role only for an admin found by username, with no email sent',
   'email-role': 'A token for a login by email always has the customer role',
@@ -76,7 +74,7 @@ export function buildModel(api) {
     const quarter = (item.lookup_fails ? 2 : 0) + (item.world.signing_fails ? 1 : 0);
     return {
       id: item.id, key: `w:${item.id}`, case: c, quarter,
-      sends: SENDS[item.world.identity], infra: INFRA[quarter],
+      sends: SENDS[item.world.identity], failureCase: FAILURE_CASES[quarter],
       dbFails: item.lookup_fails, signerFails: item.world.signing_fails,
       customer: { verdict: item.world.customer_verdict, fails: item.world.customer_lookup_fails },
       admin: { verdict: item.world.admin_verdict, fails: item.world.admin_lookup_fails },
@@ -84,7 +82,7 @@ export function buildModel(api) {
       beforeKinds: kinds(item.before_allowed), afterKinds: kinds(item.after_allowed),
       removed: item.outcomes_removed, added: item.outcomes_added,
       witnesses: item.witnesses, changedClauses: item.changed_clause_ids,
-      title: `${c.name}, ${item.lookup_fails || item.world.signing_fails ? inTitle(INFRA[quarter]) : 'infrastructure works'}`,
+      title: `${c.name}, ${FAILURE_CASES[quarter].toLowerCase()}`,
     };
   });
   logins.sort((a, b) => caseIndex.get(a.case.id) - caseIndex.get(b.case.id) || a.quarter - b.quarter || a.id - b.id);
@@ -98,7 +96,7 @@ export function buildModel(api) {
     const key = `s:${l.case.id}:${l.quarter}`;
     let s = situations.find((x) => x.key === key);
     if (!s) {
-      s = { key, case: l.case, quarter: l.quarter, infra: l.infra, dbFails: l.dbFails, signerFails: l.signerFails, title: l.title,
+      s = { key, case: l.case, quarter: l.quarter, failureCase: l.failureCase, dbFails: l.dbFails, signerFails: l.signerFails, title: l.title,
         logins: [], beforeKinds: new Set(), afterKinds: new Set(), changedClauses: [], uniform: true };
       situations.push(s);
     }
