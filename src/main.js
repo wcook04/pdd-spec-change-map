@@ -91,6 +91,8 @@ function start(model) {
   const t = model.totals;
   const state = { version: 'after', chosen: null, hover: null, evidence: false };
   const narrow = window.matchMedia('(max-width: 899px)');
+  // On a wide window the evidence is always open beside the map, so nothing shrinks to make room for it.
+  const wide = window.matchMedia('(min-width: 2000px)');
   const caseName = (id) => CASES.find((c) => c.id === id).name;
   const SHORT = { token: '200', 400: '400', 401: '401', 500: '500' };
   const FLAG = { lookup_fails: 'dbFails', signing_fails: 'signerFails' };
@@ -128,6 +130,7 @@ function start(model) {
       keyLine(miniDial({ codeChanged: true, englishChanged: false, n: 4, isApart: true }), 'Each numbered arc is an ensures clause, with its Verus on the outer line and its comment on the inner line. The Verus line is dashed where the comment limits a 500 to a failure and the Verus does not.'),
       keyLine(pieceGlyph(), 'The names around the centre are functions whose contracts the login proof takes on trust.')),
     h('p', { class: 'mapkey__note' }, 'A response is allowed when it satisfies every clause in the model.'));
+  mapKey.open = window.innerHeight >= 1100;
   const panel = h('aside', { class: 'explorer__panel', 'aria-label': 'Comparison details' }, reading, mapKey);
   const evidence = h('section', { id: 'evidence', class: 'explorer__evidence', 'aria-label': 'Evidence', inert: true });
   const viewButtons = ['map', 'details'].map((v) => h('button', { type: 'button', class: 'explorer-tool', 'aria-pressed': 'false', onclick: () => show(v) }, v === 'map' ? 'Explore' : 'Details'));
@@ -173,10 +176,12 @@ function start(model) {
     reading.replaceChildren(h('div', { class: 'insp__inner' },
       o ? h('div', { class: 'insp__head' }, h('button', { type: 'button', class: 'card-head__back', onclick: () => choose(null, { focusDetails: true }) }, '← Overview')) : null,
       view.reading));
-    explorer.classList.toggle('has-evidence', state.evidence);
-    evidence.inert = !state.evidence;
+    const open = state.evidence || wide.matches;
+    explorer.classList.toggle('has-evidence', open);
+    explorer.classList.toggle('is-docked', wide.matches);
+    evidence.inert = !open;
     clear(evidence);
-    if (state.evidence) {
+    if (open) {
       evidence.append(h('div', { class: 'ev' },
         h('div', { class: 'ev__head' }, h('h2', { class: 'ev__title' }, view.evidenceTitle),
           h('button', { type: 'button', class: 'ev__close', onclick: () => openEvidence(false) }, h('span', { class: 'ev__close-wide' }, 'Close'), h('span', { class: 'ev__close-narrow' }, '‹ Back'))),
@@ -184,6 +189,7 @@ function start(model) {
     }
     map.setFace(faceFor(model.find(state.hover ?? state.chosen)));
   }
+  wide.addEventListener('change', () => paint());
   function openEvidence(on) {
     state.evidence = on;
     paint();
@@ -329,29 +335,54 @@ function start(model) {
     const changed = model.clauses.filter((c) => c.change !== 'unchanged');
     const example = model.find('s:correct-password:0');
     const sources = changed[0];
+    const plain = (c) => model.situations.find((x) => x.case.id === c.caseId && x.quarter === 0);
+    const short = (kinds) => RINGS.filter((r) => kinds.has(r.id)).map((r) => SHORT[r.id]).join(' or ');
+    const side = (v, src) => h('span', { class: 'spec-side' }, VERSIONS[v].short, ' · ', sourceLine(v, src, model));
+    const definers = model.trusted.filter((p) => p.reachedBy.length);
+    // One block for each changed clause: what it changed for a login where nothing fails, its comment, and the two printed clauses.
+    const changeBlock = (c) => {
+      const x = plain(c);
+      const code = tokenDiff(tidyCode(c.before.text.code), tidyCode(c.after.text.code));
+      return h('section', { class: 'change' },
+        h('h3', { class: 'change__head' }, go(c, `Clause ${c.n} · ${caseName(c.caseId)}`, 'change__go')),
+        h('p', { class: 'change__effect' }, `${x.title}: `,
+          RINGS.filter((r) => x.beforeKinds.has(r.id)).map((r, i) => [i ? ' or ' : '', chip(r.id)]), h('span', { class: 'change__arrow', 'aria-hidden': 'true' }, '→'), h('span', { class: 'sr-only' }, ' became '),
+          RINGS.filter((r) => x.afterKinds.has(r.id)).map((r, i) => [i ? ' or ' : '', chip(r.id)]), ' only'),
+        quote(c.after.text.english, c.englishChanged ? 'The comment printed above the corrected clause. The earlier comment is worded differently and also limits the 500 to a failed lookup or signing.' : 'The comment printed above the clause, word for word the same in both listings.'),
+        h('span', { class: 'spec-side' }, VERSIONS.after.short, ' · ', sourceLine('after', c.after.source, model), '. The marked text is not in the ', ext(model.documents[c.before.source.document].url, 'earlier listing'), '.'),
+        h('code', { class: 'spec-code' }, marked(code.now, 'now')));
+    };
     return {
       reading: [
         h('p', { class: 'insp__kicker' }, 'PDD Kit · ', h('code', {}, 'login_flow')),
         h('h1', { class: 'insp__title' }, 'What changed in the login contract'),
-        h('p', { class: 'insp__lead' }, `The GitHub Next contract rules out HTTP 500 in ${t.changedSituations} of the ${t.situations} situations modelled here. It adds failure conditions to clauses ${listWords(changed.map((c) => c.n))}. The comments in the Microsoft Research post already described those conditions.`),
-        h('p', { class: 'example' },
-          h('span', {}, 'Take the right password for an existing account, with no lookup or signing failure.'),
-          go(example, 'See why 200 or 500 became 200 only')),
-        label('Changed clauses'),
+        h('p', { class: 'insp__lead' }, `The GitHub Next listing adds a failure condition to the HTTP 500 branch of clauses ${listWords(changed.map((c) => c.n))}. The comments printed above those clauses in the Microsoft Research listing already limit the 500 to a failed lookup or signing. The Verus under them did not.`),
+        label(`The ${['no', 'one', 'two', 'three', 'four', 'five'][changed.length] ?? changed.length} changes, for a login where nothing fails`),
         h('ul', { class: 'changes' }, changed.map((c) => h('li', {}, go(c, [
           miniDial(c, 'changes__dial'),
           h('span', { class: 'changes__title' }, caseName(c.caseId)),
-          h('span', { class: 'changes__sub' }, `Clause ${c.n} · ${plural(c.changedSituations.length, 'situation')}`),
+          h('span', { class: 'changes__sub' }, `${short(plain(c).beforeKinds)} became ${short(plain(c).afterKinds)} only`),
         ], 'changes__go')))),
+        h('p', { class: 'insp__text' }, `In the model, those three changes remove a 500 from ${t.changedSituations} of the ${t.situations} situations. Clauses 4 and 5 each cover two, because the model also varies a signing failure that those clauses do not mention.`),
+        h('p', { class: 'example' },
+          h('span', {}, 'Take the right password for an existing account, with no lookup or signing failure.'),
+          go(example, 'See why 200 or 500 became 200 only')),
         h('p', { class: 'insp__aside' }, 'The allowed responses come from a finite model of the two listings. Nobody ran the app for this comparison.'),
         h('p', { class: 'insp__aside' },
           ext(model.documents[sources.before.source.document].url, 'Microsoft Research listing'), ' · ',
           ext(model.documents[sources.after.source.document].url, 'GitHub Next listing')),
-        evidenceButton('Method and limits'),
+        evidenceButton('The three clauses side by side, method and limits'),
       ],
-      evidenceTitle: 'Method and limits',
+      evidenceTitle: 'The change, clause by clause',
       evidence: [
-        h('div', { class: 'ev__text' },
+        changed.map(changeBlock),
+        h('details', { class: 'ev__more ev__text' }, h('summary', {}, 'What the corrected clauses depend on, method and limits'),
+          label('What the corrected clauses now depend on'),
+          h('table', { class: 'logins' },
+            h('thead', {}, h('tr', {}, ['Failure condition', 'Assumed contract that defines it', 'In the earlier listing'].map((name) => h('th', { scope: 'col' }, name)))),
+            h('tbody', {}, definers.map((p) => h('tr', {}, h('td', {}, h('code', {}, p.failure)), h('td', {}, go(p, p.name)),
+              h('td', {}, !p.before ? 'Not printed, so it cannot be compared' : (p.comparison?.clauses_added.length ? 'Printed without the clause that says when the lookup fails' : 'Printed the same')))))),
+          h('p', { class: 'insp__aside' }, 'A reviewer of the corrected contract is relying on these three assumed contracts for the 500 branch. Verus does not check them.'),
           label('What was compared'),
           h('p', {}, `The model groups ${t.logins} login cases into ${t.situations} situations by request type and the lookup and signing failure conditions. Every case within a group allows the same HTTP response types in each version.`),
           h('p', {}, 'A response is allowed when it satisfies every clause in the model. “Lookup fails” and “signing fails” are settings of the model: they say the operation would fail if login reached it. They do not say login reached it.'),
@@ -364,6 +395,7 @@ function start(model) {
             fact(false, 'Neither publication includes a Verus run, so this page does not show whether the Pet Store code meets either contract.'),
             fact(false, 'The comparison uses the published comments. It has no intent artifact or developer sign-off records to compare.'),
             fact(false, 'The map ties a trusted piece to a clause only where the clause refers to a failure condition that the piece’s assumed contract defines. Other dependencies are not drawn.'),
+            fact(false, 'The corrected clauses say when a 500 is allowed. They do not say that every failed lookup or signing returns a 500.'),
             fact(false, 'The clauses describe the result when the login future completes. Whether it completes is outside both contracts.')),
           h('p', { class: 'insp__aside figures' }, `Comparison ${model.api.id.slice(0, 10)}. Clause text read from the two pages on ${longDate(model.readOn)}.`)),
       ],
@@ -419,7 +451,8 @@ function start(model) {
       evidence: [
         h('div', { class: 'ev__text' },
           h('p', {}, many ? `Each of the ${x.logins.length} is allowed the same kinds of response. ` : '',
-            `Earlier contract: ${kindsWords(x.beforeKinds)}. Corrected contract: ${kindsWords(x.afterKinds)}.`, many ? ' The logins differ in what the request sends and in what each account table holds.' : ''),
+            `Earlier contract: ${kindsWords(x.beforeKinds)}. Corrected contract: ${kindsWords(x.afterKinds)}.`, many ? ' The logins differ in what the request sends and in what each account table holds.' : '',
+            x.logins.some((l) => l.sends === 'Both') ? ' When a request sends both an email and a username, the email decides which account the request names, so the admin row does not change the result in those rows.' : ''),
           h('table', { class: 'logins figures' },
             h('thead', {}, h('tr', {}, ['Request sends', 'Customer row', 'Admin row', perRow ? 'Exact result, corrected contract' : null].filter(Boolean).map((name) => h('th', { scope: 'col' }, name)))),
             h('tbody', {}, x.logins.map((l) => h('tr', {}, h('td', {}, l.sends), row(l.customer), row(l.admin), perRow ? h('td', {}, l.after.map(outcomeName).join('; ')) : null)))),
