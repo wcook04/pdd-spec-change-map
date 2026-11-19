@@ -122,9 +122,9 @@ function start(model) {
   const mapKey = h('details', { class: 'mapkey' },
     h('summary', {}, 'How to read the map'),
     h('ul', {},
-      keyLine(h('span', { class: 'mapkey__wedge' }, swatch('sw-401'), swatch('sw-500')), 'Each wedge groups a kind of request by lookup and signing failure. The blocks show the allowed HTTP responses.'),
+      keyLine(h('span', { class: 'mapkey__wedge' }, swatch('sw-401'), swatch('sw-500')), 'Each wedge is one situation: a kind of request, with or without a lookup failure and a signing failure. Its blocks are the HTTP responses allowed in that situation.'),
       keyLine(h('span', { class: 'mapkey__wedge' }, swatch('sw-401'), swatch('is-lost')), 'Hatching and a crossed-out 500 mark a response allowed only by the earlier contract.'),
-      keyLine(h('span', { class: 'mapkey__bands' }, swatch('swatch--thin sw-signer'), swatch('swatch--thin sw-db')), 'The inner bands mark the model’s signing and lookup failure conditions.'),
+      keyLine(h('span', { class: 'mapkey__bands' }, swatch('swatch--thin sw-signer'), swatch('swatch--thin sw-db')), 'The two thin bands inside the wedges are filled where the signing fails and where the lookup fails.'),
       keyLine(miniDial({ codeChanged: true, englishChanged: false, n: 4, isApart: true }), 'Each numbered arc is an ensures clause, with its Verus on the outer line and its comment on the inner line. The Verus line is dashed where the comment limits a 500 to a failure and the Verus does not.'),
       keyLine(pieceGlyph(), 'The names around the centre are functions whose contracts the login proof takes on trust.')),
     h('p', { class: 'mapkey__note' }, 'A response is allowed when it satisfies every clause in the model.'));
@@ -295,9 +295,9 @@ function start(model) {
     };
     const signingUsed = model.clauses.some((c) => c.caseId === caseId && /signing_fails/.test(c.after.text.code));
     const notes = [];
-    if (varies('signerFails') && !signer) notes.push(signingUsed ? 'The signing flag leaves the allowed responses unchanged.' : 'The clauses for this request do not use the signing flag.');
-    if (varies('dbFails') && !db) notes.push('The lookup flag leaves the allowed responses unchanged.');
-    if (!varies('dbFails')) notes.push('The model only varies lookup failure for requests that name an account.');
+    if (varies('signerFails') && !signer) notes.push(signingUsed ? 'The allowed responses are the same whether or not the signing fails.' : 'No clause for this kind of request mentions signing, so a signing failure changes nothing here.');
+    if (varies('dbFails') && !db) notes.push('The allowed responses are the same whether or not the lookup fails.');
+    if (!varies('dbFails')) notes.push('A lookup failure is modelled only for requests that name an account.');
     return [
       h('table', { class: `ftable${signer ? '' : ' ftable--one'}` },
         signer ? h('thead', {}, h('tr', {}, db ? h('td', {}) : null, h('th', { scope: 'col' }, 'Signing works'), h('th', { scope: 'col' }, swatch('swatch--thin sw-signer'), 'Signing fails'))) : null,
@@ -316,9 +316,9 @@ function start(model) {
     const changed = was.pairs !== now.pairs;
     return [
       label('What this clause rules out'),
-      l && !changed ? h('p', { class: 'example' }, h('span', { class: 'example__when' }, `Example: ${l.situation.title.toLowerCase().replace(/^./, (m) => m.toUpperCase())}, and the request sends ${l.sends.toLowerCase()}.`),
+      l && !changed ? h('p', { class: 'example' }, h('span', { class: 'example__when' }, `Example: ${l.situation.title.toLowerCase()}${{ Email: ', and the request sends an email', Username: ', and the request sends a username', Both: ', and the request sends both an email and a username' }[l.sends] || ''}.`),
         h('span', { class: 'example__what' }, 'Ruled out: ', h('strong', {}, outcomeName(now.sample.outcome_id)), '.')) : null,
-      h('p', { class: 'insp__text' }, `Of the ${count(t.pairs)} pairs of a modelled login and a result in the comparison, this clause rules out ${count(now.pairs)}`,
+      h('p', { class: 'insp__text' }, `Of the ${count(t.pairs)} pairs of a modelled login and a result, this clause rules out ${count(now.pairs)}`,
         changed ? `, up from ${count(was.pairs)} in the earlier contract. The ${now.pairs - was.pairs} more are the 500s struck out above.` : '.',
         others.length ? [' ', others.map((o, i) => [i ? ' and ' : '', go(o, `Clause ${o.n}`)]), ' rules out each of these as well. This clause states the rule about the role on its own.'] : ''),
     ];
@@ -343,7 +343,7 @@ function start(model) {
           h('span', { class: 'changes__title' }, caseName(c.caseId)),
           h('span', { class: 'changes__sub' }, `Clause ${c.n} · ${plural(c.changedSituations.length, 'situation')}`),
         ], 'changes__go')))),
-        h('p', { class: 'insp__aside' }, 'The responses come from a finite model of the two listings. This comparison includes no app run.'),
+        h('p', { class: 'insp__aside' }, 'The allowed responses come from a finite model of the two listings. Nobody ran the app for this comparison.'),
         h('p', { class: 'insp__aside' },
           ext(model.documents[sources.before.source.document].url, 'Microsoft Research listing'), ' · ',
           ext(model.documents[sources.after.source.document].url, 'GitHub Next listing')),
@@ -354,7 +354,7 @@ function start(model) {
         h('div', { class: 'ev__text' },
           label('What was compared'),
           h('p', {}, `The model groups ${t.logins} login cases into ${t.situations} situations by request type and the lookup and signing failure conditions. Every case within a group allows the same HTTP response types in each version.`),
-          h('p', {}, 'A response is allowed when it satisfies every clause in the model. The failure flags describe when lookup or signing would fail. A true flag does not mean the handler reached that operation.'),
+          h('p', {}, 'A response is allowed when it satisfies every clause in the model. “Lookup fails” and “signing fails” are settings of the model: they say the operation would fail if login reached it. They do not say login reached it.'),
           label('Method and limits'),
           h('ul', { class: 'facts' },
             fact(true, `Both listings were read from the public pages on ${longDate(model.readOn)}. Each one’s text matches the SHA-256 recorded in the comparison.`),
@@ -445,7 +445,7 @@ function start(model) {
         h('h1', { class: 'insp__title' }, c.headline),
         quote(english ? marked(english.now, 'now') : c.after.text.english,
           !changed ? 'The printed comment. Comment and Verus are the same in both contracts.' : english ? 'The printed comment in the corrected contract. The marked words are new.' : 'The printed comment, word for word the same in both contracts.'),
-        changed ? h('p', { class: 'insp__text' }, 'The earlier clause permits a 500 without a failure condition. The corrected clause requires ', codeNames(c.names), ' for a 500.') : null,
+        changed ? h('p', { class: 'insp__text' }, 'The earlier clause allows a 500 with no failure condition. The corrected clause allows a 500 only when ', codeNames(c.names), ' is true.') : null,
         evidenceButton(code ? 'Compare the two printed clauses' : 'Read the printed clause'),
         changed || (!caseChanged && !c.aboutToken) ? [label('Allowed responses by failure condition'), failTable(c.caseId, null)] : null,
         pieces.length ? [label('Assumptions behind the failure conditions'), pieces.map(({ name, pieces: functions }) => h('p', { class: 'insp__aside' },
@@ -481,15 +481,15 @@ function start(model) {
         quote(inline(p.after.text.english), 'Its doc comment in the corrected contract.'),
         p.reachedBy.length
           ? rel('How the changed clauses use it', [
-            h('p', {}, 'The proof assumes this function reports an error exactly when ', h('code', {}, through.at(-1)), ' is true. ',
-              through.length > 1 ? ['For requests routed to this lookup, that predicate supplies ', h('code', {}, through[0]), '.'] : null),
+            h('p', {}, 'The login proof assumes this function returns an error exactly when ', h('code', {}, through.at(-1)), ' is true. ',
+              through.length > 1 ? ['For a request that uses this lookup, ', h('code', {}, through[0]), ' is ', h('code', {}, through.at(-1)), '.'] : null),
             h('ul', { class: 'golist' }, p.reachedBy.map((c) => h('li', {}, go(c, [
               `Clause ${c.n} · 500 requires `, codeNames(c.names),
             ], 'golist__go'))))])
-          : rel('Scope of this comparison', h('p', {}, 'This function is trusted by the login proof. The map traces the failure conditions added to clauses 3, 4 and 5.')),
-        rel('Published evidence', h('p', {}, !p.before ? 'Only the GitHub Next page prints this contract. Whether the assumption changed is unknown.'
+          : rel('In this comparison', h('p', {}, 'Verus does not check this function, and the login proof takes its contract on trust. The conditions added to clauses 3, 4 and 5 do not refer to it.')),
+        rel('In the two publications', h('p', {}, !p.before ? 'Only the GitHub Next page prints this assumed contract, so the two versions cannot be compared.'
           : added ? 'The GitHub Next listing adds a clause to this assumed contract specifying when the lookup fails.' : 'Both publications print the same assumed contract.')),
-        evidenceButton(diff ? 'Compare the printed assumptions' : 'Read the printed assumption'),
+        evidenceButton(diff ? 'Compare the two assumed contracts' : 'Read the assumed contract'),
       ],
       evidenceTitle: `${p.name}: the assumed contract as printed`,
       evidence: [

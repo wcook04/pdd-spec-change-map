@@ -1,7 +1,7 @@
 // Turns the comparison release into what the map draws: the 18 situations a
 // login can be in (each one a group of modelled logins), the eight clauses of
 // login_flow, and the six trusted pieces.
-// Nothing here decides what a version permits; every permitted response,
+// Nothing here decides what a version allows; every allowed response,
 // changed clause and path to an assumed contract is read from the release.
 
 // Request categories adapted from PDD Kit's login explorer.
