@@ -472,3 +472,43 @@ mark.is-was { text-decoration: line-through; text-decoration-color: var(--home-e
   .ftable__cell { min-height: 34px; padding: 0.26rem 0.5rem; }
   .insp__open { margin-top: 0.55rem; }
 }
+
+/* ---- Space: the map keeps its size when evidence opens, and on a wide
+   window the evidence is docked beside it for good ---- */
+.explorer.has-evidence { grid-template-columns: var(--explorer-panel) minmax(0, 620px) minmax(300px, 1fr); }
+@media (min-width: 2000px) {
+  .explorer.is-docked { grid-template-columns: var(--explorer-panel) minmax(520px, 800px) minmax(640px, 1fr); }
+  .explorer.is-docked .ev__close, .explorer.is-docked .insp__open { display: none; }
+  .explorer.is-docked .explorer__tools { display: flex; }
+  .explorer.is-docked .spec-version__where { display: inline; }
+}
+@media (max-width: 1239px) { .explorer.has-evidence { grid-template-columns: var(--explorer-panel) minmax(0, 1fr); } }
+@media (max-width: 899px) { .explorer.has-evidence { grid-template-columns: minmax(0, 1fr); } }
+.ev__text, .ev__note, .logins { max-width: none; }
+
+/* One changed clause in the overview's evidence */
+.change { margin: 0 0 1.6em; padding-bottom: 1.4em; border-bottom: 1px solid var(--home-line); }
+.change__head { margin: 0 0 0.35em; font-family: var(--font-serif); font-size: 1.22em; font-weight: 500; }
+.change__go { border: 0; background: none; padding: 0; font: inherit; color: var(--ink); cursor: pointer; text-align: left; }
+.change__go:hover, .change__go:focus-visible { text-decoration: underline; text-decoration-color: var(--home-ember); text-underline-offset: 0.2em; }
+.change__effect { margin: 0 0 0.7em; color: var(--ink-soft); }
+.change__arrow { padding: 0 0.5em; color: var(--muted); }
+.change .quote { margin-bottom: 0.8em; }
+.change .spec-pair { gap: 0.7rem; }
+.ev .logins code { font-size: 0.9em; }
+.changes__go .changes__sub { white-space: nowrap; }
+
+/* The keyboard focus mark is the map's rim, never a box round the stage */
+.specmap:focus, .specmap:focus-visible { outline: none !important; }
+.specmap:focus-visible .sm-rim { stroke: color-mix(in srgb, var(--accent) 70%, transparent); stroke-width: 1.6; }
+.ev__more { margin-top: 1em; border-top: 1px solid var(--home-line); }
+.ev__more summary { padding: 0.6em 0; font-weight: 650; color: var(--accent); cursor: pointer; }
+.change { margin-bottom: 1.1em; padding-bottom: 1em; }
+.change .ev__note { margin-top: 0.4em; }
+.change { margin-bottom: 0.9em; padding-bottom: 0.8em; }
+.change .quote { margin-bottom: 0.55em; }
+.change__effect { margin-bottom: 0.5em; }
+.change .spec-side a, .change .spec-side { font-weight: 400; }
+.is-docked .ev { padding-top: 14px; }
+.is-docked .ev { font-size: 1.06rem; }
+.is-docked .ev .spec-code { font-size: 0.95rem; }
