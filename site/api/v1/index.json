@@ -1,0 +1,14 @@
+{
+  "api_version": 1,
+  "data": {
+    "comparison_id": "published-login",
+    "release": {
+      "bytes": 4536,
+      "href": "releases/21a7b6939d0e347c65e2ca244fc69b10666ff2d3d543431d3b1e062004d3df43/manifest.json",
+      "media_type": "application/json",
+      "sha256": "8782b337a15da992489906f1c13c7993589709f5b0b7f1f833893247ea70d061"
+    },
+    "release_id": "21a7b6939d0e347c65e2ca244fc69b10666ff2d3d543431d3b1e062004d3df43"
+  },
+  "kind": "catalog"
+}

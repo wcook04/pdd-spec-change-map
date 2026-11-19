@@ -1,0 +1,637 @@
+{
+ "release_id": "21a7b6939d0e347c65e2ca244fc69b10666ff2d3d543431d3b1e062004d3df43",
+ "read_on": "2026-11-19",
+ "documents": {
+  "microsoft:ex_customer_find_by_email": {
+   "sha256": "fa69dd3f8ece8c03ff7a239fab150056310e8c6e03d99fcfc2af55ac4faf5a96",
+   "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-4-where-proof-stops",
+   "lines": 13
+  },
+  "microsoft:bcrypt_verdict+customer_on_file+password_matches": {
+   "sha256": "862a58b86647c101eb5c2b6b2f9e74a96c3726b637e3f235a874a59f10bfd2f8",
+   "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec",
+   "lines": 18
+  },
+  "microsoft:named_account": {
+   "sha256": "a19991359bca26c483d5b982f6a4a711532bbde7d9fb6e13cb426040accae7e2",
+   "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec",
+   "lines": 21
+  },
+  "microsoft:login_flow": {
+   "sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+   "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec",
+   "lines": 50
+  },
+  "microsoft:check_password": {
+   "sha256": "7c19a8471e515fcae1e23aa54577d16fc257550bedb5747899a60064cecd5e77",
+   "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec",
+   "lines": 15
+  },
+  "github-next:login.rs": {
+   "sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+   "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs",
+   "lines": 368
+  }
+ },
+ "nodes": {
+  "before": {
+   "bcrypt_verdict": {
+    "document": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+    "from": 12,
+    "to": 13,
+    "code": "pub uninterp spec fn bcrypt_verdict(password: Seq<char>, hash: Seq<char>) \n    -> Option<bool>; ",
+    "english": "What bcrypt says about `password` against a stored `hash`: Some(true) when it is the password the hash was made from, Some(false) when it is not, None when bcrypt cannot read the hash. Left abstract: its meaning is bcrypt's, taken on trust through `check_password`."
+   },
+   "check_password": {
+    "document": "microsoft:check_password",
+    "from": 6,
+    "to": 15,
+    "code": "pub fn check_password(password: &str, hash: &str) -> (r: Result<bool, String>) \n    ensures \n        // bcrypt answers (Ok) exactly when it can read the stored hash. \n        r is Ok <==> bcrypt_verdict(password@, hash@) is Some, \n        // Its answer is its verdict: true for the \n        // right password, false for any other. \n        r matches Ok(b) ==> bcrypt_verdict(password@, hash@) == Some(b), \n{ \n    bcrypt::verify(password, hash).map_err(|e| e.to_string()) \n} ",
+    "english": "Asks bcrypt whether `password` matches the stored `hash`. Trusted, not proved: Verus cannot check bcrypt's hashing, so this wrapper's contract is assumed. Every password promise of `login_flow` rests on it."
+   },
+   "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d": {
+    "document": "microsoft:check_password",
+    "from": 12,
+    "to": 12,
+    "code": "        r matches Ok(b) ==> bcrypt_verdict(password@, hash@) == Some(b), ",
+    "english": "Its answer is its verdict: true for the right password, false for any other."
+   },
+   "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208": {
+    "document": "microsoft:check_password",
+    "from": 9,
+    "to": 9,
+    "code": "        r is Ok <==> bcrypt_verdict(password@, hash@) is Some, ",
+    "english": "bcrypt answers (Ok) exactly when it can read the stored hash."
+   },
+   "customer_on_file": {
+    "document": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+    "from": 5,
+    "to": 5,
+    "code": "pub uninterp spec fn customer_on_file(email: Seq<char>) -> Option<Customer>; ",
+    "english": "The customers row the database holds for exactly this email, if any, when login looks. Left abstract: only `Customer::find_by_email`'s trusted contract says what it is."
+   },
+   "ex_customer_find_by_email": {
+    "document": "microsoft:ex_customer_find_by_email",
+    "from": 5,
+    "to": 13,
+    "code": "pub async fn ex_customer_find_by_email(pool: &sqlx::SqlitePool, email: &str) \n    -> (r: Result<Option<Customer>, sqlx::Error>) \n    ensures \n        // When the query succeeds, it returns the customers row on \n        // file for exactly this email, or None when there is none. \n        r matches Ok(found) ==> found == customer_on_file(email@), \n{ \n    Customer::find_by_email(pool, email).await \n} ",
+    "english": "Looks up a customer by exact email. Trusted, not proved: the SQL query runs in sqlx, which Verus cannot check. Every customer promise of `login_flow` rests on it."
+   },
+   "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7": {
+    "document": "microsoft:ex_customer_find_by_email",
+    "from": 10,
+    "to": 10,
+    "code": "        r matches Ok(found) ==> found == customer_on_file(email@), ",
+    "english": "When the query succeeds, it returns the customers row on file for exactly this email, or None when there is none."
+   },
+   "login_flow": {
+    "document": "microsoft:login_flow",
+    "from": 4,
+    "to": 50,
+    "code": "pub async fn login_flow(pool: &sqlx::SqlitePool, config: &Config, \n    email: Option<String>, username: Option<String>, password: &str) \n    -> (r: Result<String, AppError>) \n    ensures \n        // Neither an email nor a username: 400 with today's message. \n        email is None && username is None \n            ==> (r matches Err(AppError::BadRequest(m)) \n                && m@ == missing_identity_text()), \n        // A token only for the account the login names, with its right \n        // password; it carries that account's id and its table's role. \n        r matches Ok(t) ==> (named_account(email, username) matches Some(a) \n            && password_matches(password@, a.password_hash) \n            && token_claims(t@, config.jwt_secret@) matches Some(c) \n            && c.sub@ == a.id && c.role@ == a.role), \n        // The right password for the named account always gets a \n        // token, unless a lookup or signing failure gives 500. \n        (named_account(email, username) matches Some(a) \n            && password_matches(password@, a.password_hash)) \n            ==> (r is Ok || r matches Err(AppError::Internal(_))), \n        // A login naming an account nobody holds gets \n        // 401, unless the lookup fails with 500. \n        ((email is Some || username is Some) && named_account(email, username) is None) \n            ==> (r matches Err(AppError::Unauthorized) \n                || r matches Err(AppError::Internal(_))), \n        // A wrong password for an account whose hash bcrypt \n        // can read gets 401, unless the lookup fails with 500. \n        (named_account(email, username) matches Some(a) \n            && bcrypt_verdict(password@, a.password_hash) == Some(false)) \n            ==> (r matches Err(AppError::Unauthorized) \n                || r matches Err(AppError::Internal(_))), \n        // An account whose stored hash bcrypt cannot read gets 500 and no token. \n        (named_account(email, username) matches Some(a) \n            && bcrypt_verdict(password@, a.password_hash) is None) \n            ==> r matches Err(AppError::Internal(_)), \n        // The admin role only for an admins row \n        // found by username, with no email sent. \n        (r matches Ok(t) && token_claims(t@, config.jwt_secret@) matches Some(c) \n            && c.role@ == admin_role()) \n            ==> (email is None && username matches Some(u) \n                && admin_on_file(u@) is Some), \n        // An email login's token always carries the customer role. \n        (r matches Ok(t) && email is Some) \n            ==> (token_claims(t@, config.jwt_secret@) matches Some(c) \n                && c.role@ == customer_role()), \n{ \n    unimplemented!() \n} ",
+    "english": "The whole login, awaited end to end: from the request's fields to the token or the HTTP error. ..."
+   },
+   "login_flow::admin-role": {
+    "document": "microsoft:login_flow",
+    "from": 40,
+    "to": 43,
+    "code": "        (r matches Ok(t) && token_claims(t@, config.jwt_secret@) matches Some(c) \n            && c.role@ == admin_role()) \n            ==> (email is None && username matches Some(u) \n                && admin_on_file(u@) is Some), ",
+    "english": "The admin role only for an admins row found by username, with no email sent."
+   },
+   "login_flow::correct-password": {
+    "document": "microsoft:login_flow",
+    "from": 20,
+    "to": 22,
+    "code": "        (named_account(email, username) matches Some(a) \n            && password_matches(password@, a.password_hash)) \n            ==> (r is Ok || r matches Err(AppError::Internal(_))), ",
+    "english": "The right password for the named account always gets a token, unless a lookup or signing failure gives 500."
+   },
+   "login_flow::email-role": {
+    "document": "microsoft:login_flow",
+    "from": 45,
+    "to": 47,
+    "code": "        (r matches Ok(t) && email is Some) \n            ==> (token_claims(t@, config.jwt_secret@) matches Some(c) \n                && c.role@ == customer_role()), ",
+    "english": "An email login's token always carries the customer role."
+   },
+   "login_flow::missing-identity": {
+    "document": "microsoft:login_flow",
+    "from": 9,
+    "to": 11,
+    "code": "        email is None && username is None \n            ==> (r matches Err(AppError::BadRequest(m)) \n                && m@ == missing_identity_text()), ",
+    "english": "Neither an email nor a username: 400 with today's message."
+   },
+   "login_flow::unknown-account": {
+    "document": "microsoft:login_flow",
+    "from": 25,
+    "to": 27,
+    "code": "        ((email is Some || username is Some) && named_account(email, username) is None) \n            ==> (r matches Err(AppError::Unauthorized) \n                || r matches Err(AppError::Internal(_))), ",
+    "english": "A login naming an account nobody holds gets 401, unless the lookup fails with 500."
+   },
+   "login_flow::unreadable-hash": {
+    "document": "microsoft:login_flow",
+    "from": 35,
+    "to": 37,
+    "code": "        (named_account(email, username) matches Some(a) \n            && bcrypt_verdict(password@, a.password_hash) is None) \n            ==> r matches Err(AppError::Internal(_)), ",
+    "english": "An account whose stored hash bcrypt cannot read gets 500 and no token."
+   },
+   "login_flow::valid-token": {
+    "document": "microsoft:login_flow",
+    "from": 14,
+    "to": 17,
+    "code": "        r matches Ok(t) ==> (named_account(email, username) matches Some(a) \n            && password_matches(password@, a.password_hash) \n            && token_claims(t@, config.jwt_secret@) matches Some(c) \n            && c.sub@ == a.id && c.role@ == a.role), ",
+    "english": "A token only for the account the login names, with its right password; it carries that account's id and its table's role."
+   },
+   "login_flow::wrong-password": {
+    "document": "microsoft:login_flow",
+    "from": 30,
+    "to": 33,
+    "code": "        (named_account(email, username) matches Some(a) \n            && bcrypt_verdict(password@, a.password_hash) == Some(false)) \n            ==> (r matches Err(AppError::Unauthorized) \n                || r matches Err(AppError::Internal(_))), ",
+    "english": "A wrong password for an account whose hash bcrypt can read gets 401, unless the lookup fails with 500."
+   },
+   "named_account": {
+    "document": "microsoft:named_account",
+    "from": 4,
+    "to": 21,
+    "code": "pub open spec fn named_account(email: Option<String>, username: Option<String>) \n    -> Option<NamedAccount> { \n    match email { \n        Some(e) => match customer_on_file(e@) { \n            Some(c) => Some(NamedAccount { \n                id: c.id@, password_hash: c.password_hash@, role: customer_role() }), \n            None => None, \n        }, \n        None => match username { \n            Some(u) => match admin_on_file(u@) { \n                Some(a) => Some(NamedAccount { \n                    id: a.id@, password_hash: a.password_hash@, role: admin_role() }), \n                None => None, \n            }, \n            None => None, \n        }, \n    } \n} ",
+    "english": "The account a login names: the customers row for the email when one is sent (role \"customer\"), otherwise the admins row for the username (role \"admin\"), otherwise none."
+   },
+   "password_matches": {
+    "document": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+    "from": 16,
+    "to": 18,
+    "code": "pub open spec fn password_matches(password: Seq<char>, hash: Seq<char>) -> bool { \n    bcrypt_verdict(password, hash) == Some(true) \n} ",
+    "english": "The password is the right one for the stored hash, by bcrypt's verdict."
+   }
+  },
+  "after": {
+   "admin_lookup_fails": {
+    "document": "github-next:login.rs",
+    "from": 64,
+    "to": 64,
+    "code": "pub uninterp spec fn admin_lookup_fails(username: Seq<char>) -> bool;",
+    "english": "Whether the admins query for exactly this username fails when login looks. Left abstract: only `Admin::find_by_username`'s trusted contract says what it is."
+   },
+   "admin_on_file": {
+    "document": "github-next:login.rs",
+    "from": 56,
+    "to": 56,
+    "code": "pub uninterp spec fn admin_on_file(username: Seq<char>) -> Option<Admin>;",
+    "english": "The admins row the database holds for exactly this username, if any, when login looks. Left abstract: only `Admin::find_by_username`'s trusted contract says what it is."
+   },
+   "admin_role": {
+    "document": "github-next:login.rs",
+    "from": 90,
+    "to": 92,
+    "code": "pub open spec fn admin_role() -> Seq<char> {\n    seq!['a', 'd', 'm', 'i', 'n']\n}",
+    "english": "The role text \"admin\", as written into a token's role claim."
+   },
+   "bcrypt_verdict": {
+    "document": "github-next:login.rs",
+    "from": 77,
+    "to": 77,
+    "code": "pub uninterp spec fn bcrypt_verdict(password: Seq<char>, hash: Seq<char>) -> Option<bool>;",
+    "english": "What bcrypt says about `password` against a stored `hash`: Some(true) when it is the password the hash was made from, Some(false) when it is not, None when bcrypt cannot read the hash. Left abstract: its meaning is bcrypt's, taken on trust through `check_password`."
+   },
+   "check_password": {
+    "document": "github-next:login.rs",
+    "from": 168,
+    "to": 176,
+    "code": "pub fn check_password(password: &str, hash: &str) -> (r: Result<bool, String>)\n    ensures\n        // bcrypt answers (Ok) exactly when it can read the stored hash.\n        r is Ok <==> bcrypt_verdict(password@, hash@) is Some,\n        // Its answer is its verdict: true for the right password, false for any other.\n        r matches Ok(b) ==> bcrypt_verdict(password@, hash@) == Some(b),\n{\n    bcrypt::verify(password, hash).map_err(|e| e.to_string())\n}",
+    "english": "Asks bcrypt whether `password` matches the stored `hash`. Trusted, not proved: Verus cannot check bcrypt's hashing, so this wrapper's contract is assumed. Every password promise of `login_flow` rests on it."
+   },
+   "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d": {
+    "document": "github-next:login.rs",
+    "from": 173,
+    "to": 173,
+    "code": "        r matches Ok(b) ==> bcrypt_verdict(password@, hash@) == Some(b),",
+    "english": "Its answer is its verdict: true for the right password, false for any other."
+   },
+   "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208": {
+    "document": "github-next:login.rs",
+    "from": 171,
+    "to": 171,
+    "code": "        r is Ok <==> bcrypt_verdict(password@, hash@) is Some,",
+    "english": "bcrypt answers (Ok) exactly when it can read the stored hash."
+   },
+   "customer_lookup_fails": {
+    "document": "github-next:login.rs",
+    "from": 60,
+    "to": 60,
+    "code": "pub uninterp spec fn customer_lookup_fails(email: Seq<char>) -> bool;",
+    "english": "Whether the customers query for exactly this email fails when login looks. Left abstract: only `Customer::find_by_email`'s trusted contract says what it is."
+   },
+   "customer_on_file": {
+    "document": "github-next:login.rs",
+    "from": 52,
+    "to": 52,
+    "code": "pub uninterp spec fn customer_on_file(email: Seq<char>) -> Option<Customer>;",
+    "english": "The customers row the database holds for exactly this email, if any, when login looks. Left abstract: only `Customer::find_by_email`'s trusted contract says what it is."
+   },
+   "customer_role": {
+    "document": "github-next:login.rs",
+    "from": 85,
+    "to": 87,
+    "code": "pub open spec fn customer_role() -> Seq<char> {\n    seq!['c', 'u', 's', 't', 'o', 'm', 'e', 'r']\n}",
+    "english": "The role text \"customer\", as written into a token's role claim."
+   },
+   "database_error": {
+    "document": "github-next:login.rs",
+    "from": 217,
+    "to": 223,
+    "code": "pub fn database_error(e: sqlx::Error) -> (r: AppError)\n    ensures\n        // A database failure always becomes an internal error.\n        r is Internal,\n{\n    AppError::from(e)\n}",
+    "english": "Turns a failed lookup query into today's 500 response, with sqlx's message. Trusted, not proved: the message comes from sqlx's Display, outside the proof."
+   },
+   "database_error::c02cb148cac295d03c4b5ab457b8d1929b9ec69a247de80f4cadffedfa64a617": {
+    "document": "github-next:login.rs",
+    "from": 220,
+    "to": 220,
+    "code": "        r is Internal,",
+    "english": "A database failure always becomes an internal error."
+   },
+   "decide_login": {
+    "document": "github-next:login.rs",
+    "from": 346,
+    "to": 366,
+    "code": "pub fn decide_login(target: &LookupTarget, found: Option<AccountRow>, password: &str) -> (r: Result<IssuedClaims, LoginError>)\n    ensures\n        // No row found: refused as Unauthorized, the same answer as a wrong password.\n        found is None ==> r == Err::<IssuedClaims, LoginError>(LoginError::Unauthorized),\n        // Claims come back only for a found row whose stored hash matches the password.\n        r is Ok ==> found is Some && password_matches(password@, found->Some_0.password_hash@),\n        // The right password for a found row always gets claims.\n        found matches Some(a) && password_matches(password@, a.password_hash@) ==> r is Ok,\n        // A wrong password for a found row whose hash bcrypt can read is refused as Unauthorized.\n        found matches Some(a) && bcrypt_verdict(password@, a.password_hash@) == Some(false) ==> r == Err::<IssuedClaims, LoginError>(LoginError::Unauthorized),\n        // A found row whose hash bcrypt cannot read gets no claims: refused as UnreadableHash.\n        found matches Some(a) && bcrypt_verdict(password@, a.password_hash@) is None ==> r matches Err(LoginError::UnreadableHash(_)),\n        // The claims carry the id of the row whose password was checked.\n        r matches Ok(c) ==> found is Some && c.sub@ == found->Some_0.id@,\n        // An admins-table search gives the role text \"admin\".\n        r matches Ok(c) && target is AdminByUsername ==> c.role@ == admin_role(),\n        // A customers-table search gives the role text \"customer\".\n        r matches Ok(c) && target is CustomerByEmail ==> c.role@ == customer_role(),\n{\n    unimplemented!()\n}",
+    "english": "Decides whether the row a lookup found gets token claims for `password`. Promises: claims only for a found row whose stored hash matches the password, and always for one that does; the claims carry that row's id; the role text follows the table searched."
+   },
+   "decide_login::062cb997199c8f124f328b1adc278a5ba242263603b961eb76e79657974dcc68": {
+    "document": "github-next:login.rs",
+    "from": 351,
+    "to": 351,
+    "code": "        r is Ok ==> found is Some && password_matches(password@, found->Some_0.password_hash@),",
+    "english": "Claims come back only for a found row whose stored hash matches the password."
+   },
+   "decide_login::37046491576dbbf51c3ef2c19a9a4348569a3c0973421ae10d629fbcbd96b9d0": {
+    "document": "github-next:login.rs",
+    "from": 355,
+    "to": 355,
+    "code": "        found matches Some(a) && bcrypt_verdict(password@, a.password_hash@) == Some(false) ==> r == Err::<IssuedClaims, LoginError>(LoginError::Unauthorized),",
+    "english": "A wrong password for a found row whose hash bcrypt can read is refused as Unauthorized."
+   },
+   "decide_login::50f23a278e5bca9e0f0996dd71fd4cf854ea87b2c787cb3915007ac3eb2e2d56": {
+    "document": "github-next:login.rs",
+    "from": 353,
+    "to": 353,
+    "code": "        found matches Some(a) && password_matches(password@, a.password_hash@) ==> r is Ok,",
+    "english": "The right password for a found row always gets claims."
+   },
+   "decide_login::57a313babdd3ffbe54ddc4a17eb086243db4c6de9d31e587f8dae9929d3390d4": {
+    "document": "github-next:login.rs",
+    "from": 359,
+    "to": 359,
+    "code": "        r matches Ok(c) ==> found is Some && c.sub@ == found->Some_0.id@,",
+    "english": "The claims carry the id of the row whose password was checked."
+   },
+   "decide_login::9902dd93d288c08d2826a5c5977f489d297faffce3e272da43fae2967fd4cb87": {
+    "document": "github-next:login.rs",
+    "from": 363,
+    "to": 363,
+    "code": "        r matches Ok(c) && target is CustomerByEmail ==> c.role@ == customer_role(),",
+    "english": "A customers-table search gives the role text \"customer\"."
+   },
+   "decide_login::a7e3dcf17d66ba58083a268e8c8049f6338a6d78907e4de39ff14e31659fd8f4": {
+    "document": "github-next:login.rs",
+    "from": 349,
+    "to": 349,
+    "code": "        found is None ==> r == Err::<IssuedClaims, LoginError>(LoginError::Unauthorized),",
+    "english": "No row found: refused as Unauthorized, the same answer as a wrong password."
+   },
+   "decide_login::b02f9c0389e9fed20d6eb0d9cc83b03b4c357ecd34fbfdb95e9d59da8333a7c4": {
+    "document": "github-next:login.rs",
+    "from": 357,
+    "to": 357,
+    "code": "        found matches Some(a) && bcrypt_verdict(password@, a.password_hash@) is None ==> r matches Err(LoginError::UnreadableHash(_)),",
+    "english": "A found row whose hash bcrypt cannot read gets no claims: refused as UnreadableHash."
+   },
+   "decide_login::e20efb3d392184cd48a0e995861b508f25145dc824fdf95773a7611583774bc3": {
+    "document": "github-next:login.rs",
+    "from": 361,
+    "to": 361,
+    "code": "        r matches Ok(c) && target is AdminByUsername ==> c.role@ == admin_role(),",
+    "english": "An admins-table search gives the role text \"admin\"."
+   },
+   "ex_admin_find_by_username": {
+    "document": "github-next:login.rs",
+    "from": 154,
+    "to": 162,
+    "code": "pub async fn ex_admin_find_by_username(pool: &sqlx::SqlitePool, username: &str) -> (r: Result<Option<Admin>, sqlx::Error>)\n    ensures\n        // When the query succeeds, it returns the admins row on file for exactly this username, or None when there is none.\n        r matches Ok(found) ==> found == admin_on_file(username@),\n        // The query fails exactly when the abstract view says it does.\n        r is Err <==> admin_lookup_fails(username@),\n{\n    Admin::find_by_username(pool, username).await\n}",
+    "english": "Looks up an admin by exact username. Trusted, not proved: the SQL query runs in sqlx, which Verus cannot check. Every admin promise of `login_flow` rests on it."
+   },
+   "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b": {
+    "document": "github-next:login.rs",
+    "from": 159,
+    "to": 159,
+    "code": "        r is Err <==> admin_lookup_fails(username@),",
+    "english": "The query fails exactly when the abstract view says it does."
+   },
+   "ex_admin_find_by_username::4db1d75179864acca2057a7254c3edd71269ba0f650d56bb372ffc7fe52855c4": {
+    "document": "github-next:login.rs",
+    "from": 157,
+    "to": 157,
+    "code": "        r matches Ok(found) ==> found == admin_on_file(username@),",
+    "english": "When the query succeeds, it returns the admins row on file for exactly this username, or None when there is none."
+   },
+   "ex_customer_find_by_email": {
+    "document": "github-next:login.rs",
+    "from": 140,
+    "to": 148,
+    "code": "pub async fn ex_customer_find_by_email(pool: &sqlx::SqlitePool, email: &str) -> (r: Result<Option<Customer>, sqlx::Error>)\n    ensures\n        // When the query succeeds, it returns the customers row on file for exactly this email, or None when there is none.\n        r matches Ok(found) ==> found == customer_on_file(email@),\n        // The query fails exactly when the abstract view says it does.\n        r is Err <==> customer_lookup_fails(email@),\n{\n    Customer::find_by_email(pool, email).await\n}",
+    "english": "Looks up a customer by exact email. Trusted, not proved: the SQL query runs in sqlx, which Verus cannot check. Every customer promise of `login_flow` rests on it."
+   },
+   "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7": {
+    "document": "github-next:login.rs",
+    "from": 143,
+    "to": 143,
+    "code": "        r matches Ok(found) ==> found == customer_on_file(email@),",
+    "english": "When the query succeeds, it returns the customers row on file for exactly this email, or None when there is none."
+   },
+   "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02": {
+    "document": "github-next:login.rs",
+    "from": 145,
+    "to": 145,
+    "code": "        r is Err <==> customer_lookup_fails(email@),",
+    "english": "The query fails exactly when the abstract view says it does."
+   },
+   "ex_generate_token": {
+    "document": "github-next:login.rs",
+    "from": 202,
+    "to": 212,
+    "code": "pub fn ex_generate_token(claims: &Claims, config: &Config) -> (r: Result<String, AppError>)\n    ensures\n        // A token, when made, carries exactly these claims under this secret.\n        r matches Ok(t) ==> token_claims(t@, config.jwt_secret@) == Some(*claims),\n        // Signing fails exactly when the abstract view says it does.\n        r is Err <==> signing_fails(config.jwt_secret@),\n        // A signing failure is reported as an internal error.\n        r matches Err(e) ==> e is Internal,\n{\n    generate_token(claims, config)\n}",
+    "english": "Signs `claims` into a JWT with the configured secret. Trusted, not proved: jsonwebtoken's encoding and HMAC run outside the proof. Every token promise of `login_flow` rests on it."
+   },
+   "ex_generate_token::5c98a5502feb672ed48835ec23f731ea3fe25e00369937ae3b557ffa16ecc543": {
+    "document": "github-next:login.rs",
+    "from": 209,
+    "to": 209,
+    "code": "        r matches Err(e) ==> e is Internal,",
+    "english": "A signing failure is reported as an internal error."
+   },
+   "ex_generate_token::6b106964bbf6aed9cb231ccdce7f3d39f3cb76dc6efb9bb3825cda7af4bf0d37": {
+    "document": "github-next:login.rs",
+    "from": 207,
+    "to": 207,
+    "code": "        r is Err <==> signing_fails(config.jwt_secret@),",
+    "english": "Signing fails exactly when the abstract view says it does."
+   },
+   "ex_generate_token::efaa2d470ca1f477266df5f8fca56c81794f6c7894f86647a1415126a92d0d0e": {
+    "document": "github-next:login.rs",
+    "from": 205,
+    "to": 205,
+    "code": "        r matches Ok(t) ==> token_claims(t@, config.jwt_secret@) == Some(*claims),",
+    "english": "A token, when made, carries exactly these claims under this secret."
+   },
+   "expiry_from_now": {
+    "document": "github-next:login.rs",
+    "from": 188,
+    "to": 196,
+    "code": "pub fn expiry_from_now() -> (r: Expiry)\n    ensures\n        // The expiry is exactly 24 hours (86,400 seconds) after the clock reading.\n        r.exp as int == r.now as int + 86_400,\n{\n    let now = chrono::Utc::now();\n    let exp = now.checked_add_signed(chrono::Duration::hours(24)).expect(\"valid timestamp\");\n    Expiry { now: now.timestamp() as usize, exp: exp.timestamp() as usize }\n}",
+    "english": "Reads the clock and computes a token's expiry 24 hours ahead. Trusted, not proved: chrono's clock is outside the proof. It panics if the time is out of range, as today's login does; that panic is not promised against."
+   },
+   "expiry_from_now::5c91c6f3a1e3b28f74803d3ca4b2fdc541f0674bfd2a6c3186f4762240dc9951": {
+    "document": "github-next:login.rs",
+    "from": 191,
+    "to": 191,
+    "code": "        r.exp as int == r.now as int + 86_400,",
+    "english": "The expiry is exactly 24 hours (86,400 seconds) after the clock reading."
+   },
+   "issue_token": {
+    "document": "github-next:login.rs",
+    "from": 311,
+    "to": 327,
+    "code": "pub fn issue_token(outcome: Result<IssuedClaims, LoginError>, config: &Config) -> (r: Result<String, AppError>)\n    ensures\n        // A token only from Ok claims, and it carries exactly that sub and role.\n        r matches Ok(t) ==> (outcome matches Ok(c) && token_claims(t@, config.jwt_secret@) matches Some(k) && k.sub@ == c.sub@ && k.role@ == c.role@),\n        // Ok claims always get a token, unless signing fails with an internal error.\n        outcome is Ok ==> (r is Ok || (r matches Err(AppError::Internal(_)) && signing_fails(config.jwt_secret@))),\n        // Missing identity: 400 with today's message.\n        outcome matches Err(LoginError::MissingIdentity) ==> (r matches Err(AppError::BadRequest(m)) && m@ == missing_identity_text()),\n        // Unauthorized: 401.\n        outcome matches Err(LoginError::Unauthorized) ==> r matches Err(AppError::Unauthorized),\n        // Unreadable hash: 500 carrying bcrypt's message.\n        outcome matches Err(LoginError::UnreadableHash(m)) ==> r == Err::<String, AppError>(AppError::Internal(m)),\n        // Failed lookup: 500.\n        outcome matches Err(LoginError::Database(_)) ==> r matches Err(AppError::Internal(_)),\n{\n    unimplemented!()\n}",
+    "english": "Turns the login decision into the HTTP outcome: signs a token from Ok claims with a 24-hour expiry, or maps the refusal to today's error without signing anything."
+   },
+   "issue_token::689c6770493203fd262219f6ea5e8b2b1d4589f6475f677df7571f7f0e77e426": {
+    "document": "github-next:login.rs",
+    "from": 322,
+    "to": 322,
+    "code": "        outcome matches Err(LoginError::UnreadableHash(m)) ==> r == Err::<String, AppError>(AppError::Internal(m)),",
+    "english": "Unreadable hash: 500 carrying bcrypt's message."
+   },
+   "issue_token::6c8054a3af1c5612096cd870a78f3c00f6bdb41481f21e338bce0cead06b44cd": {
+    "document": "github-next:login.rs",
+    "from": 320,
+    "to": 320,
+    "code": "        outcome matches Err(LoginError::Unauthorized) ==> r matches Err(AppError::Unauthorized),",
+    "english": "Unauthorized: 401."
+   },
+   "issue_token::c60574126b6c6c4e7ae2bb5b2d22c2f932fb6529a242e63dd52a6f70d406e9d7": {
+    "document": "github-next:login.rs",
+    "from": 316,
+    "to": 316,
+    "code": "        outcome is Ok ==> (r is Ok || (r matches Err(AppError::Internal(_)) && signing_fails(config.jwt_secret@))),",
+    "english": "Ok claims always get a token, unless signing fails with an internal error."
+   },
+   "issue_token::e7e770379faa30448f109fe4b4130e1280f1a040b28042fc440afce0467c63ad": {
+    "document": "github-next:login.rs",
+    "from": 318,
+    "to": 318,
+    "code": "        outcome matches Err(LoginError::MissingIdentity) ==> (r matches Err(AppError::BadRequest(m)) && m@ == missing_identity_text()),",
+    "english": "Missing identity: 400 with today's message."
+   },
+   "issue_token::f0f0001ba708fad357597c79c6103c6f82fbdb31152afe82cd7eac384c3fd303": {
+    "document": "github-next:login.rs",
+    "from": 324,
+    "to": 324,
+    "code": "        outcome matches Err(LoginError::Database(_)) ==> r matches Err(AppError::Internal(_)),",
+    "english": "Failed lookup: 500."
+   },
+   "issue_token::f6d7ff15b3e5d0744cef5a10c34b4ebf17d6f489be21c0ab97998dab7426fe9b": {
+    "document": "github-next:login.rs",
+    "from": 314,
+    "to": 314,
+    "code": "        r matches Ok(t) ==> (outcome matches Ok(c) && token_claims(t@, config.jwt_secret@) matches Some(k) && k.sub@ == c.sub@ && k.role@ == c.role@),",
+    "english": "A token only from Ok claims, and it carries exactly that sub and role."
+   },
+   "login_core": {
+    "document": "github-next:login.rs",
+    "from": 289,
+    "to": 307,
+    "code": "pub async fn login_core(pool: &sqlx::SqlitePool, email: Option<String>, username: Option<String>, password: &str) -> (r: Result<IssuedClaims, LoginError>)\n    ensures\n        // Neither an email nor a username: refused for missing an identity.\n        email is None && username is None ==> r == Err::<IssuedClaims, LoginError>(LoginError::MissingIdentity),\n        // Claims come back only for the account the login names, and only with its right password.\n        r is Ok ==> (named_account(email, username) matches Some(a) && password_matches(password@, a.password_hash)),\n        // The right password for the named account always gets claims, unless the lookup fails.\n        (named_account(email, username) matches Some(a) && password_matches(password@, a.password_hash)) ==> (r is Ok || (r matches Err(LoginError::Database(_)) && lookup_fails(email, username))),\n        // A login naming an account nobody holds is refused as Unauthorized, unless the lookup fails.\n        (email is Some || username is Some) && named_account(email, username) is None ==> (r == Err::<IssuedClaims, LoginError>(LoginError::Unauthorized) || (r matches Err(LoginError::Database(_)) && lookup_fails(email, username))),\n        // A wrong password for an account whose hash bcrypt can read is refused as Unauthorized, unless the lookup fails.\n        (named_account(email, username) matches Some(a) && bcrypt_verdict(password@, a.password_hash) == Some(false)) ==> (r == Err::<IssuedClaims, LoginError>(LoginError::Unauthorized) || (r matches Err(LoginError::Database(_)) && lookup_fails(email, username))),\n        // An account whose stored hash bcrypt cannot read gets no claims: UnreadableHash, unless the lookup fails.\n        (named_account(email, username) matches Some(a) && bcrypt_verdict(password@, a.password_hash) is None) ==> (r matches Err(LoginError::UnreadableHash(_)) || (r matches Err(LoginError::Database(_)) && lookup_fails(email, username))),\n        // The claims carry the named account's id and the role its table gives.\n        r matches Ok(c) ==> (named_account(email, username) matches Some(a) && c.sub@ == a.id && c.role@ == a.role),\n{\n    unimplemented!()\n}",
+    "english": "The login decision, awaited: picks the table from the fields sent, awaits that table's lookup, checks the password, and returns the claims to sign or the reason for refusal. Promises, on the awaited result: claims only for the account the login names and only with its right password, and always with it unless the lookup fails; the claims carry that account's id and its table's role. No promise that the future completes."
+   },
+   "login_core::1a5027cb1a13317281359dfef044c5b579c5181884c9006276f6abf1adb66afa": {
+    "document": "github-next:login.rs",
+    "from": 292,
+    "to": 292,
+    "code": "        email is None && username is None ==> r == Err::<IssuedClaims, LoginError>(LoginError::MissingIdentity),",
+    "english": "Neither an email nor a username: refused for missing an identity."
+   },
+   "login_core::20cba1678cac5c272554d6a5edd55b80419a1ba96161ee70b69779232bbc51f5": {
+    "document": "github-next:login.rs",
+    "from": 294,
+    "to": 294,
+    "code": "        r is Ok ==> (named_account(email, username) matches Some(a) && password_matches(password@, a.password_hash)),",
+    "english": "Claims come back only for the account the login names, and only with its right password."
+   },
+   "login_core::2377f4c8cd2121eb230d4d6ea48721a4a0a830d019b4e8d13c5a06a22c603c06": {
+    "document": "github-next:login.rs",
+    "from": 296,
+    "to": 296,
+    "code": "        (named_account(email, username) matches Some(a) && password_matches(password@, a.password_hash)) ==> (r is Ok || (r matches Err(LoginError::Database(_)) && lookup_fails(email, username))),",
+    "english": "The right password for the named account always gets claims, unless the lookup fails."
+   },
+   "login_core::488bc196a02e6bc8cbac39795b118424fc150cd2c32a57f7fc4277e90758f9aa": {
+    "document": "github-next:login.rs",
+    "from": 298,
+    "to": 298,
+    "code": "        (email is Some || username is Some) && named_account(email, username) is None ==> (r == Err::<IssuedClaims, LoginError>(LoginError::Unauthorized) || (r matches Err(LoginError::Database(_)) && lookup_fails(email, username))),",
+    "english": "A login naming an account nobody holds is refused as Unauthorized, unless the lookup fails."
+   },
+   "login_core::682858fc080dff2eec5c26b911c783b58619e67bcd6c2b2250db9b304ab3a265": {
+    "document": "github-next:login.rs",
+    "from": 300,
+    "to": 300,
+    "code": "        (named_account(email, username) matches Some(a) && bcrypt_verdict(password@, a.password_hash) == Some(false)) ==> (r == Err::<IssuedClaims, LoginError>(LoginError::Unauthorized) || (r matches Err(LoginError::Database(_)) && lookup_fails(email, username))),",
+    "english": "A wrong password for an account whose hash bcrypt can read is refused as Unauthorized, unless the lookup fails."
+   },
+   "login_core::9f90e14483b0bbd44b1dbd29fb565aacb8271e02a94036b29ae1ce1b17986531": {
+    "document": "github-next:login.rs",
+    "from": 304,
+    "to": 304,
+    "code": "        r matches Ok(c) ==> (named_account(email, username) matches Some(a) && c.sub@ == a.id && c.role@ == a.role),",
+    "english": "The claims carry the named account's id and the role its table gives."
+   },
+   "login_core::d55a11af7e02fc6d289f0267b082b4a443a632eb907d2e6cf02ee5fe6e968ef0": {
+    "document": "github-next:login.rs",
+    "from": 302,
+    "to": 302,
+    "code": "        (named_account(email, username) matches Some(a) && bcrypt_verdict(password@, a.password_hash) is None) ==> (r matches Err(LoginError::UnreadableHash(_)) || (r matches Err(LoginError::Database(_)) && lookup_fails(email, username))),",
+    "english": "An account whose stored hash bcrypt cannot read gets no claims: UnreadableHash, unless the lookup fails."
+   },
+   "login_flow": {
+    "document": "github-next:login.rs",
+    "from": 262,
+    "to": 282,
+    "code": "pub async fn login_flow(pool: &sqlx::SqlitePool, config: &Config, email: Option<String>, username: Option<String>, password: &str) -> (r: Result<String, AppError>)\n    ensures\n        // Neither an email nor a username: 400 with today's message.\n        email is None && username is None ==> (r matches Err(AppError::BadRequest(m)) && m@ == missing_identity_text()),\n        // A token only for the account the login names, with its right password; it carries that account's id and its table's role.\n        r matches Ok(t) ==> (named_account(email, username) matches Some(a) && password_matches(password@, a.password_hash) && token_claims(t@, config.jwt_secret@) matches Some(c) && c.sub@ == a.id && c.role@ == a.role),\n        // The right password for the named account always gets a token, unless the lookup or signing fails with 500.\n        (named_account(email, username) matches Some(a) && password_matches(password@, a.password_hash)) ==> (r is Ok || (r matches Err(AppError::Internal(_)) && (lookup_fails(email, username) || signing_fails(config.jwt_secret@)))),\n        // A login naming an account nobody holds gets 401, unless the lookup fails with 500.\n        ((email is Some || username is Some) && named_account(email, username) is None) ==> (r matches Err(AppError::Unauthorized) || (r matches Err(AppError::Internal(_)) && lookup_fails(email, username))),\n        // A wrong password for an account whose hash bcrypt can read gets 401, unless the lookup fails with 500.\n        (named_account(email, username) matches Some(a) && bcrypt_verdict(password@, a.password_hash) == Some(false)) ==> (r matches Err(AppError::Unauthorized) || (r matches Err(AppError::Internal(_)) && lookup_fails(email, username))),\n        // An account whose stored hash bcrypt cannot read gets 500 and no token.\n        (named_account(email, username) matches Some(a) && bcrypt_verdict(password@, a.password_hash) is None) ==> r matches Err(AppError::Internal(_)),\n        // The admin role only for an admins row found by username, with no email sent.\n        (r matches Ok(t) && token_claims(t@, config.jwt_secret@) matches Some(c) && c.role@ == admin_role()) ==> (email is None && username matches Some(u) && admin_on_file(u@) is Some),\n        // An email login's token always carries the customer role.\n        (r matches Ok(t) && email is Some) ==> (token_claims(t@, config.jwt_secret@) matches Some(c) && c.role@ == customer_role()),\n{\n    unimplemented!()\n}",
+    "english": "The whole login, awaited end to end: from the request's fields to the token or the HTTP error. Promises, on the awaited result: a token only for the account the login names and only with its right password, and always with it unless the lookup or signing fails with 500; the token carries that account's id and its table's role; refusals give today's 400, 401 or 500 and no token. Reads accounts and tokens through the abstract views above. No promise the future completes."
+   },
+   "login_flow::admin-role": {
+    "document": "github-next:login.rs",
+    "from": 277,
+    "to": 277,
+    "code": "        (r matches Ok(t) && token_claims(t@, config.jwt_secret@) matches Some(c) && c.role@ == admin_role()) ==> (email is None && username matches Some(u) && admin_on_file(u@) is Some),",
+    "english": "The admin role only for an admins row found by username, with no email sent."
+   },
+   "login_flow::correct-password": {
+    "document": "github-next:login.rs",
+    "from": 269,
+    "to": 269,
+    "code": "        (named_account(email, username) matches Some(a) && password_matches(password@, a.password_hash)) ==> (r is Ok || (r matches Err(AppError::Internal(_)) && (lookup_fails(email, username) || signing_fails(config.jwt_secret@)))),",
+    "english": "The right password for the named account always gets a token, unless the lookup or signing fails with 500."
+   },
+   "login_flow::email-role": {
+    "document": "github-next:login.rs",
+    "from": 279,
+    "to": 279,
+    "code": "        (r matches Ok(t) && email is Some) ==> (token_claims(t@, config.jwt_secret@) matches Some(c) && c.role@ == customer_role()),",
+    "english": "An email login's token always carries the customer role."
+   },
+   "login_flow::missing-identity": {
+    "document": "github-next:login.rs",
+    "from": 265,
+    "to": 265,
+    "code": "        email is None && username is None ==> (r matches Err(AppError::BadRequest(m)) && m@ == missing_identity_text()),",
+    "english": "Neither an email nor a username: 400 with today's message."
+   },
+   "login_flow::unknown-account": {
+    "document": "github-next:login.rs",
+    "from": 271,
+    "to": 271,
+    "code": "        ((email is Some || username is Some) && named_account(email, username) is None) ==> (r matches Err(AppError::Unauthorized) || (r matches Err(AppError::Internal(_)) && lookup_fails(email, username))),",
+    "english": "A login naming an account nobody holds gets 401, unless the lookup fails with 500."
+   },
+   "login_flow::unreadable-hash": {
+    "document": "github-next:login.rs",
+    "from": 275,
+    "to": 275,
+    "code": "        (named_account(email, username) matches Some(a) && bcrypt_verdict(password@, a.password_hash) is None) ==> r matches Err(AppError::Internal(_)),",
+    "english": "An account whose stored hash bcrypt cannot read gets 500 and no token."
+   },
+   "login_flow::valid-token": {
+    "document": "github-next:login.rs",
+    "from": 267,
+    "to": 267,
+    "code": "        r matches Ok(t) ==> (named_account(email, username) matches Some(a) && password_matches(password@, a.password_hash) && token_claims(t@, config.jwt_secret@) matches Some(c) && c.sub@ == a.id && c.role@ == a.role),",
+    "english": "A token only for the account the login names, with its right password; it carries that account's id and its table's role."
+   },
+   "login_flow::wrong-password": {
+    "document": "github-next:login.rs",
+    "from": 273,
+    "to": 273,
+    "code": "        (named_account(email, username) matches Some(a) && bcrypt_verdict(password@, a.password_hash) == Some(false)) ==> (r matches Err(AppError::Unauthorized) || (r matches Err(AppError::Internal(_)) && lookup_fails(email, username))),",
+    "english": "A wrong password for an account whose hash bcrypt can read gets 401, unless the lookup fails with 500."
+   },
+   "lookup_fails": {
+    "document": "github-next:login.rs",
+    "from": 126,
+    "to": 134,
+    "code": "pub open spec fn lookup_fails(email: Option<String>, username: Option<String>) -> bool {\n    match email {\n        Some(e) => customer_lookup_fails(e@),\n        None => match username {\n            Some(u) => admin_lookup_fails(u@),\n            None => false,\n        },\n    }\n}",
+    "english": "The lookup a login makes fails: the customers query for the email when one is sent, otherwise the admins query for the username. A login with neither makes no lookup."
+   },
+   "lookup_target": {
+    "document": "github-next:login.rs",
+    "from": 331,
+    "to": 341,
+    "code": "pub fn lookup_target(email: Option<String>, username: Option<String>) -> (r: Result<LookupTarget, LoginError>)\n    ensures\n        // An email, when sent, wins: customers are searched for exactly that email.\n        email matches Some(e) ==> r == Ok::<LookupTarget, LoginError>(LookupTarget::CustomerByEmail(e)),\n        // With no email, a username sends the search to admins for exactly that username.\n        email is None && username matches Some(u) ==> r == Ok::<LookupTarget, LoginError>(LookupTarget::AdminByUsername(u)),\n        // With neither, the login is refused for missing an identity.\n        email is None && username is None ==> r == Err::<LookupTarget, LoginError>(LoginError::MissingIdentity),\n{\n    unimplemented!()\n}",
+    "english": "Picks the table and identifier a login searches: the email when one is sent (customers), otherwise the username (admins), otherwise a refusal. Reads two optional strings."
+   },
+   "lookup_target::441400eb4223239ba6f8e49facb14250eb978ce47c838b1a96c90bb2073ad82a": {
+    "document": "github-next:login.rs",
+    "from": 336,
+    "to": 336,
+    "code": "        email is None && username matches Some(u) ==> r == Ok::<LookupTarget, LoginError>(LookupTarget::AdminByUsername(u)),",
+    "english": "With no email, a username sends the search to admins for exactly that username."
+   },
+   "lookup_target::d2fe03bf03200d3ab6c1484551c00e5f3c016c180f326fcf17decfa19ea73e11": {
+    "document": "github-next:login.rs",
+    "from": 338,
+    "to": 338,
+    "code": "        email is None && username is None ==> r == Err::<LookupTarget, LoginError>(LoginError::MissingIdentity),",
+    "english": "With neither, the login is refused for missing an identity."
+   },
+   "lookup_target::e953ef86e017037e803f1dfc6c4841c6b82f31e7ac0257b6af37a6149132e709": {
+    "document": "github-next:login.rs",
+    "from": 334,
+    "to": 334,
+    "code": "        email matches Some(e) ==> r == Ok::<LookupTarget, LoginError>(LookupTarget::CustomerByEmail(e)),",
+    "english": "An email, when sent, wins: customers are searched for exactly that email."
+   },
+   "missing_identity_text": {
+    "document": "github-next:login.rs",
+    "from": 95,
+    "to": 97,
+    "code": "pub open spec fn missing_identity_text() -> Seq<char> {\n    \"Either email or username is required\"@\n}",
+    "english": "The 400 message today's login sends when neither an email nor a username is given."
+   },
+   "named_account": {
+    "document": "github-next:login.rs",
+    "from": 108,
+    "to": 122,
+    "code": "pub open spec fn named_account(email: Option<String>, username: Option<String>) -> Option<NamedAccount> {\n    match email {\n        Some(e) => match customer_on_file(e@) {\n            Some(c) => Some(NamedAccount { id: c.id@, password_hash: c.password_hash@, role: customer_role() }),\n            None => None,\n        },\n        None => match username {\n            Some(u) => match admin_on_file(u@) {\n                Some(a) => Some(NamedAccount { id: a.id@, password_hash: a.password_hash@, role: admin_role() }),\n                None => None,\n            },\n            None => None,\n        },\n    }\n}",
+    "english": "The account a login names: the customers row for the email when one is sent (role \"customer\"), otherwise the admins row for the username (role \"admin\"), otherwise none."
+   },
+   "password_matches": {
+    "document": "github-next:login.rs",
+    "from": 80,
+    "to": 82,
+    "code": "pub open spec fn password_matches(password: Seq<char>, hash: Seq<char>) -> bool {\n    bcrypt_verdict(password, hash) == Some(true)\n}",
+    "english": "The password is the right one for the stored hash, by bcrypt's verdict."
+   },
+   "signing_fails": {
+    "document": "github-next:login.rs",
+    "from": 72,
+    "to": 72,
+    "code": "pub uninterp spec fn signing_fails(secret: Seq<char>) -> bool;",
+    "english": "Whether signing a token with this secret fails. Left abstract: only `generate_token`'s trusted contract says what it is."
+   },
+   "token_claims": {
+    "document": "github-next:login.rs",
+    "from": 68,
+    "to": 68,
+    "code": "pub uninterp spec fn token_claims(token: Seq<char>, secret: Seq<char>) -> Option<Claims>;",
+    "english": "The claims a signed token carries when read with this secret, if it is a token signed with it. Left abstract: only `generate_token`'s trusted contract says what it is."
+   }
+  }
+ }
+}

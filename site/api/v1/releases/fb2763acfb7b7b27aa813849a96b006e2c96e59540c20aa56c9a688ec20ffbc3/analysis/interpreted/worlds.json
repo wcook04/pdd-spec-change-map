@@ -1,0 +1,4543 @@
+{
+  "api_version": 1,
+  "data": {
+    "items": [
+      {
+        "after_allowed": [
+          "400:expected-message"
+        ],
+        "before_allowed": [
+          "400:expected-message"
+        ],
+        "changed_clause_ids": [],
+        "id": 0,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "missing-identity",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "neither",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "400:expected-message"
+        ],
+        "before_allowed": [
+          "400:expected-message"
+        ],
+        "changed_clause_ids": [],
+        "id": 1,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "missing-identity",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "neither",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 2,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "email",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 3,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "email",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 4,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "email",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 5,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "email",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 6,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "email",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 7,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "email",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 8,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "email",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 9,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "email",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 10,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "email",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 11,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "email",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 12,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "email",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 13,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "email",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 14,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "email",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 15,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "email",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 16,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "email",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 17,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "email",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 18,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 19,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 20,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 21,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:admin-id:admin"
+        ],
+        "before_allowed": [
+          "token:admin-id:admin",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 22,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:admin-id:admin",
+          "500"
+        ],
+        "before_allowed": [
+          "token:admin-id:admin",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 23,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:admin-id:admin",
+          "500"
+        ],
+        "before_allowed": [
+          "token:admin-id:admin",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 24,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:admin-id:admin",
+          "500"
+        ],
+        "before_allowed": [
+          "token:admin-id:admin",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 25,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 26,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 27,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 28,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 29,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 30,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 31,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 32,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 33,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "username",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 34,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 35,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 36,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 37,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 38,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 39,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 40,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 41,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 42,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 43,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 44,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 45,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 46,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 47,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 48,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "id": 49,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::unknown-account"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 50,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 51,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 52,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 53,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 54,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 55,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 56,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 57,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 58,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 59,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 60,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 61,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 62,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 63,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 64,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 65,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unknown-account",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": null,
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 66,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 67,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 68,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 69,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 70,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 71,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 72,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 73,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 74,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 75,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 76,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 77,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 78,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 79,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "id": 80,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::correct-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 81,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 82,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 83,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 84,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 85,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 86,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 87,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 88,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 89,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 90,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 91,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 92,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 93,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 94,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 95,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 96,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "before_allowed": [
+          "token:customer-id:customer",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 97,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "correct-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "matching",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 98,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 99,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 100,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 101,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 102,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 103,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 104,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 105,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 106,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 107,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 108,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 109,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 110,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 111,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 112,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "id": 113,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "witnesses": [
+          {
+            "after_rejected_by": [
+              "login_flow::wrong-password"
+            ],
+            "before_rejected_by": [],
+            "outcome": "500"
+          }
+        ],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 114,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 115,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 116,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 117,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 118,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 119,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 120,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 121,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 122,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 123,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 124,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 125,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 126,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 127,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 128,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "401",
+          "500"
+        ],
+        "before_allowed": [
+          "401",
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 129,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "wrong-password",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "wrong",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 130,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 131,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 132,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 133,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 134,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 135,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 136,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 137,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 138,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 139,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 140,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 141,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 142,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 143,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 144,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 145,
+        "lookup_fails": false,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": false,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 146,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 147,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 148,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 149,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": null,
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 150,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 151,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 152,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 153,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "matching",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 154,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 155,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 156,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 157,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "wrong",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 158,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 159,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": false,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 160,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": false
+        }
+      },
+      {
+        "after_allowed": [
+          "500"
+        ],
+        "before_allowed": [
+          "500"
+        ],
+        "changed_clause_ids": [],
+        "id": 161,
+        "lookup_fails": true,
+        "outcomes_added": [],
+        "outcomes_removed": [],
+        "request_case": "unreadable-hash",
+        "witnesses": [],
+        "world": {
+          "admin_lookup_fails": true,
+          "admin_verdict": "unreadable",
+          "customer_lookup_fails": true,
+          "customer_verdict": "unreadable",
+          "identity": "both",
+          "signing_fails": true
+        }
+      }
+    ],
+    "result_types": {
+      "400:expected-message": "400",
+      "400:other-message": "400",
+      "401": "401",
+      "500": "500",
+      "other-error": "other-error",
+      "token:admin-id:admin": "token",
+      "token:admin-id:customer": "token",
+      "token:admin-id:other-role": "token",
+      "token:customer-id:admin": "token",
+      "token:customer-id:customer": "token",
+      "token:customer-id:other-role": "token",
+      "token:other-id:admin": "token",
+      "token:other-id:customer": "token",
+      "token:other-id:other-role": "token",
+      "token:unreadable": "token"
+    },
+    "scope": "Abstract completed results of the supplied login_flow postconditions"
+  },
+  "kind": "worlds",
+  "release_id": "fb2763acfb7b7b27aa813849a96b006e2c96e59540c20aa56c9a688ec20ffbc3"
+}

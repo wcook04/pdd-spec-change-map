@@ -1,0 +1,544 @@
+// The page: the explorer's shell round the spec change map. One inspector says
+// what the chosen thing is. Its evidence (the Verus as printed, the modelled
+// logins, the method) opens in a workspace beside a smaller map, at a size
+// made for reading. Pointing changes only the map and its centre; a click
+// chooses. The shell and card markup follow
+// frontend/src/views/explorer.js in practical-formal-verification.
+
+import { h, svg, clear, announce } from './dom.js';
+import { load } from './api.js';
+import { buildModel, outcomeName, tokenDiff, tidyCode, CASES, RINGS, VERSIONS } from './model.js';
+import { createSpecMap } from './specmap.js';
+
+document.documentElement.classList.add('is-explorer');
+const main = document.getElementById('main');
+
+/* ---- Theme switch, as in the explorer's main.js ---- */
+const toggle = document.querySelector('[data-theme-toggle]');
+function syncToggle() {
+  toggle.setAttribute('aria-checked', document.documentElement.getAttribute('data-theme') === 'dark' ? 'true' : 'false');
+}
+toggle.addEventListener('click', () => {
+  const root = document.documentElement;
+  const dark = root.getAttribute('data-theme') !== 'dark';
+  root.classList.add('theme-switching');
+  root.setAttribute('data-theme', dark ? 'dark' : 'light');
+  const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  try {
+    if (dark === systemDark) localStorage.removeItem('plectis-theme'); else localStorage.setItem('plectis-theme', dark ? 'dark' : 'light');
+  } catch { /* storage may be unavailable; the choice still applies to this page */ }
+  syncToggle();
+  requestAnimationFrame(() => requestAnimationFrame(() => root.classList.remove('theme-switching')));
+});
+syncToggle();
+
+/* ---- Small pieces ---- */
+const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+const word = (n) => WORDS[n] ?? String(n);
+const plural = (n, one, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
+const listWords = (items) => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`);
+const longDate = (iso) => new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const ext = (href, text) => h('a', { href, target: '_blank', rel: 'noopener' }, text);
+/** Text from a doc comment, with its `names` set as code. */
+const inline = (text) => String(text).split('`').map((part, i) => (i % 2 ? h('code', {}, part) : part));
+
+/** A clause as the map draws it: comment ring inside, code ring outside. */
+function miniDial(c, extraClass = 'mini-dial') {
+  const root = svg('svg', { class: `${extraClass} sm-dial${c.codeChanged ? ' code-changed' : ''}${c.englishChanged ? ' english-changed' : ''}${c.apart?.before ? ' apart-before' : ''}${c.apart?.after ? ' apart-after' : ''}${c.isApart ? ' is-apart' : ''}`, viewBox: '-22 -22 44 44', 'aria-hidden': 'true', focusable: 'false' });
+  const n = svg('text', { class: 'sm-dial__n', 'text-anchor': 'middle', 'dominant-baseline': 'central', y: 0.5 });
+  n.textContent = c.n ? String(c.n) : '';
+  root.append(svg('circle', { class: 'sm-dial__face', r: 17 }), svg('circle', { class: 'sm-dial__code', r: 17 }), svg('circle', { class: 'sm-dial__english', r: 10.5 }), n);
+  return root;
+}
+function pieceGlyph() {
+  return svg('svg', { viewBox: '-11 -11 22 22', width: 14, height: 14, 'aria-hidden': 'true', focusable: 'false' },
+    svg('circle', { class: 'sm-piece__ring', r: 8.5 }), svg('circle', { class: 'sm-piece__dot', r: 3.4 }));
+}
+const swatch = (cls) => h('span', { class: `swatch ${cls}`, 'aria-hidden': 'true' });
+
+function marked(tokens, kind) {
+  // Neighbouring changed tokens, and the spaces between them, become one mark.
+  const out = [];
+  let run = '';
+  const flush = () => {
+    if (!run) return;
+    const tail = run.match(/\s+$/)?.[0] || '';
+    out.push(h('mark', { class: kind === 'now' ? 'is-now' : 'is-was' }, run.slice(0, run.length - tail.length)), tail);
+    run = '';
+  };
+  for (const [text, state] of tokens) {
+    if (state !== 'same') run += text;
+    else if (run && !text.trim()) run += text;
+    else { flush(); out.push(text); }
+  }
+  flush();
+  return out;
+}
+function sourceLine(side, source, model) {
+  const doc = model.documents[source.document];
+  const lines = source.from === source.to ? `line ${source.from}` : `lines ${source.from} to ${source.to}`;
+  return side === 'before'
+    ? ext(doc.url, `Microsoft Research post, ${lines} of the printed listing`)
+    : ext(doc.url, `GitHub Next page, ${lines} of login.rs`);
+}
+
+/* ---- Start ---- */
+const status = h('div', { class: 'explorer__status', role: 'status' }, 'Reading the saved comparison…');
+main.append(status);
+load().then((api) => start(buildModel(api))).catch((error) => {
+  status.replaceChildren(h('div', { class: 'state state--error' }, h('strong', {}, 'The comparison could not be read. '), String(error.message || error)));
+});
+
+function start(model) {
+  const t = model.totals;
+  const state = { version: 'after', chosen: null, hover: null, evidence: false };
+  const caseName = (id) => CASES.find((c) => c.id === id).name;
+  const SHORT = { token: '200', 400: '400', 401: '401', 500: '500' };
+  const FLAG = { lookup_fails: 'dbFails', signing_fails: 'signerFails' };
+
+  /* ---- Stage ---- */
+  const figure = svg('svg', { tabindex: 0, 'aria-label': `Map of the ${t.situations} situations a login can be in and the responses each printed version of the login_flow contract allows. Use the left and right arrow keys to move between situations.` });
+  const where = h('span', { class: 'spec-version__where' });
+  const versionButtons = Object.fromEntries(Object.entries(VERSIONS).map(([id, v]) => [id, h('button', { type: 'button', class: 'seg', 'aria-pressed': 'false', onclick: () => setVersion(id) }, v.short)]));
+  const versionBox = h('div', { class: 'spec-version' }, h('div', { class: 'segs', role: 'group', 'aria-label': 'Version of the spec' }, versionButtons.before, versionButtons.after), where);
+  const tools = h('div', { class: 'explorer__tools' },
+    h('button', { type: 'button', class: 'explorer-tool', onclick: (e) => {
+      const collapsed = explorer.classList.toggle('is-panel-collapsed');
+      e.currentTarget.textContent = collapsed ? 'Show panel' : 'Hide panel';
+    } }, 'Hide panel'));
+  const lensButtons = ['map', 'table'].map((v) => h('button', { type: 'button', class: 'seg', 'aria-pressed': String(v === 'map'), onclick: () => setLens(v) }, v === 'map' ? 'Map' : 'Table'));
+  tools.prepend(h('div', { class: 'segs spec-lens', role: 'group', 'aria-label': 'Show the situations as' }, lensButtons));
+  const sheet = h('div', { class: 'sheet', hidden: true });
+  const stage = h('div', { class: 'explorer__stage' }, figure, sheet, versionBox, tools);
+  function setLens(v) {
+    const table = v === 'table';
+    sheet.hidden = !table;
+    figure.style.visibility = table ? 'hidden' : '';
+    lensButtons.forEach((b, i) => b.setAttribute('aria-pressed', String((i === 1) === table)));
+  }
+
+  /* ---- Inspector and evidence workspace ---- */
+  const reading = h('div', { class: 'insp', tabindex: '-1' });
+  const keyLine = (mark, words) => h('li', {}, h('span', { class: 'mapkey__mark', 'aria-hidden': 'true' }, mark), h('span', {}, words));
+  const mapKey = h('details', { class: 'mapkey' },
+    h('summary', {}, 'How to read the map'),
+    h('ul', {},
+      keyLine(h('span', { class: 'mapkey__wedge' }, swatch('sw-401'), swatch('sw-500')), 'Each wedge is one situation: a kind of request, and what fails. Its blocks are the responses the contract on show allows there.'),
+      keyLine(h('span', { class: 'mapkey__wedge' }, swatch('sw-401'), swatch('is-lost')), 'A hollow block was allowed by the earlier contract only.'),
+      keyLine(h('span', { class: 'mapkey__bands' }, swatch('swatch--thin sw-signer'), swatch('swatch--thin sw-db')), 'Inside each wedge, a mark where the signing fails and a mark where the lookup fails.'),
+      keyLine(miniDial({ codeChanged: true, englishChanged: false, n: 4, isApart: true }), 'Each numbered arc is an ensures clause, with its Verus on the outer line and its comment on the inner line. The Verus line is dashed where the comment limits a 500 to a failure and the Verus does not.'),
+      keyLine(pieceGlyph(), 'The six names round the centre are the trusted pieces, which Verus does not check.')),
+    h('p', { class: 'mapkey__note' }, 'Allowed means every clause of the contract accepts that response. Nobody ran Pet Store for this page, so it does not show which allowed response login returns.'));
+  mapKey.open = window.innerHeight >= 880;
+  const panel = h('aside', { class: 'explorer__panel', 'aria-label': 'What the chosen thing is' }, reading, mapKey);
+  const evidence = h('section', { class: 'explorer__evidence', 'aria-label': 'Evidence' });
+  const viewButtons = ['map', 'details'].map((v) => h('button', { type: 'button', class: 'explorer-tool', 'aria-pressed': String(v === 'map'), onclick: () => show(v) }, v === 'map' ? 'Map' : 'Details'));
+  const views = h('div', { class: 'explorer__views', role: 'group', 'aria-label': 'Show' }, viewButtons);
+  const explorer = h('div', { class: 'explorer', 'data-explorer-shown': 'map' }, views, panel, evidence, stage);
+  function show(v) {
+    explorer.dataset.explorerShown = v;
+    viewButtons.forEach((b, i) => b.setAttribute('aria-pressed', String((i === 0) === (v === 'map'))));
+  }
+  main.replaceChildren(explorer);
+
+  const map = createSpecMap(figure, model, { onSelect: (k) => choose(k === state.chosen ? null : k), onHover: point });
+
+  let counting = 0, lastCount = null;
+  /* ---- Version ---- */
+  function setVersion(v, { quiet = false } = {}) {
+    state.version = v;
+    for (const [id, b] of Object.entries(versionButtons)) b.setAttribute('aria-pressed', String(id === v));
+    where.textContent = `The contract as printed ${v === 'before' ? 'in the Microsoft Research post' : 'on the GitHub Next page'}`;
+    map.setVersion(v);
+    explorer.dataset.version = v;
+    const shown = model.find(state.hover ?? state.chosen);
+    const target = faceFor(shown);
+    clearInterval(counting);
+    const to = model.situations.filter((x) => x[v === 'before' ? 'beforeKinds' : 'afterKinds'].has('500')).length;
+    if (!shown && lastCount !== null && lastCount !== to && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      let n = lastCount;
+      counting = setInterval(() => {
+        n += Math.sign(to - n);
+        map.setFace({ ...target, main: [[`${n} of ${t.situations}`]] });
+        if (n === to) clearInterval(counting);
+      }, 80);
+    } else map.setFace(target);
+    lastCount = to;
+    if (!quiet) { writeHash(); announce(`${VERSIONS[v].name}, ${where.textContent.toLowerCase()}`); }
+  }
+
+  /* ---- The inspector shows the chosen thing; its evidence opens beside it ---- */
+  function paint() {
+    const o = model.find(state.chosen);
+    const view = !o ? overview() : o.key.startsWith('s:') ? situationView(o) : o.key.startsWith('c:') ? clauseView(o) : pieceView(o);
+    reading.replaceChildren(h('div', { class: 'insp__inner' },
+      o ? h('div', { class: 'insp__head' }, h('button', { type: 'button', class: 'card-head__back', onclick: () => choose(null) }, '← Overview')) : null,
+      view.reading));
+    explorer.classList.toggle('has-evidence', state.evidence);
+    clear(evidence);
+    if (state.evidence) {
+      evidence.append(h('div', { class: 'ev' },
+        h('div', { class: 'ev__head' }, h('h2', { class: 'ev__title' }, view.evidenceTitle),
+          h('button', { type: 'button', class: 'ev__close', onclick: () => openEvidence(false) }, h('span', { class: 'ev__close-wide' }, 'Close'), h('span', { class: 'ev__close-narrow' }, '‹ Back'))),
+        view.evidence));
+    }
+    map.setFace(faceFor(model.find(state.hover ?? state.chosen)));
+  }
+  function openEvidence(on) { state.evidence = on; paint(); if (on) evidence.querySelector('.ev__close')?.focus({ preventScroll: true }); }
+  const evidenceButton = (text) => h('button', { type: 'button', class: 'insp__open', 'aria-pressed': String(state.evidence), onclick: () => openEvidence(!state.evidence) },
+    h('span', {}, text), h('span', { class: 'insp__open-mark', 'aria-hidden': 'true' }, state.evidence ? '×' : '›'));
+
+  // Pointing changes the map and its centre only; the inspector stays where it is.
+  function point(k) {
+    state.hover = k || null;
+    map.setHover(state.hover);
+    map.setFace(faceFor(model.find(state.hover ?? state.chosen)));
+  }
+
+  function choose(k, { quiet = false } = {}) {
+    state.chosen = model.find(k)?.key ?? null;
+    map.setChosen(state.chosen);
+    for (const [k, tr] of sheetRows) tr.classList.toggle('is-here', k === state.chosen);
+    paint();
+    reading.scrollTop = 0;
+    if (!quiet) {
+      const o = model.find(state.chosen);
+      writeHash();
+      if (o) { announce(o.title || (o.n ? `Clause ${o.n}` : o.name)); if (window.matchMedia('(max-width: 899px)').matches) show('details'); }
+    }
+  }
+  /** A link in the inspector: pointing lights the thing on the map, a click chooses it. */
+  const go = (o, label, cls = 'textbtn') => h('button', {
+    type: 'button', class: cls, onclick: () => choose(o.key),
+    onpointerenter: () => point(o.key), onpointerleave: () => point(null),
+    onfocus: () => point(o.key), onblur: () => point(null),
+  }, label);
+
+  function writeHash() {
+    const parts = [];
+    if (state.version !== 'after') parts.push(`v=${state.version}`);
+    if (state.chosen) parts.push(`o=${encodeURIComponent(state.chosen)}`);
+    history.replaceState(null, '', parts.length ? `#${parts.join('&')}` : location.pathname + location.search);
+  }
+
+  /* ---- The readout at the centre of the map ---- */
+  const FACE_NAME = { token: 'token', 400: '400', 401: '401', 500: '500' };
+  function faceFor(o) {
+    const v = state.version, kinds = v === 'before' ? 'beforeKinds' : 'afterKinds';
+    if (!o) {
+      const n = model.situations.filter((x) => x[kinds].has('500')).length;
+      return { kicker: v === 'before' ? 'Earlier contract' : 'Corrected contract', main: [[`${n} of ${t.situations}`]], sub: ['situations allow a 500'] };
+    }
+    if (o.key.startsWith('s:')) {
+      const names = RINGS.filter((r) => o[kinds].has(r.id));
+      return {
+        kicker: o.case.name,
+        main: names.flatMap((r, i) => [i ? [' or ', 'is-or'] : null, [FACE_NAME[r.id], `is-${r.id}`]]).filter(Boolean),
+        sub: [`lookup ${o.dbFails ? 'fails' : 'works'} · signing ${o.signerFails ? 'fails' : 'works'}`,
+          o.changed ? [v === 'after' ? '500 no longer allowed' : '500 allowed, nothing failing', 'is-strong'] : 'same in both contracts'],
+      };
+    }
+    if (o.key.startsWith('c:')) {
+      const unchanged = o.change === 'unchanged';
+      return {
+        kicker: `Clause ${o.n}`, size: 'mid',
+        main: [[unchanged ? 'Printed the same in both' : o.apart[v] ? '500 with no condition' : '500 only on a failure']],
+        sub: unchanged ? [o.aboutToken ? 'a rule about the token' : caseName(o.caseId)] : o.apart[v] ? ['its comment has the condition', 'its Verus does not'] : o.names.map((name) => [name, 'is-code']),
+      };
+    }
+    return {
+      kicker: 'Trusted piece', size: 'mid', main: [[o.name.replace(/^\w+::/, ''), 'is-code']],
+      sub: ['assumed contract', o.reachedBy.length ? `used by clauses ${listWords(o.reachedBy.map((c) => c.n))}` : null],
+    };
+  }
+
+  /* ---- Small pieces of the inspector ---- */
+  const kindsWords = (kinds) => listWords(RINGS.filter((r) => kinds.has(r.id)).map((r) => r.name)).replace(/,? and /, ' or ');
+  const label = (text) => h('p', { class: 'insp__label' }, text);
+  const chip = (ringId, gone = false) => h('span', { class: `rchip${gone ? ' is-gone' : ''}` }, swatch(`sw-${ringId}`), SHORT[ringId], gone ? h('span', { class: 'sr-only' }, ', earlier contract only') : null);
+  const codeNames = (names) => names.map((name, i) => [i ? ' or ' : '', h('code', {}, name)]);
+  const quote = (text, note) => h('figure', { class: 'quote' }, h('blockquote', { class: 'spec-words' }, text), h('figcaption', {}, note));
+  const count = (n) => n.toLocaleString('en-GB');
+
+  /** The situations of one kind of request, laid out by what fails. A failure
+      that changes nothing in either contract is left out and stated under the table. */
+  function failTable(caseId, current) {
+    const xs = model.situations.filter((x) => x.case.id === caseId);
+    const sig = (x) => `${[...x.beforeKinds].sort()}|${[...x.afterKinds].sort()}`;
+    const varies = (flag) => new Set(xs.map((x) => x[flag])).size > 1;
+    const matters = (flag, other) => xs.some((a) => xs.some((b) => a[flag] !== b[flag] && a[other] === b[other] && sig(a) !== sig(b)));
+    const db = varies('dbFails') && matters('dbFails', 'signerFails'), signer = varies('signerFails') && matters('signerFails', 'dbFails');
+    const rows = db ? [false, true] : [null], cols = signer ? [false, true] : [null];
+    const pick = (d, s) => xs.find((x) => (d === null ? x.dbFails === (current?.case.id === caseId ? current.dbFails : false) : x.dbFails === d)
+      && (s === null ? x.signerFails === (current?.case.id === caseId ? current.signerFails : false) : x.signerFails === s)) || xs[0];
+    const cell = (d, s) => {
+      const x = pick(d, s);
+      return h('td', {}, go(x, [
+        RINGS.filter((r) => x.afterKinds.has(r.id)).map((r) => chip(r.id)),
+        RINGS.filter((r) => x.lost.includes(r.id)).map((r) => chip(r.id, true)),
+      ], `ftable__cell${x.changed ? ' is-changed' : ''}${current && current.key === x.key ? ' is-here' : ''}`));
+    };
+    const signingUsed = model.clauses.some((c) => c.caseId === caseId && /signing_fails/.test(c.after.text.code));
+    const notes = [];
+    if (varies('signerFails') && !signer) notes.push(signingUsed ? 'A failed signing changes nothing for this kind of request.' : 'A failed signing changes nothing for this kind of request, because none of its clauses refers to signing.');
+    if (varies('dbFails') && !db) notes.push('A failed lookup changes nothing for it either.');
+    if (!varies('dbFails')) notes.push('The table has no failed lookup for this kind of request.');
+    return [
+      h('table', { class: `ftable${signer ? '' : ' ftable--one'}` },
+        signer ? h('thead', {}, h('tr', {}, db ? h('td', {}) : null, h('th', { scope: 'col' }, 'Signing works'), h('th', { scope: 'col' }, swatch('swatch--thin sw-signer'), 'Signing fails'))) : null,
+        h('tbody', {}, rows.map((d) => h('tr', {},
+          db ? h('th', { scope: 'row' }, d ? [swatch('swatch--thin sw-db'), 'Lookup fails'] : 'Lookup works') : null,
+          cols.map((s) => cell(d, s)))))),
+      h('p', { class: 'insp__aside' }, xs.some((x) => x.changed) ? [chip('500', true), ' was allowed by the earlier contract only. '] : null, notes.join(' ')),
+    ];
+  }
+
+  /** What the saved comparison records about the results a clause rules out. */
+  function ruledOut(c) {
+    const now = c.ruledOut.after, was = c.ruledOut.before;
+    const l = now.sample && model.loginById.get(now.sample.world_id);
+    const others = now.coveredBy.map((id) => model.clauseById.get(id)).filter(Boolean);
+    const changed = was.pairs !== now.pairs;
+    return [
+      label('What this clause rules out'),
+      l && !changed ? h('p', { class: 'example' }, h('span', { class: 'example__when' }, `Example: ${l.situation.title.toLowerCase().replace(/^./, (m) => m.toUpperCase())}, and the request sends ${l.sends.toLowerCase()}.`),
+        h('span', { class: 'example__what' }, 'Ruled out: ', h('strong', {}, outcomeName(now.sample.outcome_id)), '.')) : null,
+      h('p', { class: 'insp__text' }, `Of the ${count(t.pairs)} pairs of a modelled login and a result in the comparison, this clause rules out ${count(now.pairs)}`,
+        changed ? `, up from ${count(was.pairs)} in the earlier contract. The ${now.pairs - was.pairs} more are the 500s struck out above.` : '.',
+        others.length ? [' ', others.map((o, i) => [i ? ' and ' : '', go(o, `Clause ${o.n}`)]), ' rules out each of these as well. This clause states the rule about the role on its own.'] : ''),
+    ];
+  }
+
+  /* ---- Overview: what changed between the two printed contracts ---- */
+  function overview() {
+    const changed = model.clauses.filter((c) => c.change !== 'unchanged');
+    const reworded = changed.filter((c) => c.englishChanged), sameWords = changed.filter((c) => !c.englishChanged);
+    const names = [...new Set(changed.flatMap((c) => c.names))];
+    const definers = model.trusted.filter((p) => p.reachedBy.length);
+    const clauseList = (cs) => `${cs.length > 1 ? 'Clauses' : 'Clause'} ${listWords(cs.map((c) => c.n))}`;
+    const row = (name, body) => h('div', { class: 'receipt__row' }, h('dt', {}, name), h('dd', {}, body));
+    return {
+      reading: [
+        h('p', { class: 'insp__kicker' }, 'PDD Kit · ', h('code', {}, 'login_flow'), ' · printed twice'),
+        h('h1', { class: 'insp__title' }, 'What changed between the two printed login contracts'),
+        h('p', { class: 'insp__lead' }, `In the earlier contract, the comments on clauses ${listWords(changed.map((c) => c.n))} limit a 500 to a failed lookup or signing. The Verus under those comments allows a 500 with nothing failing. The corrected contract adds the condition to the Verus.`),
+        h('dl', { class: 'receipt' },
+          row('Comments', [reworded.length ? `${clauseList(reworded)} reworded. ` : '', sameWords.length ? `${clauseList(sameWords)} word for word the same.` : '']),
+          row('Verus', `${clauseList(changed)} changed. The other ${word(t.clauses - changed.length)} are printed the same.`),
+          row('Allowed responses', `${t.changedSituations} of ${t.situations} situations no longer allow a 500. ${t.gainedSituations ? `${t.gainedSituations} allow a new response.` : 'None allows a new response.'}`),
+          row('Failure conditions', [`The changed clauses now refer to `, codeNames(names).map((x) => x), `. ${word(definers.length)[0].toUpperCase()}${word(definers.length).slice(1)} assumed contracts state when those are true.`]),
+          row('Sign-offs', 'Not compared. This page has neither the intent artifact nor the sign-off record.')),
+        label(`The ${word(changed.length)} changed clauses`),
+        h('ul', { class: 'changes' }, changed.map((c) => h('li', {}, go(c, [
+          miniDial(c, 'changes__dial'),
+          h('span', { class: 'changes__title' }, caseName(c.caseId)),
+          h('span', { class: 'changes__sub' }, `Clause ${c.n} · ${plural(c.changedSituations.length, 'situation')}`),
+        ], 'changes__go')))),
+        evidenceButton('Method and limits'),
+      ],
+      evidenceTitle: 'Method and limits',
+      evidence: [
+        h('div', { class: 'ev__text' },
+          label('What was compared'),
+          h('p', {}, `${t.logins} modelled logins, grouped into ${t.situations} situations: the kind of request, and whether the lookup and the signing work. Within a situation, each contract allows every login the same kinds of response.`),
+          h('p', {}, 'A response is allowed when every clause of the contract accepts it. That is a statement about the contract. Nobody ran Pet Store for this page, so the page does not show which allowed response login returns.'),
+          label('Method and limits'),
+          h('ul', { class: 'facts' },
+            fact(true, `Both listings were read from the public pages on ${longDate(model.readOn)}. Each one’s text matches the SHA-256 recorded in the comparison.`),
+            fact(true, `The allowed responses come from a finite table: ${t.logins} modelled logins, each tried against ${t.resultForms} forms of result (${count(t.pairs)} pairs), using the clauses as parsed.`,
+              'Clauses 2, 7 and 8 needed a choice about where a “matches” binding is in scope. The choice is the same for both contracts, and none of the three is a changed clause.'),
+            fact(true, 'A checker compiled from Dafny accepted the list of changed logins and their conditions for this exact table.'),
+            fact(false, 'Neither publication includes a Verus run, so this page does not show whether the Pet Store code meets either contract.'),
+            fact(false, 'The comments are the ones printed above each clause. This page does not have PDD Kit’s intent artifact or its sign-offs.'),
+            fact(false, 'The map ties a trusted piece to a clause only where the clause refers to a failure condition that the piece’s assumed contract defines. Other dependencies are not drawn.'),
+            fact(false, 'The clauses describe the result when the login future completes. Whether it completes is outside both contracts.')),
+          h('p', { class: 'insp__aside figures' }, `Comparison ${model.api.id.slice(0, 10)}. Clause text read from the two pages on ${longDate(model.readOn)}.`)),
+      ],
+    };
+  }
+  function fact(have, text, caution) {
+    const glyph = svg('svg', { viewBox: '0 0 12 12', width: 12, height: 12, 'aria-hidden': 'true', focusable: 'false' },
+      have ? svg('circle', { cx: 6, cy: 6, r: 2.4, fill: 'currentColor' }) : svg('circle', { cx: 6, cy: 6, r: 3, fill: 'none', stroke: 'currentColor', 'stroke-dasharray': '1.2 1.3' }));
+    return h('li', { class: `fact${have ? '' : ' fact--unknown'}` }, glyph, h('span', { class: 'fact__text' }, text, caution ? h('span', { class: 'fact__caution' }, caution) : null));
+  }
+
+  /* ---- One situation ---- */
+  const ROW_WORD = { matching: 'right password', wrong: 'wrong password', unreadable: 'bad hash' };
+  function situationView(x) {
+    const mine = model.clauses.filter((c) => c.caseId === x.case.id && !c.aboutToken);
+    const changedHere = x.changedClauses.map((id) => model.clauseById.get(id)).filter(Boolean);
+    const revised = mine.filter((c) => c.change !== 'unchanged');
+    const lostNames = listWords(RINGS.filter((r) => x.lost.includes(r.id)).map((r) => r.name));
+    const fails = [x.dbFails ? 'the lookup' : null, x.signerFails ? 'the signing' : null].filter(Boolean);
+    const where = fails.length ? `${fails.join(' and ')} ${fails.length > 1 ? 'fail' : 'fails'}`.replace(/^t/, 'T') + '.' : 'Nothing fails.';
+    const either = x.afterKinds.size > 1 ? ' The contract allows either result. It does not say which one login returns.' : '';
+    let title, why;
+    if (x.changed) {
+      title = `A ${lostNames} is no longer allowed here`;
+      why = changedHere.map((c) => h('p', { class: 'insp__text' }, 'The earlier ', go(c, `clause ${c.n}`), ` allows a ${lostNames} here. The corrected clause allows it only when `, codeNames(c.names), ` is true, and in this situation ${c.names.length > 1 ? 'neither is' : 'it is not'}.`));
+    } else if (revised.length) {
+      title = `Both contracts allow ${kindsWords(x.afterKinds)} here`;
+      why = revised.map((c) => {
+        const holding = c.names.filter((name) => x[FLAG[name]]);
+        return h('p', { class: 'insp__text' }, 'The corrected ', go(c, `clause ${c.n}`), ' still allows a 500 here, because ', codeNames(holding), holding.length > 1 ? ' are both true.' : ' is true.', either);
+      });
+    } else {
+      title = `Both contracts allow ${kindsWords(x.afterKinds)} here`;
+      why = mine.map((c) => h('p', { class: 'insp__text' }, go(c, `Clause ${c.n}`), ' is printed the same in both. ', c.headline, '.'));
+    }
+    const step = (by, text, name) => h('button', { type: 'button', class: 'insp__step', 'aria-label': name, onclick: () => choose(map.neighbour(x.key, by)) }, text);
+    const exact = (side) => [...new Set(x.logins.flatMap((l) => l[side]))];
+    const after = exact('after'), gone = exact('before').filter((o) => !after.includes(o));
+    const perRow = new Set(x.logins.map((l) => l.after.join())).size > 1;
+    const row = (a) => h('td', {}, a.verdict ? ROW_WORD[a.verdict] : h('span', { class: 'muted' }, 'no row'), a.fails ? h('span', { class: 'logins__fails' }, swatch('swatch--thin sw-db'), 'lookup fails') : null);
+    const many = x.logins.length > 1;
+    return {
+      reading: [
+        h('p', { class: 'insp__kicker' }, `Situation · ${x.case.name}`),
+        h('h1', { class: 'insp__title' }, title),
+        h('p', { class: 'insp__where' }, where),
+        why,
+        label(`${x.case.name}: responses allowed, by what fails`),
+        failTable(x.case.id, x),
+        evidenceButton(many ? `See the ${x.logins.length} modelled logins` : 'See the modelled login'),
+        h('p', { class: 'insp__steps' }, step(-1, '‹', 'Previous situation'), step(1, '›', 'Next situation'), h('span', {}, `${model.situations.indexOf(x) + 1} of ${t.situations} situations`)),
+      ],
+      evidenceTitle: `${x.title}: ${plural(x.logins.length, 'modelled login')}`,
+      evidence: [
+        h('div', { class: 'ev__text' },
+          h('p', {}, many ? `Each of the ${x.logins.length} is allowed the same kinds of response. ` : '',
+            `Earlier contract: ${kindsWords(x.beforeKinds)}. Corrected contract: ${kindsWords(x.afterKinds)}.`, many ? ' The logins differ in what the request sends and in what each account table holds.' : ''),
+          h('table', { class: 'logins figures' },
+            h('thead', {}, h('tr', {}, ['Request sends', 'Customer row', 'Admin row', perRow ? 'Exact result, corrected contract' : null].filter(Boolean).map((name) => h('th', { scope: 'col' }, name)))),
+            h('tbody', {}, x.logins.map((l) => h('tr', {}, h('td', {}, l.sends), row(l.customer), row(l.admin), perRow ? h('td', {}, l.after.map(outcomeName).join('; ')) : null)))),
+          h('p', { class: 'insp__aside' }, 'Right password, wrong password and bad hash are bcrypt’s verdict on the password for that row.'),
+          label('Exact results allowed across them'),
+          h('ul', { class: 'spec-exact' }, after.map((o) => h('li', {}, outcomeName(o))), gone.map((o) => h('li', { class: 'is-gone' }, outcomeName(o), ' (earlier contract only)')))),
+      ],
+    };
+  }
+
+  /* ---- One clause ---- */
+  function clauseView(c) {
+    const english = c.englishChanged ? tokenDiff(c.before.text.english, c.after.text.english) : null;
+    const codeA = tidyCode(c.before.text.code), codeB = tidyCode(c.after.text.code);
+    const code = c.codeChanged ? tokenDiff(codeA, codeB) : null;
+    const side = (s, src) => h('span', { class: 'spec-side' }, VERSIONS[s].short, ' · ', sourceLine(s, src, model));
+    const changed = c.change !== 'unchanged';
+    const caseChanged = model.clauses.some((k) => k.caseId === c.caseId && k.change !== 'unchanged');
+    const pieces = c.names.map((name) => ({ name, pieces: [...new Set(c.paths.filter((p) => p.via[1] === name).map((p) => model.trustedById.get(p.trusted_function)))] }));
+    // The text the corrected clause adds: the marked runs that hold a name, less any unmatched closing bracket.
+    const added = code ? marked(code.now, 'now').filter((n) => n instanceof Node && /[a-z]/i.test(n.textContent)).map((n) => {
+      let text = n.textContent.replace(/\s+/g, ' ').trim();
+      while (text.endsWith(')') && text.split(')').length > text.split('(').length) text = text.slice(0, -1).trim();
+      return text;
+    }).join(' ') : '';
+    return {
+      reading: [
+        h('p', { class: 'insp__kicker' }, miniDial(c), `Clause ${c.n} of ${t.clauses} · ${c.aboutToken ? 'a rule about the token' : caseName(c.caseId)}`),
+        h('h1', { class: 'insp__title' }, c.headline),
+        quote(english ? marked(english.now, 'now') : c.after.text.english,
+          !changed ? 'The printed comment. Comment and Verus are the same in both contracts.' : english ? 'The printed comment in the corrected contract. The marked words are new.' : 'The printed comment, word for word the same in both contracts.'),
+        changed ? h('p', { class: 'insp__text' }, 'The earlier Verus allows the 500 with no condition. The corrected Verus adds ', h('code', { class: 'added' }, added), '.') : null,
+        changed || (!caseChanged && !c.aboutToken) ? [label(`${caseName(c.caseId)}: responses allowed, by what fails`), failTable(c.caseId, null)] : null,
+        ruledOut(c),
+        pieces.length ? h('p', { class: 'insp__aside' }, pieces.map((p, i) => [i ? ' and ' : '', h('code', {}, p.name)]), pieces.length > 1 ? ' are' : ' is', ' defined through the assumed contracts of ',
+          [...new Set(pieces.flatMap((p) => p.pieces))].map((piece, k, all) => [k ? (k === all.length - 1 ? ' and ' : ', ') : '', go(piece, piece.name)]), '.') : null,
+        evidenceButton(code ? 'Compare the two printed clauses' : 'Read the printed clause'),
+      ],
+      evidenceTitle: `Clause ${c.n} as printed`,
+      evidence: [
+        code
+          ? h('div', { class: 'spec-pair' },
+            h('div', {}, side('before', c.before.source), h('code', { class: 'spec-code' }, marked(code.was, 'was'))),
+            h('div', {}, side('after', c.after.source), h('code', { class: 'spec-code' }, marked(code.now, 'now'))))
+          : [h('code', { class: 'spec-code' }, codeB),
+            h('p', { class: 'ev__note' }, 'Printed the same in both contracts. ', sourceLine('before', c.before.source, model), ' · ', sourceLine('after', c.after.source, model))],
+        code ? h('p', { class: 'ev__note' }, 'The marked text is in the corrected contract only.') : null,
+        english ? [h('p', { class: 'insp__label' }, 'The comment, earlier and corrected'), h('div', { class: 'spec-pair' }, h('p', { class: 'spec-words' }, marked(english.was, 'was')), h('p', { class: 'spec-words' }, marked(english.now, 'now')))] : null,
+      ],
+    };
+  }
+
+  /* ---- One trusted piece ---- */
+  function pieceView(p) {
+    const added = p.comparison?.clauses_added.length || 0;
+    const diff = p.before && added ? tokenDiff(p.before.text.code.replace(/[ \t]+\n/g, '\n'), p.after.text.code) : null;
+    const through = p.reachedBy.length ? p.via(p.reachedBy[0])[0] : [];
+    const rel = (name, body) => h('div', { class: 'rel' }, h('p', { class: 'rel__name' }, name), body);
+    return {
+      reading: [
+        h('p', { class: 'insp__kicker' }, pieceGlyph(), 'Trusted piece · Verus does not check it'),
+        h('h1', { class: 'insp__title insp__title--code' }, h('code', {}, p.name)),
+        quote(inline(p.after.text.english), 'Its doc comment in the corrected contract.'),
+        p.reachedBy.length
+          ? rel('Used by the changed clauses', [
+            h('p', {}, `Clauses ${listWords(p.reachedBy.map((c) => c.n))} now allow a 500 only when `, h('code', {}, through[0]), ' is true. ',
+              through.length > 1 ? ['For this lookup, ', h('code', {}, through[0]), ' is ', h('code', {}, through[through.length - 1]), '. The assumed contract of this piece states when that is true.'] : 'The assumed contract of this piece states when that is true.'),
+            h('ul', { class: 'golist' }, p.reachedBy.map((c) => h('li', {}, go(c, `Clause ${c.n} · ${caseName(c.caseId)}`, 'golist__go'))))])
+          : rel('Not part of the added condition', h('p', {}, 'The condition added to clauses 3, 4 and 5 does not refer to this piece. ', h('code', {}, 'login_flow'), ' still depends on it in other ways, and this map does not draw those.')),
+        rel('In the earlier post', h('p', {}, !p.before ? 'The earlier post does not print this assumed contract, so the two cannot be compared. That is not evidence that the contract is new.'
+          : added ? 'The earlier post prints this assumed contract without the clause that states when the lookup fails.' : 'The earlier post prints the same assumed contract.')),
+        evidenceButton('Read the assumed contract'),
+      ],
+      evidenceTitle: `${p.name}: the assumed contract as printed`,
+      evidence: [
+        h('span', { class: 'spec-side' }, VERSIONS.after.short, ' · ', sourceLine('after', p.after.source, model)),
+        h('code', { class: 'spec-code' }, diff ? marked(diff.now.filter(([text], i, all) => !(text === '\n' && all[i + 1]?.[0] === '\n')), 'now') : p.after.text.code),
+        p.before ? h('p', { class: 'ev__note' }, added ? 'The marked text is in the corrected contract only. Earlier: ' : 'The earlier post prints the same contract: ', sourceLine('before', p.before.source, model), '.')
+          : h('p', { class: 'ev__note' }, 'The earlier post does not print this contract.'),
+      ],
+    };
+  }
+
+  /* ---- The same 18 situations as a table ---- */
+  const sheetRows = new Map();
+  function buildSheet() {
+    const cells = (x, side) => h('td', { class: `sheet__allowed is-${side}` },
+      RINGS.filter((r) => x[`${side}Kinds`].has(r.id)).map((r) => chip(r.id)),
+      side === 'after' ? RINGS.filter((r) => x.lost.includes(r.id)).map((r) => chip(r.id, true)) : null);
+    const fails = (x) => (x.dbFails && x.signerFails ? 'Lookup and signing fail' : x.dbFails ? 'Lookup fails' : x.signerFails ? 'Signing fails' : 'Nothing fails');
+    sheet.replaceChildren(h('table', { class: 'sheet__table' },
+      h('caption', {}, `The ${t.situations} situations and the responses each printed contract allows`),
+      h('thead', {}, h('tr', {}, ['Kind of request', 'What fails', 'Earlier contract allows', 'Corrected contract allows', 'Changed by'].map((name, i) => h('th', { scope: 'col', class: i === 2 ? 'is-before' : i === 3 ? 'is-after' : null }, name)))),
+      CASES.map((kind) => h('tbody', {}, model.situations.filter((x) => x.case === kind).map((x, i, all) => {
+        const clauses = x.changedClauses.map((id) => model.clauseById.get(id)).filter(Boolean);
+        const tr = h('tr', { class: x.changed ? 'is-changed' : null, tabindex: 0, onclick: () => choose(x.key),
+          onkeydown: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); choose(x.key); } },
+          onpointerenter: () => point(x.key), onpointerleave: () => point(null) },
+        i === 0 ? h('th', { scope: 'rowgroup', rowspan: all.length }, kind.name) : null,
+        h('td', {}, fails(x)), cells(x, 'before'), cells(x, 'after'),
+        h('td', { class: 'sheet__by' }, clauses.length ? clauses.map((c) => `Clause ${c.n}`).join(', ') : ''));
+        sheetRows.set(x.key, tr);
+        return tr;
+      })))));
+  }
+  buildSheet();
+
+  /* ---- Keys ---- */
+  figure.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); choose(map.neighbour(state.chosen?.startsWith('s:') ? state.chosen : null, e.key === 'ArrowRight' ? 1 : -1)); }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    if (state.evidence) openEvidence(false); else if (state.chosen) choose(null);
+  });
+
+  // A link to a version or an item opens it, also when the page is already open.
+  window.addEventListener('hashchange', () => {
+    const p = new URLSearchParams(location.hash.slice(1));
+    choose(p.get('o'), { quiet: true });
+    setVersion(p.get('v') === 'before' ? 'before' : 'after', { quiet: true });
+  });
+
+  /* ---- First view: the link's own state, or the fix itself played once ---- */
+  const params = new URLSearchParams(location.hash.slice(1));
+  const linked = params.has('v') || params.has('o');
+  const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  choose(params.get('o'), { quiet: true });
+  if (linked || still) setVersion(params.get('v') === 'before' ? 'before' : 'after', { quiet: true });
+  else {
+    setVersion('before', { quiet: true });
+    setTimeout(() => { if (state.version === 'before' && !state.chosen) setVersion('after', { quiet: true }); }, 1400);
+  }
+}

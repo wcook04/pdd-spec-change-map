@@ -1,0 +1,117 @@
+{
+  "api_version": 1,
+  "data": {
+    "comparison_id": "published-login",
+    "graph_diff": {
+      "bytes": 4494,
+      "href": "graph-diff.json",
+      "media_type": "application/json",
+      "sha256": "fe6de07e8316d871c495b34b6099b936116167bbcc2657b773894755838cf5f5"
+    },
+    "modes": {
+      "interpreted": {
+        "analysis_status": "interpreted_publication_model",
+        "evidence_status": "unavailable",
+        "expectation_status": "evaluated",
+        "links": {
+          "expectations": {
+            "bytes": 2928,
+            "href": "analysis/interpreted/expectations.json",
+            "media_type": "application/json",
+            "sha256": "c98514b7ca0c89e0e59b0058e5750a1508d7a4e2b7b67e9654ff2ef4a36751e7"
+          },
+          "input": {
+            "bytes": 213762,
+            "href": "analysis/interpreted/input.json",
+            "media_type": "application/json",
+            "sha256": "b64c7acb9832c571523f17caedbbfeb8033e4030bdb644dd4302888a53c10093"
+          },
+          "region_check": {
+            "bytes": 365,
+            "href": "analysis/interpreted/region-check.json",
+            "media_type": "application/json",
+            "sha256": "5bb084a8d25c3f3aaacb5c1e4fe100ae5df4b626c220b027fb4f1324dcf1571a"
+          },
+          "summary": {
+            "bytes": 28714,
+            "href": "analysis/interpreted/summary.json",
+            "media_type": "application/json",
+            "sha256": "ea14082dc024701753e6bca472cb9a94840ded827332403cfb15378513876875"
+          },
+          "verification_evidence": {
+            "bytes": 230,
+            "href": "analysis/interpreted/evidence.json",
+            "media_type": "application/json",
+            "sha256": "4b8d54c533013b49ec9e2769d7040b631c9f24ebafe63a280387e84d32958ce8"
+          },
+          "worlds": {
+            "bytes": 114494,
+            "href": "analysis/interpreted/worlds.json",
+            "media_type": "application/json",
+            "sha256": "036961add07492f6ccf67614e0310d5e786d782dde24786b129e2f9a9530c01a"
+          }
+        }
+      },
+      "strict": {
+        "analysis_status": "source_interpretation_required",
+        "evidence_status": "unavailable",
+        "expectation_status": "not_supplied",
+        "links": {
+          "expectations": null,
+          "input": {
+            "bytes": 69960,
+            "href": "analysis/strict/input.json",
+            "media_type": "application/json",
+            "sha256": "adf374ea069d1e0223bfd7f20984109780edb4e0182b2cb2461d26495e2748b1"
+          },
+          "region_check": null,
+          "summary": {
+            "bytes": 1394,
+            "href": "analysis/strict/summary.json",
+            "media_type": "application/json",
+            "sha256": "deac31962fecead6b1965dc6f185d05442b29b8e87dc0bd4b0125592be4e56ac"
+          },
+          "verification_evidence": {
+            "bytes": 230,
+            "href": "analysis/strict/evidence.json",
+            "media_type": "application/json",
+            "sha256": "4b8d54c533013b49ec9e2769d7040b631c9f24ebafe63a280387e84d32958ce8"
+          },
+          "worlds": null
+        }
+      }
+    },
+    "revisions": {
+      "after": {
+        "resource": {
+          "bytes": 45808,
+          "href": "snapshots/after.json",
+          "media_type": "application/json",
+          "sha256": "bd8f0389038534a65c45d76a539a5bfff030809d4c0a77966ba309f2eea0fdc0"
+        },
+        "revision": "github_next",
+        "snapshot_sha256": "a4940ad7a9dd694612c95ed60db3c3674ac4a06f81dd4cbc40c706d540ce4b74",
+        "source_coverage": "published_module"
+      },
+      "before": {
+        "resource": {
+          "bytes": 14935,
+          "href": "snapshots/before.json",
+          "media_type": "application/json",
+          "sha256": "d06ca601856bc1ff23d2ecd2d0dec9ccf305267206e30c9fa77c5db43ce770c4"
+        },
+        "revision": "microsoft",
+        "snapshot_sha256": "300922cd675e14e8f94194339b0709004187ff9ac1358d9a1b7bfd4e006e394b",
+        "source_coverage": "published_excerpts"
+      }
+    },
+    "schema": {
+      "bytes": 37433,
+      "href": "schema.json",
+      "media_type": "application/json",
+      "sha256": "166f6d44707100694c3a8102cd0adadb537ffd662c2838f5a0deb1a7e3ad0081"
+    }
+  },
+  "kind": "release",
+  "release_id": "fb2763acfb7b7b27aa813849a96b006e2c96e59540c20aa56c9a688ec20ffbc3"
+}

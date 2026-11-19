@@ -1,0 +1,2027 @@
+{
+  "schema_version": 3,
+  "snapshots": {
+    "microsoft": {
+      "publication": "microsoft",
+      "coverage": "published_excerpts",
+      "login_clause_alignment": [
+        "missing-identity",
+        "valid-token",
+        "correct-password",
+        "unknown-account",
+        "wrong-password",
+        "unreadable-hash",
+        "admin-role",
+        "email-role"
+      ],
+      "sources": [
+        {
+          "id": "microsoft:ex_customer_find_by_email",
+          "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-4-where-proof-stops",
+          "kind": "published_excerpt",
+          "sha256": "fa69dd3f8ece8c03ff7a239fab150056310e8c6e03d99fcfc2af55ac4faf5a96",
+          "lines": 13
+        },
+        {
+          "id": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+          "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec",
+          "kind": "published_excerpt",
+          "sha256": "862a58b86647c101eb5c2b6b2f9e74a96c3726b637e3f235a874a59f10bfd2f8",
+          "lines": 18
+        },
+        {
+          "id": "microsoft:named_account",
+          "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec",
+          "kind": "published_excerpt",
+          "sha256": "a19991359bca26c483d5b982f6a4a711532bbde7d9fb6e13cb426040accae7e2",
+          "lines": 21
+        },
+        {
+          "id": "microsoft:login_flow",
+          "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec",
+          "kind": "published_excerpt",
+          "sha256": "499ce31a723d3f4e44b5e7c257dbfd09d650fba90c5cb9b17ed25afa9a8e8cec",
+          "lines": 50
+        },
+        {
+          "id": "microsoft:check_password",
+          "url": "https://www.microsoft.com/en-us/research/blog/formally-verifying-agent-written-full-stack-web-apps-with-pdd-kit/#step-5-reading-the-spec",
+          "kind": "published_excerpt",
+          "sha256": "7c19a8471e515fcae1e23aa54577d16fc257550bedb5747899a60064cecd5e77",
+          "lines": 15
+        }
+      ],
+      "nodes": [
+        {
+          "id": "admin_on_file",
+          "kind": "referenced_only",
+          "source": null
+        },
+        {
+          "id": "admin_role",
+          "kind": "referenced_only",
+          "source": null
+        },
+        {
+          "id": "bcrypt_verdict",
+          "kind": "abstract_symbol",
+          "source": {
+            "document": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+            "from": 12,
+            "to": 13
+          }
+        },
+        {
+          "id": "check_password",
+          "kind": "trusted_function",
+          "source": {
+            "document": "microsoft:check_password",
+            "from": 6,
+            "to": 15
+          },
+          "body_sha256": "5f0fb1ce1c324ac453ea54a3aae4c022dc978dd396fde70b6b703e990b1a17d0"
+        },
+        {
+          "id": "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d",
+          "kind": "ensures_clause",
+          "function": "check_password",
+          "ordinal": 2,
+          "english_sha256": "f3edd4b718f62fce978e2cff0f7e2b0bb34011bc03751962f7187fa9603f3018",
+          "code_sha256": "2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d",
+          "source": {
+            "document": "microsoft:check_password",
+            "from": 12,
+            "to": 12
+          }
+        },
+        {
+          "id": "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208",
+          "kind": "ensures_clause",
+          "function": "check_password",
+          "ordinal": 1,
+          "english_sha256": "9b57b80abdc0a2fd84502df8db6bf80933ae51f4d59c86c14587543d2cf95684",
+          "code_sha256": "c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208",
+          "source": {
+            "document": "microsoft:check_password",
+            "from": 9,
+            "to": 9
+          }
+        },
+        {
+          "id": "customer_on_file",
+          "kind": "abstract_symbol",
+          "source": {
+            "document": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+            "from": 5,
+            "to": 5
+          }
+        },
+        {
+          "id": "customer_role",
+          "kind": "referenced_only",
+          "source": null
+        },
+        {
+          "id": "ex_customer_find_by_email",
+          "kind": "trusted_function",
+          "source": {
+            "document": "microsoft:ex_customer_find_by_email",
+            "from": 5,
+            "to": 13
+          },
+          "body_sha256": "19b8e0a6d008d4035dda3581d704442ddb4d62a76d122fbe0155d2bd9525de79"
+        },
+        {
+          "id": "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7",
+          "kind": "ensures_clause",
+          "function": "ex_customer_find_by_email",
+          "ordinal": 1,
+          "english_sha256": "7163804023ce9a1a972d6397dc1357c6e66073b01ee2a3a7702b4a01746b746d",
+          "code_sha256": "296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7",
+          "source": {
+            "document": "microsoft:ex_customer_find_by_email",
+            "from": 10,
+            "to": 10
+          }
+        },
+        {
+          "id": "login_flow",
+          "kind": "specified_function",
+          "source": {
+            "document": "microsoft:login_flow",
+            "from": 4,
+            "to": 50
+          },
+          "body_sha256": "00a836835bb4708523abb2dbfb2c02fc605a7e6eb4ee7559585885c3d41a1797",
+          "source_body": "placeholder",
+          "proof_run": "unavailable"
+        },
+        {
+          "id": "login_flow::admin-role",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 7,
+          "english_sha256": "4775ffa2ffa0cd655866fc547e7513105e0005656fa5e13a7acc2e35bc1de923",
+          "code_sha256": "f9933fdd6ba95c9d995fd05db966a7dc2031682e28ca3f01e5d123c56d190d5c",
+          "source": {
+            "document": "microsoft:login_flow",
+            "from": 40,
+            "to": 43
+          },
+          "syntax_diagnostics": [
+            "right_hand_matches_needs_parentheses"
+          ]
+        },
+        {
+          "id": "login_flow::correct-password",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 3,
+          "english_sha256": "6566d8443b8304a4bae5d188381c426c86efd4aa938756bbcaea084346d2682a",
+          "code_sha256": "abd9387b4d967288a12c90390532aaf0b37cbeee29521ef00d4ac943d37ca437",
+          "source": {
+            "document": "microsoft:login_flow",
+            "from": 20,
+            "to": 22
+          }
+        },
+        {
+          "id": "login_flow::email-role",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 8,
+          "english_sha256": "8b1a8a5c55e5ef1fb72463edcf5c93ce48631e5a4bda81d31f4034bae17489b2",
+          "code_sha256": "6ac3591b2688c737f93b0455ed6e8f5b58f12ad1f829e7e83b1094c79a81e4f9",
+          "source": {
+            "document": "microsoft:login_flow",
+            "from": 45,
+            "to": 47
+          }
+        },
+        {
+          "id": "login_flow::missing-identity",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 1,
+          "english_sha256": "c4a47dd69adfd22438e4a43e48d87815b4ed5555d2834d29b77f735b359ddd5b",
+          "code_sha256": "26b2f7877b99bd0edfcea35b92ed845fe15ad95b56ad343ad04cc3dff094a632",
+          "source": {
+            "document": "microsoft:login_flow",
+            "from": 9,
+            "to": 11
+          }
+        },
+        {
+          "id": "login_flow::unknown-account",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 4,
+          "english_sha256": "5cbdeb99e4c767db3fa88cc577a426bd96a75a53a233649699db2b0f4e017b3e",
+          "code_sha256": "f823f1fbc74bed6ef8570550f07550a6969d9f2ab15a301b8af1a57445050c87",
+          "source": {
+            "document": "microsoft:login_flow",
+            "from": 25,
+            "to": 27
+          }
+        },
+        {
+          "id": "login_flow::unreadable-hash",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 6,
+          "english_sha256": "b11daf15385f680d5c75df87a28a87bc68895d38eb74fed0c5f1651d912f86ce",
+          "code_sha256": "fd51102f96cd832653290a8da4b6defc46986dc53e30398d3efb6b57e45a3405",
+          "source": {
+            "document": "microsoft:login_flow",
+            "from": 35,
+            "to": 37
+          }
+        },
+        {
+          "id": "login_flow::valid-token",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 2,
+          "english_sha256": "eb5f942a06157f759b27a9da28caab972764f656868b120870573a5350be82c5",
+          "code_sha256": "9cd58f71b17695059badc029bc28488d2b7cf97fab5dba65b791cc56dc1e9167",
+          "source": {
+            "document": "microsoft:login_flow",
+            "from": 14,
+            "to": 17
+          },
+          "syntax_diagnostics": [
+            "right_hand_matches_needs_parentheses"
+          ]
+        },
+        {
+          "id": "login_flow::wrong-password",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 5,
+          "english_sha256": "1201b7bfd9a610c49871dbba12d117218995c728a254749d2ca04fab07267834",
+          "code_sha256": "427bb6e799dcd89e13cc5857e5833074dc5e3b6a70361175be02dc3ec916108e",
+          "source": {
+            "document": "microsoft:login_flow",
+            "from": 30,
+            "to": 33
+          }
+        },
+        {
+          "id": "missing_identity_text",
+          "kind": "referenced_only",
+          "source": null
+        },
+        {
+          "id": "named_account",
+          "kind": "spec_function",
+          "source": {
+            "document": "microsoft:named_account",
+            "from": 4,
+            "to": 21
+          },
+          "body_sha256": "67ccaa96e1e782ab2b9afea8668749a664556bbf67c58eb0061ea29990b0dd3f"
+        },
+        {
+          "id": "password_matches",
+          "kind": "spec_function",
+          "source": {
+            "document": "microsoft:bcrypt_verdict+customer_on_file+password_matches",
+            "from": 16,
+            "to": 18
+          },
+          "body_sha256": "e1e26ebe7b809fb66676e98b83c5c84116413274fe59ed2c94a10c37c7c5d59f"
+        },
+        {
+          "id": "token_claims",
+          "kind": "referenced_only",
+          "source": null
+        }
+      ],
+      "edges": [
+        {
+          "from": "check_password",
+          "kind": "ensures",
+          "to": "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d"
+        },
+        {
+          "from": "check_password",
+          "kind": "ensures",
+          "to": "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208"
+        },
+        {
+          "from": "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "ex_customer_find_by_email",
+          "kind": "ensures",
+          "to": "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7"
+        },
+        {
+          "from": "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7",
+          "kind": "mentions",
+          "to": "customer_on_file"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::admin-role"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::correct-password"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::email-role"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::missing-identity"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::unknown-account"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::unreadable-hash"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::valid-token"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::wrong-password"
+        },
+        {
+          "from": "login_flow::admin-role",
+          "kind": "mentions",
+          "to": "admin_on_file"
+        },
+        {
+          "from": "login_flow::admin-role",
+          "kind": "mentions",
+          "to": "admin_role"
+        },
+        {
+          "from": "login_flow::admin-role",
+          "kind": "mentions",
+          "to": "token_claims"
+        },
+        {
+          "from": "login_flow::correct-password",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_flow::correct-password",
+          "kind": "mentions",
+          "to": "password_matches"
+        },
+        {
+          "from": "login_flow::email-role",
+          "kind": "mentions",
+          "to": "customer_role"
+        },
+        {
+          "from": "login_flow::email-role",
+          "kind": "mentions",
+          "to": "token_claims"
+        },
+        {
+          "from": "login_flow::missing-identity",
+          "kind": "mentions",
+          "to": "missing_identity_text"
+        },
+        {
+          "from": "login_flow::unknown-account",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_flow::unreadable-hash",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "login_flow::unreadable-hash",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_flow::valid-token",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_flow::valid-token",
+          "kind": "mentions",
+          "to": "password_matches"
+        },
+        {
+          "from": "login_flow::valid-token",
+          "kind": "mentions",
+          "to": "token_claims"
+        },
+        {
+          "from": "login_flow::wrong-password",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "login_flow::wrong-password",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "named_account",
+          "kind": "definition_uses",
+          "to": "admin_on_file"
+        },
+        {
+          "from": "named_account",
+          "kind": "definition_uses",
+          "to": "admin_role"
+        },
+        {
+          "from": "named_account",
+          "kind": "definition_uses",
+          "to": "customer_on_file"
+        },
+        {
+          "from": "named_account",
+          "kind": "definition_uses",
+          "to": "customer_role"
+        },
+        {
+          "from": "password_matches",
+          "kind": "definition_uses",
+          "to": "bcrypt_verdict"
+        }
+      ],
+      "snapshot_sha256": "300922cd675e14e8f94194339b0709004187ff9ac1358d9a1b7bfd4e006e394b"
+    },
+    "github_next": {
+      "publication": "github_next",
+      "coverage": "published_module",
+      "login_clause_alignment": [
+        "missing-identity",
+        "valid-token",
+        "correct-password",
+        "unknown-account",
+        "wrong-password",
+        "unreadable-hash",
+        "admin-role",
+        "email-role"
+      ],
+      "sources": [
+        {
+          "id": "github-next:login.rs",
+          "url": "https://githubnext.com/projects/pdd-kit/#an-overview-of-loginrs",
+          "kind": "published_tour_listing",
+          "sha256": "b8dc10d0e3243fdce7c2f9ee72d8dd06219843633a7221d92f6220991d471c57",
+          "lines": 368
+        }
+      ],
+      "nodes": [
+        {
+          "id": "admin_lookup_fails",
+          "kind": "abstract_symbol",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 64,
+            "to": 64
+          }
+        },
+        {
+          "id": "admin_on_file",
+          "kind": "abstract_symbol",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 56,
+            "to": 56
+          }
+        },
+        {
+          "id": "admin_role",
+          "kind": "spec_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 90,
+            "to": 92
+          },
+          "body_sha256": "6957e3b4b076c5300c1d572580eb6f822e44a7c29dc2804e38c8a4ab0e4da16f"
+        },
+        {
+          "id": "bcrypt_verdict",
+          "kind": "abstract_symbol",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 77,
+            "to": 77
+          }
+        },
+        {
+          "id": "check_password",
+          "kind": "trusted_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 168,
+            "to": 176
+          },
+          "body_sha256": "5f0fb1ce1c324ac453ea54a3aae4c022dc978dd396fde70b6b703e990b1a17d0"
+        },
+        {
+          "id": "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d",
+          "kind": "ensures_clause",
+          "function": "check_password",
+          "ordinal": 2,
+          "english_sha256": "f3edd4b718f62fce978e2cff0f7e2b0bb34011bc03751962f7187fa9603f3018",
+          "code_sha256": "2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 173,
+            "to": 173
+          }
+        },
+        {
+          "id": "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208",
+          "kind": "ensures_clause",
+          "function": "check_password",
+          "ordinal": 1,
+          "english_sha256": "9b57b80abdc0a2fd84502df8db6bf80933ae51f4d59c86c14587543d2cf95684",
+          "code_sha256": "c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 171,
+            "to": 171
+          }
+        },
+        {
+          "id": "customer_lookup_fails",
+          "kind": "abstract_symbol",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 60,
+            "to": 60
+          }
+        },
+        {
+          "id": "customer_on_file",
+          "kind": "abstract_symbol",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 52,
+            "to": 52
+          }
+        },
+        {
+          "id": "customer_role",
+          "kind": "spec_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 85,
+            "to": 87
+          },
+          "body_sha256": "f4732d31c527728a802598fd2ecd8b6371277abbbde3fc3a6f584d3ef91ab873"
+        },
+        {
+          "id": "database_error",
+          "kind": "trusted_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 217,
+            "to": 223
+          },
+          "body_sha256": "67ce5f3a5dd3eb39758044ed3cc0ad27cd75eaba77dcff8c69d08e9f8ead0e59"
+        },
+        {
+          "id": "database_error::c02cb148cac295d03c4b5ab457b8d1929b9ec69a247de80f4cadffedfa64a617",
+          "kind": "ensures_clause",
+          "function": "database_error",
+          "ordinal": 1,
+          "english_sha256": "d5c04d8526ed10a5ca804764a292ac2d274839e562b113a41a354114eca55090",
+          "code_sha256": "c02cb148cac295d03c4b5ab457b8d1929b9ec69a247de80f4cadffedfa64a617",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 220,
+            "to": 220
+          }
+        },
+        {
+          "id": "decide_login",
+          "kind": "specified_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 346,
+            "to": 366
+          },
+          "body_sha256": "00a836835bb4708523abb2dbfb2c02fc605a7e6eb4ee7559585885c3d41a1797",
+          "source_body": "placeholder",
+          "proof_run": "unavailable"
+        },
+        {
+          "id": "decide_login::062cb997199c8f124f328b1adc278a5ba242263603b961eb76e79657974dcc68",
+          "kind": "ensures_clause",
+          "function": "decide_login",
+          "ordinal": 2,
+          "english_sha256": "b231272d30f6757b6ba50b025912642d15f472f6ad31c76099c80125a7b75403",
+          "code_sha256": "062cb997199c8f124f328b1adc278a5ba242263603b961eb76e79657974dcc68",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 351,
+            "to": 351
+          }
+        },
+        {
+          "id": "decide_login::37046491576dbbf51c3ef2c19a9a4348569a3c0973421ae10d629fbcbd96b9d0",
+          "kind": "ensures_clause",
+          "function": "decide_login",
+          "ordinal": 4,
+          "english_sha256": "2f3836c1ab79cb04222bb03d8e3bf265415db87b89a81544ce1d309f89c4c1f8",
+          "code_sha256": "37046491576dbbf51c3ef2c19a9a4348569a3c0973421ae10d629fbcbd96b9d0",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 355,
+            "to": 355
+          }
+        },
+        {
+          "id": "decide_login::50f23a278e5bca9e0f0996dd71fd4cf854ea87b2c787cb3915007ac3eb2e2d56",
+          "kind": "ensures_clause",
+          "function": "decide_login",
+          "ordinal": 3,
+          "english_sha256": "5636075e2f57255514d631e4597ec3a2d2baf0737becf678668e2685246e38bd",
+          "code_sha256": "50f23a278e5bca9e0f0996dd71fd4cf854ea87b2c787cb3915007ac3eb2e2d56",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 353,
+            "to": 353
+          }
+        },
+        {
+          "id": "decide_login::57a313babdd3ffbe54ddc4a17eb086243db4c6de9d31e587f8dae9929d3390d4",
+          "kind": "ensures_clause",
+          "function": "decide_login",
+          "ordinal": 6,
+          "english_sha256": "c44fb1e7e7abe7aef5199eed9338e72e944f820d4a9f89985d9a22e3484b4780",
+          "code_sha256": "57a313babdd3ffbe54ddc4a17eb086243db4c6de9d31e587f8dae9929d3390d4",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 359,
+            "to": 359
+          }
+        },
+        {
+          "id": "decide_login::9902dd93d288c08d2826a5c5977f489d297faffce3e272da43fae2967fd4cb87",
+          "kind": "ensures_clause",
+          "function": "decide_login",
+          "ordinal": 8,
+          "english_sha256": "b7a36a40e85f444557cb83d1f7cd8de40c8bef101ddaadde06b10a638c889291",
+          "code_sha256": "9902dd93d288c08d2826a5c5977f489d297faffce3e272da43fae2967fd4cb87",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 363,
+            "to": 363
+          }
+        },
+        {
+          "id": "decide_login::a7e3dcf17d66ba58083a268e8c8049f6338a6d78907e4de39ff14e31659fd8f4",
+          "kind": "ensures_clause",
+          "function": "decide_login",
+          "ordinal": 1,
+          "english_sha256": "f923f8b192144e7b59d3a49366fe7992d1f2f9ba106be04a86a765035e8c21d4",
+          "code_sha256": "a7e3dcf17d66ba58083a268e8c8049f6338a6d78907e4de39ff14e31659fd8f4",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 349,
+            "to": 349
+          }
+        },
+        {
+          "id": "decide_login::b02f9c0389e9fed20d6eb0d9cc83b03b4c357ecd34fbfdb95e9d59da8333a7c4",
+          "kind": "ensures_clause",
+          "function": "decide_login",
+          "ordinal": 5,
+          "english_sha256": "cabad98c4d0a4d13095ba95eae5513b8251c47db7fbfe1927cf46a10010f8235",
+          "code_sha256": "b02f9c0389e9fed20d6eb0d9cc83b03b4c357ecd34fbfdb95e9d59da8333a7c4",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 357,
+            "to": 357
+          }
+        },
+        {
+          "id": "decide_login::e20efb3d392184cd48a0e995861b508f25145dc824fdf95773a7611583774bc3",
+          "kind": "ensures_clause",
+          "function": "decide_login",
+          "ordinal": 7,
+          "english_sha256": "6e993ced69446ee87e3bb7d01635c29372920e9bbf8ee86c1c3a549ebdcd0d69",
+          "code_sha256": "e20efb3d392184cd48a0e995861b508f25145dc824fdf95773a7611583774bc3",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 361,
+            "to": 361
+          }
+        },
+        {
+          "id": "ex_admin_find_by_username",
+          "kind": "trusted_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 154,
+            "to": 162
+          },
+          "body_sha256": "b1ddd1a134a19744a6228bd6dee52e9b28d8b85a0efb17f16690549d646cb188"
+        },
+        {
+          "id": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "kind": "ensures_clause",
+          "function": "ex_admin_find_by_username",
+          "ordinal": 2,
+          "english_sha256": "dc53ee495a1b0fbe42a905867188d01e95f41608647efa53cc3e0a251fa4c7f3",
+          "code_sha256": "254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 159,
+            "to": 159
+          }
+        },
+        {
+          "id": "ex_admin_find_by_username::4db1d75179864acca2057a7254c3edd71269ba0f650d56bb372ffc7fe52855c4",
+          "kind": "ensures_clause",
+          "function": "ex_admin_find_by_username",
+          "ordinal": 1,
+          "english_sha256": "2cf070e3521ce8e0c026f14cf0596374353076f840bf94e771fe732ee90bb73a",
+          "code_sha256": "4db1d75179864acca2057a7254c3edd71269ba0f650d56bb372ffc7fe52855c4",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 157,
+            "to": 157
+          }
+        },
+        {
+          "id": "ex_customer_find_by_email",
+          "kind": "trusted_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 140,
+            "to": 148
+          },
+          "body_sha256": "19b8e0a6d008d4035dda3581d704442ddb4d62a76d122fbe0155d2bd9525de79"
+        },
+        {
+          "id": "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7",
+          "kind": "ensures_clause",
+          "function": "ex_customer_find_by_email",
+          "ordinal": 1,
+          "english_sha256": "7163804023ce9a1a972d6397dc1357c6e66073b01ee2a3a7702b4a01746b746d",
+          "code_sha256": "296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 143,
+            "to": 143
+          }
+        },
+        {
+          "id": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "kind": "ensures_clause",
+          "function": "ex_customer_find_by_email",
+          "ordinal": 2,
+          "english_sha256": "dc53ee495a1b0fbe42a905867188d01e95f41608647efa53cc3e0a251fa4c7f3",
+          "code_sha256": "650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 145,
+            "to": 145
+          }
+        },
+        {
+          "id": "ex_generate_token",
+          "kind": "trusted_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 202,
+            "to": 212
+          },
+          "body_sha256": "ec4f9bb05a33e79e4be156c09b615593a493e53769610125bcbdf04df7a2d5a3"
+        },
+        {
+          "id": "ex_generate_token::5c98a5502feb672ed48835ec23f731ea3fe25e00369937ae3b557ffa16ecc543",
+          "kind": "ensures_clause",
+          "function": "ex_generate_token",
+          "ordinal": 3,
+          "english_sha256": "efb2445f1e434a8bbe41a23ea234784200148d2925b60aad10220857d27d3e88",
+          "code_sha256": "5c98a5502feb672ed48835ec23f731ea3fe25e00369937ae3b557ffa16ecc543",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 209,
+            "to": 209
+          }
+        },
+        {
+          "id": "ex_generate_token::6b106964bbf6aed9cb231ccdce7f3d39f3cb76dc6efb9bb3825cda7af4bf0d37",
+          "kind": "ensures_clause",
+          "function": "ex_generate_token",
+          "ordinal": 2,
+          "english_sha256": "2fb525b2c3712c3b8ff725b58e2a6b86cb72b3ffeeeea38a26f5758eaa796ff5",
+          "code_sha256": "6b106964bbf6aed9cb231ccdce7f3d39f3cb76dc6efb9bb3825cda7af4bf0d37",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 207,
+            "to": 207
+          }
+        },
+        {
+          "id": "ex_generate_token::efaa2d470ca1f477266df5f8fca56c81794f6c7894f86647a1415126a92d0d0e",
+          "kind": "ensures_clause",
+          "function": "ex_generate_token",
+          "ordinal": 1,
+          "english_sha256": "7e45d47672a54f4428bf7dbe99150b3325593ed85e131e68455d1b16b323d8a3",
+          "code_sha256": "efaa2d470ca1f477266df5f8fca56c81794f6c7894f86647a1415126a92d0d0e",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 205,
+            "to": 205
+          }
+        },
+        {
+          "id": "expiry_from_now",
+          "kind": "trusted_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 188,
+            "to": 196
+          },
+          "body_sha256": "177d788dd23d70733d00035d5799a5f4e083f007869eb7ec45c2b655d66a91fb"
+        },
+        {
+          "id": "expiry_from_now::5c91c6f3a1e3b28f74803d3ca4b2fdc541f0674bfd2a6c3186f4762240dc9951",
+          "kind": "ensures_clause",
+          "function": "expiry_from_now",
+          "ordinal": 1,
+          "english_sha256": "ef7a7581910c1173116203551f86a73af89f37e3e92a59e0a038fffd048ee71f",
+          "code_sha256": "5c91c6f3a1e3b28f74803d3ca4b2fdc541f0674bfd2a6c3186f4762240dc9951",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 191,
+            "to": 191
+          }
+        },
+        {
+          "id": "issue_token",
+          "kind": "specified_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 311,
+            "to": 327
+          },
+          "body_sha256": "00a836835bb4708523abb2dbfb2c02fc605a7e6eb4ee7559585885c3d41a1797",
+          "source_body": "placeholder",
+          "proof_run": "unavailable"
+        },
+        {
+          "id": "issue_token::689c6770493203fd262219f6ea5e8b2b1d4589f6475f677df7571f7f0e77e426",
+          "kind": "ensures_clause",
+          "function": "issue_token",
+          "ordinal": 5,
+          "english_sha256": "bd5163566b20082bdae4aa091dbb2fc3b95de15a22d04ecdd6965bfe16fcfb59",
+          "code_sha256": "689c6770493203fd262219f6ea5e8b2b1d4589f6475f677df7571f7f0e77e426",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 322,
+            "to": 322
+          }
+        },
+        {
+          "id": "issue_token::6c8054a3af1c5612096cd870a78f3c00f6bdb41481f21e338bce0cead06b44cd",
+          "kind": "ensures_clause",
+          "function": "issue_token",
+          "ordinal": 4,
+          "english_sha256": "2c3da0556d75c4630666d65b960147f936bae060465a45c1590eaac54d13e373",
+          "code_sha256": "6c8054a3af1c5612096cd870a78f3c00f6bdb41481f21e338bce0cead06b44cd",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 320,
+            "to": 320
+          }
+        },
+        {
+          "id": "issue_token::c60574126b6c6c4e7ae2bb5b2d22c2f932fb6529a242e63dd52a6f70d406e9d7",
+          "kind": "ensures_clause",
+          "function": "issue_token",
+          "ordinal": 2,
+          "english_sha256": "f8cf41f619b726fd92f6ee0a92f4f62c96e2bf443292664893fbd78a4896a96c",
+          "code_sha256": "c60574126b6c6c4e7ae2bb5b2d22c2f932fb6529a242e63dd52a6f70d406e9d7",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 316,
+            "to": 316
+          }
+        },
+        {
+          "id": "issue_token::e7e770379faa30448f109fe4b4130e1280f1a040b28042fc440afce0467c63ad",
+          "kind": "ensures_clause",
+          "function": "issue_token",
+          "ordinal": 3,
+          "english_sha256": "bb06c8dfadb59f9e6ddd6c801bbf677c22dfdb9c433a24e9954b0d7bc8d1e25c",
+          "code_sha256": "e7e770379faa30448f109fe4b4130e1280f1a040b28042fc440afce0467c63ad",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 318,
+            "to": 318
+          }
+        },
+        {
+          "id": "issue_token::f0f0001ba708fad357597c79c6103c6f82fbdb31152afe82cd7eac384c3fd303",
+          "kind": "ensures_clause",
+          "function": "issue_token",
+          "ordinal": 6,
+          "english_sha256": "53e3849d60cb9b71ddd5d203aae5a95c33551a05dd936d0655d32a96f6eefbb6",
+          "code_sha256": "f0f0001ba708fad357597c79c6103c6f82fbdb31152afe82cd7eac384c3fd303",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 324,
+            "to": 324
+          }
+        },
+        {
+          "id": "issue_token::f6d7ff15b3e5d0744cef5a10c34b4ebf17d6f489be21c0ab97998dab7426fe9b",
+          "kind": "ensures_clause",
+          "function": "issue_token",
+          "ordinal": 1,
+          "english_sha256": "5845e9be73e4bd9d1e7bc5646a48a379a71839182c2a56a0a120b732626c296b",
+          "code_sha256": "f6d7ff15b3e5d0744cef5a10c34b4ebf17d6f489be21c0ab97998dab7426fe9b",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 314,
+            "to": 314
+          }
+        },
+        {
+          "id": "login_core",
+          "kind": "specified_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 289,
+            "to": 307
+          },
+          "body_sha256": "00a836835bb4708523abb2dbfb2c02fc605a7e6eb4ee7559585885c3d41a1797",
+          "source_body": "placeholder",
+          "proof_run": "unavailable"
+        },
+        {
+          "id": "login_core::1a5027cb1a13317281359dfef044c5b579c5181884c9006276f6abf1adb66afa",
+          "kind": "ensures_clause",
+          "function": "login_core",
+          "ordinal": 1,
+          "english_sha256": "0ffe0443f7cfb027db87274ac17a1d108621dea7091a670b9b42e724ae366f84",
+          "code_sha256": "1a5027cb1a13317281359dfef044c5b579c5181884c9006276f6abf1adb66afa",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 292,
+            "to": 292
+          }
+        },
+        {
+          "id": "login_core::20cba1678cac5c272554d6a5edd55b80419a1ba96161ee70b69779232bbc51f5",
+          "kind": "ensures_clause",
+          "function": "login_core",
+          "ordinal": 2,
+          "english_sha256": "92e121c0b9cc4eb590e504ecc6496e10dd2d48f9ace3ac74c295e97b90ef589b",
+          "code_sha256": "20cba1678cac5c272554d6a5edd55b80419a1ba96161ee70b69779232bbc51f5",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 294,
+            "to": 294
+          }
+        },
+        {
+          "id": "login_core::2377f4c8cd2121eb230d4d6ea48721a4a0a830d019b4e8d13c5a06a22c603c06",
+          "kind": "ensures_clause",
+          "function": "login_core",
+          "ordinal": 3,
+          "english_sha256": "4ff203b1118221697e3c523ebff385d11b852215ec7d3daa9bd12c8b61c8eceb",
+          "code_sha256": "2377f4c8cd2121eb230d4d6ea48721a4a0a830d019b4e8d13c5a06a22c603c06",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 296,
+            "to": 296
+          }
+        },
+        {
+          "id": "login_core::488bc196a02e6bc8cbac39795b118424fc150cd2c32a57f7fc4277e90758f9aa",
+          "kind": "ensures_clause",
+          "function": "login_core",
+          "ordinal": 4,
+          "english_sha256": "9a473e6a7719de002b2fab9cd7961897ec65b10654e8ca8a27fb84f70a5ae58b",
+          "code_sha256": "488bc196a02e6bc8cbac39795b118424fc150cd2c32a57f7fc4277e90758f9aa",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 298,
+            "to": 298
+          }
+        },
+        {
+          "id": "login_core::682858fc080dff2eec5c26b911c783b58619e67bcd6c2b2250db9b304ab3a265",
+          "kind": "ensures_clause",
+          "function": "login_core",
+          "ordinal": 5,
+          "english_sha256": "7af48c0a8dae767db81c283d4cc6f476f7cdaeae4d8598ac6d292678e023f929",
+          "code_sha256": "682858fc080dff2eec5c26b911c783b58619e67bcd6c2b2250db9b304ab3a265",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 300,
+            "to": 300
+          }
+        },
+        {
+          "id": "login_core::9f90e14483b0bbd44b1dbd29fb565aacb8271e02a94036b29ae1ce1b17986531",
+          "kind": "ensures_clause",
+          "function": "login_core",
+          "ordinal": 7,
+          "english_sha256": "aed979a6957e6c62043d463d7e6a9a000e8adc100f13355a45433aa2965d656e",
+          "code_sha256": "9f90e14483b0bbd44b1dbd29fb565aacb8271e02a94036b29ae1ce1b17986531",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 304,
+            "to": 304
+          }
+        },
+        {
+          "id": "login_core::d55a11af7e02fc6d289f0267b082b4a443a632eb907d2e6cf02ee5fe6e968ef0",
+          "kind": "ensures_clause",
+          "function": "login_core",
+          "ordinal": 6,
+          "english_sha256": "e55096bb7903d1c66f47fcd0d722e9e8b142e8d95f873c8162acfde2e348bae4",
+          "code_sha256": "d55a11af7e02fc6d289f0267b082b4a443a632eb907d2e6cf02ee5fe6e968ef0",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 302,
+            "to": 302
+          }
+        },
+        {
+          "id": "login_flow",
+          "kind": "specified_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 262,
+            "to": 282
+          },
+          "body_sha256": "00a836835bb4708523abb2dbfb2c02fc605a7e6eb4ee7559585885c3d41a1797",
+          "source_body": "placeholder",
+          "proof_run": "unavailable"
+        },
+        {
+          "id": "login_flow::admin-role",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 7,
+          "english_sha256": "4775ffa2ffa0cd655866fc547e7513105e0005656fa5e13a7acc2e35bc1de923",
+          "code_sha256": "f9933fdd6ba95c9d995fd05db966a7dc2031682e28ca3f01e5d123c56d190d5c",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 277,
+            "to": 277
+          },
+          "syntax_diagnostics": [
+            "right_hand_matches_needs_parentheses"
+          ]
+        },
+        {
+          "id": "login_flow::correct-password",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 3,
+          "english_sha256": "3e108e6bed626ed0bd461cab6ba573180ebf31d301f91c32f1d307aeab35c9e2",
+          "code_sha256": "7ad853f67e300b2caa128929b0f60e341fae6cfd573f7b442ed22be2dda73b8e",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 269,
+            "to": 269
+          }
+        },
+        {
+          "id": "login_flow::email-role",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 8,
+          "english_sha256": "8b1a8a5c55e5ef1fb72463edcf5c93ce48631e5a4bda81d31f4034bae17489b2",
+          "code_sha256": "6ac3591b2688c737f93b0455ed6e8f5b58f12ad1f829e7e83b1094c79a81e4f9",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 279,
+            "to": 279
+          }
+        },
+        {
+          "id": "login_flow::missing-identity",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 1,
+          "english_sha256": "c4a47dd69adfd22438e4a43e48d87815b4ed5555d2834d29b77f735b359ddd5b",
+          "code_sha256": "26b2f7877b99bd0edfcea35b92ed845fe15ad95b56ad343ad04cc3dff094a632",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 265,
+            "to": 265
+          }
+        },
+        {
+          "id": "login_flow::unknown-account",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 4,
+          "english_sha256": "5cbdeb99e4c767db3fa88cc577a426bd96a75a53a233649699db2b0f4e017b3e",
+          "code_sha256": "da3611aaec63bf6be356fe25f3d5a84f4bc95e6fc2f15e3eaf6625158330ffa1",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 271,
+            "to": 271
+          }
+        },
+        {
+          "id": "login_flow::unreadable-hash",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 6,
+          "english_sha256": "b11daf15385f680d5c75df87a28a87bc68895d38eb74fed0c5f1651d912f86ce",
+          "code_sha256": "fd51102f96cd832653290a8da4b6defc46986dc53e30398d3efb6b57e45a3405",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 275,
+            "to": 275
+          }
+        },
+        {
+          "id": "login_flow::valid-token",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 2,
+          "english_sha256": "eb5f942a06157f759b27a9da28caab972764f656868b120870573a5350be82c5",
+          "code_sha256": "9cd58f71b17695059badc029bc28488d2b7cf97fab5dba65b791cc56dc1e9167",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 267,
+            "to": 267
+          },
+          "syntax_diagnostics": [
+            "right_hand_matches_needs_parentheses"
+          ]
+        },
+        {
+          "id": "login_flow::wrong-password",
+          "kind": "ensures_clause",
+          "function": "login_flow",
+          "ordinal": 5,
+          "english_sha256": "1201b7bfd9a610c49871dbba12d117218995c728a254749d2ca04fab07267834",
+          "code_sha256": "2db6e217f1f44e5bc65ad12b411087ebef5f976268530cce027271e88de98b5d",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 273,
+            "to": 273
+          }
+        },
+        {
+          "id": "lookup_fails",
+          "kind": "spec_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 126,
+            "to": 134
+          },
+          "body_sha256": "244fbc90e59baa95841c355aa241b363984787453d6bcac395fdd7299578f04c"
+        },
+        {
+          "id": "lookup_target",
+          "kind": "specified_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 331,
+            "to": 341
+          },
+          "body_sha256": "00a836835bb4708523abb2dbfb2c02fc605a7e6eb4ee7559585885c3d41a1797",
+          "source_body": "placeholder",
+          "proof_run": "unavailable"
+        },
+        {
+          "id": "lookup_target::441400eb4223239ba6f8e49facb14250eb978ce47c838b1a96c90bb2073ad82a",
+          "kind": "ensures_clause",
+          "function": "lookup_target",
+          "ordinal": 2,
+          "english_sha256": "6cfa33687174f227088e5b6f48977b1002019d1ad11e61a550ef2c1dd1bcd901",
+          "code_sha256": "441400eb4223239ba6f8e49facb14250eb978ce47c838b1a96c90bb2073ad82a",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 336,
+            "to": 336
+          },
+          "syntax_diagnostics": [
+            "right_hand_matches_needs_parentheses"
+          ]
+        },
+        {
+          "id": "lookup_target::d2fe03bf03200d3ab6c1484551c00e5f3c016c180f326fcf17decfa19ea73e11",
+          "kind": "ensures_clause",
+          "function": "lookup_target",
+          "ordinal": 3,
+          "english_sha256": "cfbfdc841e97fa97c469c0f10b531a9413a749c14e4f865a8cedbfdde1444d2f",
+          "code_sha256": "d2fe03bf03200d3ab6c1484551c00e5f3c016c180f326fcf17decfa19ea73e11",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 338,
+            "to": 338
+          }
+        },
+        {
+          "id": "lookup_target::e953ef86e017037e803f1dfc6c4841c6b82f31e7ac0257b6af37a6149132e709",
+          "kind": "ensures_clause",
+          "function": "lookup_target",
+          "ordinal": 1,
+          "english_sha256": "ac91f0a574b2fde2286fb36ffc45d63663ea1846b40f360ab8d43277de59a030",
+          "code_sha256": "e953ef86e017037e803f1dfc6c4841c6b82f31e7ac0257b6af37a6149132e709",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 334,
+            "to": 334
+          }
+        },
+        {
+          "id": "missing_identity_text",
+          "kind": "spec_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 95,
+            "to": 97
+          },
+          "body_sha256": "d8ec76fc0bc2cfd4e66ab05a4817b8d49360fa196fcd0befe27b2c6651860f77"
+        },
+        {
+          "id": "named_account",
+          "kind": "spec_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 108,
+            "to": 122
+          },
+          "body_sha256": "67ccaa96e1e782ab2b9afea8668749a664556bbf67c58eb0061ea29990b0dd3f"
+        },
+        {
+          "id": "password_matches",
+          "kind": "spec_function",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 80,
+            "to": 82
+          },
+          "body_sha256": "e1e26ebe7b809fb66676e98b83c5c84116413274fe59ed2c94a10c37c7c5d59f"
+        },
+        {
+          "id": "signing_fails",
+          "kind": "abstract_symbol",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 72,
+            "to": 72
+          }
+        },
+        {
+          "id": "token_claims",
+          "kind": "abstract_symbol",
+          "source": {
+            "document": "github-next:login.rs",
+            "from": 68,
+            "to": 68
+          }
+        }
+      ],
+      "edges": [
+        {
+          "from": "check_password",
+          "kind": "ensures",
+          "to": "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d"
+        },
+        {
+          "from": "check_password",
+          "kind": "ensures",
+          "to": "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208"
+        },
+        {
+          "from": "check_password::2119b3d0a0aafc14e064633a027c53bdaac7968979406ecb20c845d43df1eb7d",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "check_password::c1ace18c1f983a194e951d7fc22af569b3a4da38e794280292650415bf236208",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "database_error",
+          "kind": "ensures",
+          "to": "database_error::c02cb148cac295d03c4b5ab457b8d1929b9ec69a247de80f4cadffedfa64a617"
+        },
+        {
+          "from": "decide_login",
+          "kind": "ensures",
+          "to": "decide_login::062cb997199c8f124f328b1adc278a5ba242263603b961eb76e79657974dcc68"
+        },
+        {
+          "from": "decide_login",
+          "kind": "ensures",
+          "to": "decide_login::37046491576dbbf51c3ef2c19a9a4348569a3c0973421ae10d629fbcbd96b9d0"
+        },
+        {
+          "from": "decide_login",
+          "kind": "ensures",
+          "to": "decide_login::50f23a278e5bca9e0f0996dd71fd4cf854ea87b2c787cb3915007ac3eb2e2d56"
+        },
+        {
+          "from": "decide_login",
+          "kind": "ensures",
+          "to": "decide_login::57a313babdd3ffbe54ddc4a17eb086243db4c6de9d31e587f8dae9929d3390d4"
+        },
+        {
+          "from": "decide_login",
+          "kind": "ensures",
+          "to": "decide_login::9902dd93d288c08d2826a5c5977f489d297faffce3e272da43fae2967fd4cb87"
+        },
+        {
+          "from": "decide_login",
+          "kind": "ensures",
+          "to": "decide_login::a7e3dcf17d66ba58083a268e8c8049f6338a6d78907e4de39ff14e31659fd8f4"
+        },
+        {
+          "from": "decide_login",
+          "kind": "ensures",
+          "to": "decide_login::b02f9c0389e9fed20d6eb0d9cc83b03b4c357ecd34fbfdb95e9d59da8333a7c4"
+        },
+        {
+          "from": "decide_login",
+          "kind": "ensures",
+          "to": "decide_login::e20efb3d392184cd48a0e995861b508f25145dc824fdf95773a7611583774bc3"
+        },
+        {
+          "from": "decide_login::062cb997199c8f124f328b1adc278a5ba242263603b961eb76e79657974dcc68",
+          "kind": "mentions",
+          "to": "password_matches"
+        },
+        {
+          "from": "decide_login::37046491576dbbf51c3ef2c19a9a4348569a3c0973421ae10d629fbcbd96b9d0",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "decide_login::50f23a278e5bca9e0f0996dd71fd4cf854ea87b2c787cb3915007ac3eb2e2d56",
+          "kind": "mentions",
+          "to": "password_matches"
+        },
+        {
+          "from": "decide_login::9902dd93d288c08d2826a5c5977f489d297faffce3e272da43fae2967fd4cb87",
+          "kind": "mentions",
+          "to": "customer_role"
+        },
+        {
+          "from": "decide_login::b02f9c0389e9fed20d6eb0d9cc83b03b4c357ecd34fbfdb95e9d59da8333a7c4",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "decide_login::e20efb3d392184cd48a0e995861b508f25145dc824fdf95773a7611583774bc3",
+          "kind": "mentions",
+          "to": "admin_role"
+        },
+        {
+          "from": "ex_admin_find_by_username",
+          "kind": "ensures",
+          "to": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b"
+        },
+        {
+          "from": "ex_admin_find_by_username",
+          "kind": "ensures",
+          "to": "ex_admin_find_by_username::4db1d75179864acca2057a7254c3edd71269ba0f650d56bb372ffc7fe52855c4"
+        },
+        {
+          "from": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "kind": "equates_error_to",
+          "to": "admin_lookup_fails"
+        },
+        {
+          "from": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "kind": "mentions",
+          "to": "admin_lookup_fails"
+        },
+        {
+          "from": "ex_admin_find_by_username::4db1d75179864acca2057a7254c3edd71269ba0f650d56bb372ffc7fe52855c4",
+          "kind": "mentions",
+          "to": "admin_on_file"
+        },
+        {
+          "from": "ex_customer_find_by_email",
+          "kind": "ensures",
+          "to": "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7"
+        },
+        {
+          "from": "ex_customer_find_by_email",
+          "kind": "ensures",
+          "to": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02"
+        },
+        {
+          "from": "ex_customer_find_by_email::296fb8be9edfcb03128319e967f5951e3e7a969d6c595211dc74531f67c6f3c7",
+          "kind": "mentions",
+          "to": "customer_on_file"
+        },
+        {
+          "from": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "kind": "equates_error_to",
+          "to": "customer_lookup_fails"
+        },
+        {
+          "from": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "kind": "mentions",
+          "to": "customer_lookup_fails"
+        },
+        {
+          "from": "ex_generate_token",
+          "kind": "ensures",
+          "to": "ex_generate_token::5c98a5502feb672ed48835ec23f731ea3fe25e00369937ae3b557ffa16ecc543"
+        },
+        {
+          "from": "ex_generate_token",
+          "kind": "ensures",
+          "to": "ex_generate_token::6b106964bbf6aed9cb231ccdce7f3d39f3cb76dc6efb9bb3825cda7af4bf0d37"
+        },
+        {
+          "from": "ex_generate_token",
+          "kind": "ensures",
+          "to": "ex_generate_token::efaa2d470ca1f477266df5f8fca56c81794f6c7894f86647a1415126a92d0d0e"
+        },
+        {
+          "from": "ex_generate_token::6b106964bbf6aed9cb231ccdce7f3d39f3cb76dc6efb9bb3825cda7af4bf0d37",
+          "kind": "equates_error_to",
+          "to": "signing_fails"
+        },
+        {
+          "from": "ex_generate_token::6b106964bbf6aed9cb231ccdce7f3d39f3cb76dc6efb9bb3825cda7af4bf0d37",
+          "kind": "mentions",
+          "to": "signing_fails"
+        },
+        {
+          "from": "ex_generate_token::efaa2d470ca1f477266df5f8fca56c81794f6c7894f86647a1415126a92d0d0e",
+          "kind": "mentions",
+          "to": "token_claims"
+        },
+        {
+          "from": "expiry_from_now",
+          "kind": "ensures",
+          "to": "expiry_from_now::5c91c6f3a1e3b28f74803d3ca4b2fdc541f0674bfd2a6c3186f4762240dc9951"
+        },
+        {
+          "from": "issue_token",
+          "kind": "ensures",
+          "to": "issue_token::689c6770493203fd262219f6ea5e8b2b1d4589f6475f677df7571f7f0e77e426"
+        },
+        {
+          "from": "issue_token",
+          "kind": "ensures",
+          "to": "issue_token::6c8054a3af1c5612096cd870a78f3c00f6bdb41481f21e338bce0cead06b44cd"
+        },
+        {
+          "from": "issue_token",
+          "kind": "ensures",
+          "to": "issue_token::c60574126b6c6c4e7ae2bb5b2d22c2f932fb6529a242e63dd52a6f70d406e9d7"
+        },
+        {
+          "from": "issue_token",
+          "kind": "ensures",
+          "to": "issue_token::e7e770379faa30448f109fe4b4130e1280f1a040b28042fc440afce0467c63ad"
+        },
+        {
+          "from": "issue_token",
+          "kind": "ensures",
+          "to": "issue_token::f0f0001ba708fad357597c79c6103c6f82fbdb31152afe82cd7eac384c3fd303"
+        },
+        {
+          "from": "issue_token",
+          "kind": "ensures",
+          "to": "issue_token::f6d7ff15b3e5d0744cef5a10c34b4ebf17d6f489be21c0ab97998dab7426fe9b"
+        },
+        {
+          "from": "issue_token::c60574126b6c6c4e7ae2bb5b2d22c2f932fb6529a242e63dd52a6f70d406e9d7",
+          "kind": "mentions",
+          "to": "signing_fails"
+        },
+        {
+          "from": "issue_token::e7e770379faa30448f109fe4b4130e1280f1a040b28042fc440afce0467c63ad",
+          "kind": "mentions",
+          "to": "missing_identity_text"
+        },
+        {
+          "from": "issue_token::f6d7ff15b3e5d0744cef5a10c34b4ebf17d6f489be21c0ab97998dab7426fe9b",
+          "kind": "mentions",
+          "to": "token_claims"
+        },
+        {
+          "from": "login_core",
+          "kind": "ensures",
+          "to": "login_core::1a5027cb1a13317281359dfef044c5b579c5181884c9006276f6abf1adb66afa"
+        },
+        {
+          "from": "login_core",
+          "kind": "ensures",
+          "to": "login_core::20cba1678cac5c272554d6a5edd55b80419a1ba96161ee70b69779232bbc51f5"
+        },
+        {
+          "from": "login_core",
+          "kind": "ensures",
+          "to": "login_core::2377f4c8cd2121eb230d4d6ea48721a4a0a830d019b4e8d13c5a06a22c603c06"
+        },
+        {
+          "from": "login_core",
+          "kind": "ensures",
+          "to": "login_core::488bc196a02e6bc8cbac39795b118424fc150cd2c32a57f7fc4277e90758f9aa"
+        },
+        {
+          "from": "login_core",
+          "kind": "ensures",
+          "to": "login_core::682858fc080dff2eec5c26b911c783b58619e67bcd6c2b2250db9b304ab3a265"
+        },
+        {
+          "from": "login_core",
+          "kind": "ensures",
+          "to": "login_core::9f90e14483b0bbd44b1dbd29fb565aacb8271e02a94036b29ae1ce1b17986531"
+        },
+        {
+          "from": "login_core",
+          "kind": "ensures",
+          "to": "login_core::d55a11af7e02fc6d289f0267b082b4a443a632eb907d2e6cf02ee5fe6e968ef0"
+        },
+        {
+          "from": "login_core::20cba1678cac5c272554d6a5edd55b80419a1ba96161ee70b69779232bbc51f5",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_core::20cba1678cac5c272554d6a5edd55b80419a1ba96161ee70b69779232bbc51f5",
+          "kind": "mentions",
+          "to": "password_matches"
+        },
+        {
+          "from": "login_core::2377f4c8cd2121eb230d4d6ea48721a4a0a830d019b4e8d13c5a06a22c603c06",
+          "kind": "mentions",
+          "to": "lookup_fails"
+        },
+        {
+          "from": "login_core::2377f4c8cd2121eb230d4d6ea48721a4a0a830d019b4e8d13c5a06a22c603c06",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_core::2377f4c8cd2121eb230d4d6ea48721a4a0a830d019b4e8d13c5a06a22c603c06",
+          "kind": "mentions",
+          "to": "password_matches"
+        },
+        {
+          "from": "login_core::488bc196a02e6bc8cbac39795b118424fc150cd2c32a57f7fc4277e90758f9aa",
+          "kind": "mentions",
+          "to": "lookup_fails"
+        },
+        {
+          "from": "login_core::488bc196a02e6bc8cbac39795b118424fc150cd2c32a57f7fc4277e90758f9aa",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_core::682858fc080dff2eec5c26b911c783b58619e67bcd6c2b2250db9b304ab3a265",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "login_core::682858fc080dff2eec5c26b911c783b58619e67bcd6c2b2250db9b304ab3a265",
+          "kind": "mentions",
+          "to": "lookup_fails"
+        },
+        {
+          "from": "login_core::682858fc080dff2eec5c26b911c783b58619e67bcd6c2b2250db9b304ab3a265",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_core::9f90e14483b0bbd44b1dbd29fb565aacb8271e02a94036b29ae1ce1b17986531",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_core::d55a11af7e02fc6d289f0267b082b4a443a632eb907d2e6cf02ee5fe6e968ef0",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "login_core::d55a11af7e02fc6d289f0267b082b4a443a632eb907d2e6cf02ee5fe6e968ef0",
+          "kind": "mentions",
+          "to": "lookup_fails"
+        },
+        {
+          "from": "login_core::d55a11af7e02fc6d289f0267b082b4a443a632eb907d2e6cf02ee5fe6e968ef0",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::admin-role"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::correct-password"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::email-role"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::missing-identity"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::unknown-account"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::unreadable-hash"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::valid-token"
+        },
+        {
+          "from": "login_flow",
+          "kind": "ensures",
+          "to": "login_flow::wrong-password"
+        },
+        {
+          "from": "login_flow::admin-role",
+          "kind": "mentions",
+          "to": "admin_on_file"
+        },
+        {
+          "from": "login_flow::admin-role",
+          "kind": "mentions",
+          "to": "admin_role"
+        },
+        {
+          "from": "login_flow::admin-role",
+          "kind": "mentions",
+          "to": "token_claims"
+        },
+        {
+          "from": "login_flow::correct-password",
+          "kind": "mentions",
+          "to": "lookup_fails"
+        },
+        {
+          "from": "login_flow::correct-password",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_flow::correct-password",
+          "kind": "mentions",
+          "to": "password_matches"
+        },
+        {
+          "from": "login_flow::correct-password",
+          "kind": "mentions",
+          "to": "signing_fails"
+        },
+        {
+          "from": "login_flow::email-role",
+          "kind": "mentions",
+          "to": "customer_role"
+        },
+        {
+          "from": "login_flow::email-role",
+          "kind": "mentions",
+          "to": "token_claims"
+        },
+        {
+          "from": "login_flow::missing-identity",
+          "kind": "mentions",
+          "to": "missing_identity_text"
+        },
+        {
+          "from": "login_flow::unknown-account",
+          "kind": "mentions",
+          "to": "lookup_fails"
+        },
+        {
+          "from": "login_flow::unknown-account",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_flow::unreadable-hash",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "login_flow::unreadable-hash",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_flow::valid-token",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "login_flow::valid-token",
+          "kind": "mentions",
+          "to": "password_matches"
+        },
+        {
+          "from": "login_flow::valid-token",
+          "kind": "mentions",
+          "to": "token_claims"
+        },
+        {
+          "from": "login_flow::wrong-password",
+          "kind": "mentions",
+          "to": "bcrypt_verdict"
+        },
+        {
+          "from": "login_flow::wrong-password",
+          "kind": "mentions",
+          "to": "lookup_fails"
+        },
+        {
+          "from": "login_flow::wrong-password",
+          "kind": "mentions",
+          "to": "named_account"
+        },
+        {
+          "from": "lookup_fails",
+          "kind": "definition_uses",
+          "to": "admin_lookup_fails"
+        },
+        {
+          "from": "lookup_fails",
+          "kind": "definition_uses",
+          "to": "customer_lookup_fails"
+        },
+        {
+          "from": "lookup_target",
+          "kind": "ensures",
+          "to": "lookup_target::441400eb4223239ba6f8e49facb14250eb978ce47c838b1a96c90bb2073ad82a"
+        },
+        {
+          "from": "lookup_target",
+          "kind": "ensures",
+          "to": "lookup_target::d2fe03bf03200d3ab6c1484551c00e5f3c016c180f326fcf17decfa19ea73e11"
+        },
+        {
+          "from": "lookup_target",
+          "kind": "ensures",
+          "to": "lookup_target::e953ef86e017037e803f1dfc6c4841c6b82f31e7ac0257b6af37a6149132e709"
+        },
+        {
+          "from": "named_account",
+          "kind": "definition_uses",
+          "to": "admin_on_file"
+        },
+        {
+          "from": "named_account",
+          "kind": "definition_uses",
+          "to": "admin_role"
+        },
+        {
+          "from": "named_account",
+          "kind": "definition_uses",
+          "to": "customer_on_file"
+        },
+        {
+          "from": "named_account",
+          "kind": "definition_uses",
+          "to": "customer_role"
+        },
+        {
+          "from": "password_matches",
+          "kind": "definition_uses",
+          "to": "bcrypt_verdict"
+        }
+      ],
+      "snapshot_sha256": "a4940ad7a9dd694612c95ed60db3c3674ac4a06f81dd4cbc40c706d540ce4b74"
+    }
+  },
+  "graph_diff": {
+    "before_snapshot_sha256": "300922cd675e14e8f94194339b0709004187ff9ac1358d9a1b7bfd4e006e394b",
+    "after_snapshot_sha256": "a4940ad7a9dd694612c95ed60db3c3674ac4a06f81dd4cbc40c706d540ce4b74",
+    "clauses_changed": [
+      {
+        "id": "login_flow::correct-password",
+        "english_changed": true,
+        "code_changed": true
+      },
+      {
+        "id": "login_flow::unknown-account",
+        "english_changed": false,
+        "code_changed": true
+      },
+      {
+        "id": "login_flow::wrong-password",
+        "english_changed": false,
+        "code_changed": true
+      }
+    ],
+    "login_clauses_added": [],
+    "login_clauses_removed": [],
+    "shared_trusted_contracts": [
+      {
+        "id": "check_password",
+        "clauses_added": [],
+        "clauses_removed": []
+      },
+      {
+        "id": "ex_customer_find_by_email",
+        "clauses_added": [
+          "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02"
+        ],
+        "clauses_removed": []
+      }
+    ],
+    "trusted_contracts_unavailable_before": [
+      "database_error",
+      "ex_admin_find_by_username",
+      "ex_generate_token",
+      "expiry_from_now"
+    ],
+    "login_clause_edges_added": [
+      {
+        "from": "login_flow::correct-password",
+        "kind": "mentions",
+        "to": "lookup_fails"
+      },
+      {
+        "from": "login_flow::correct-password",
+        "kind": "mentions",
+        "to": "signing_fails"
+      },
+      {
+        "from": "login_flow::unknown-account",
+        "kind": "mentions",
+        "to": "lookup_fails"
+      },
+      {
+        "from": "login_flow::wrong-password",
+        "kind": "mentions",
+        "to": "lookup_fails"
+      }
+    ],
+    "login_clause_edges_removed": [],
+    "failure_condition_paths_after": {
+      "login_flow::correct-password": [
+        {
+          "via": [
+            "login_flow::correct-password",
+            "lookup_fails",
+            "admin_lookup_fails"
+          ],
+          "failure_contract_clause": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "trusted_function": "ex_admin_find_by_username"
+        },
+        {
+          "via": [
+            "login_flow::correct-password",
+            "lookup_fails",
+            "customer_lookup_fails"
+          ],
+          "failure_contract_clause": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "trusted_function": "ex_customer_find_by_email"
+        },
+        {
+          "via": [
+            "login_flow::correct-password",
+            "signing_fails"
+          ],
+          "failure_contract_clause": "ex_generate_token::6b106964bbf6aed9cb231ccdce7f3d39f3cb76dc6efb9bb3825cda7af4bf0d37",
+          "trusted_function": "ex_generate_token"
+        }
+      ],
+      "login_flow::unknown-account": [
+        {
+          "via": [
+            "login_flow::unknown-account",
+            "lookup_fails",
+            "admin_lookup_fails"
+          ],
+          "failure_contract_clause": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "trusted_function": "ex_admin_find_by_username"
+        },
+        {
+          "via": [
+            "login_flow::unknown-account",
+            "lookup_fails",
+            "customer_lookup_fails"
+          ],
+          "failure_contract_clause": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "trusted_function": "ex_customer_find_by_email"
+        }
+      ],
+      "login_flow::wrong-password": [
+        {
+          "via": [
+            "login_flow::wrong-password",
+            "lookup_fails",
+            "admin_lookup_fails"
+          ],
+          "failure_contract_clause": "ex_admin_find_by_username::254b5998dc12ff6a474deeba1d7134244cf57e14f2fd93140420624650382b9b",
+          "trusted_function": "ex_admin_find_by_username"
+        },
+        {
+          "via": [
+            "login_flow::wrong-password",
+            "lookup_fails",
+            "customer_lookup_fails"
+          ],
+          "failure_contract_clause": "ex_customer_find_by_email::650b3247ea9598de9b63dc65ee564184b31e5c750598091e8bbfad8e0d712d02",
+          "trusted_function": "ex_customer_find_by_email"
+        }
+      ]
+    }
+  },
+  "behavior_diff": {
+    "status": "source_interpretation_required",
+    "diagnostics": [
+      {
+        "publication": "microsoft",
+        "clause_id": "login_flow::valid-token",
+        "kind": "right_hand_matches_needs_parentheses",
+        "interpreted": false
+      },
+      {
+        "publication": "microsoft",
+        "clause_id": "login_flow::admin-role",
+        "kind": "right_hand_matches_needs_parentheses",
+        "interpreted": false
+      },
+      {
+        "publication": "microsoft",
+        "clause_id": "login_flow::email-role",
+        "kind": "unbound_pattern_name",
+        "names": [
+          "t"
+        ],
+        "interpreted": false
+      },
+      {
+        "publication": "github_next",
+        "clause_id": "login_flow::valid-token",
+        "kind": "right_hand_matches_needs_parentheses",
+        "interpreted": false
+      },
+      {
+        "publication": "github_next",
+        "clause_id": "login_flow::admin-role",
+        "kind": "right_hand_matches_needs_parentheses",
+        "interpreted": false
+      },
+      {
+        "publication": "github_next",
+        "clause_id": "login_flow::email-role",
+        "kind": "unbound_pattern_name",
+        "names": [
+          "t"
+        ],
+        "interpreted": false
+      }
+    ]
+  },
+  "verification_evidence": {
+    "authority": "unavailable",
+    "contexts": {},
+    "receipts": []
+  }
+}

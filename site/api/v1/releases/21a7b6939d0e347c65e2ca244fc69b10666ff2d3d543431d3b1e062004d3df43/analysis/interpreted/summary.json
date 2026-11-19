@@ -1,0 +1,998 @@
+{
+  "api_version": 1,
+  "data": {
+    "analysis_by_revision": {
+      "github_next": {
+        "clause_coverage": {
+          "clauses": {
+            "login_flow::admin-role": {
+              "example_unique_rejection": null,
+              "implied_by_each_clause": [
+                "login_flow::valid-token"
+              ],
+              "rejected_pairs": 450,
+              "single_clause_removal_changes_relation": false,
+              "uniquely_rejected_pairs": 0
+            },
+            "login_flow::correct-password": {
+              "example_unique_rejection": {
+                "outcome_id": "400:expected-message",
+                "world_id": 6
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 170,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 170
+            },
+            "login_flow::email-role": {
+              "example_unique_rejection": null,
+              "implied_by_each_clause": [
+                "login_flow::valid-token"
+              ],
+              "rejected_pairs": 1008,
+              "single_clause_removal_changes_relation": false,
+              "uniquely_rejected_pairs": 0
+            },
+            "login_flow::missing-identity": {
+              "example_unique_rejection": {
+                "outcome_id": "400:other-message",
+                "world_id": 0
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 28,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 8
+            },
+            "login_flow::unknown-account": {
+              "example_unique_rejection": {
+                "outcome_id": "400:expected-message",
+                "world_id": 2
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 540,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 140
+            },
+            "login_flow::unreadable-hash": {
+              "example_unique_rejection": {
+                "outcome_id": "400:expected-message",
+                "world_id": 14
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 560,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 160
+            },
+            "login_flow::valid-token": {
+              "example_unique_rejection": {
+                "outcome_id": "token:admin-id:customer",
+                "world_id": 6
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 1580,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 108
+            },
+            "login_flow::wrong-password": {
+              "example_unique_rejection": {
+                "outcome_id": "400:expected-message",
+                "world_id": 10
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 540,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 140
+            }
+          },
+          "rejection_groups": [
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::email-role",
+                "login_flow::unknown-account",
+                "login_flow::valid-token"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 2
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::email-role",
+                "login_flow::unreadable-hash",
+                "login_flow::valid-token"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 14
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::email-role",
+                "login_flow::valid-token"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 6
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::email-role",
+                "login_flow::valid-token",
+                "login_flow::wrong-password"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 10
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::missing-identity",
+                "login_flow::valid-token"
+              ],
+              "count": 6,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 0
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::unknown-account",
+                "login_flow::valid-token"
+              ],
+              "count": 12,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 18
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::correct-password"
+              ],
+              "count": 170,
+              "example": {
+                "outcome_id": "400:expected-message",
+                "world_id": 6
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::email-role",
+                "login_flow::unknown-account",
+                "login_flow::valid-token"
+              ],
+              "count": 144,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 2
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::email-role",
+                "login_flow::unreadable-hash",
+                "login_flow::valid-token"
+              ],
+              "count": 144,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 14
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::email-role",
+                "login_flow::valid-token"
+              ],
+              "count": 144,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 6
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::email-role",
+                "login_flow::valid-token",
+                "login_flow::wrong-password"
+              ],
+              "count": 144,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 10
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::missing-identity"
+              ],
+              "count": 8,
+              "example": {
+                "outcome_id": "400:other-message",
+                "world_id": 0
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::missing-identity",
+                "login_flow::valid-token"
+              ],
+              "count": 14,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 0
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::unknown-account"
+              ],
+              "count": 140,
+              "example": {
+                "outcome_id": "400:expected-message",
+                "world_id": 2
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::unknown-account",
+                "login_flow::valid-token"
+              ],
+              "count": 136,
+              "example": {
+                "outcome_id": "token:customer-id:customer",
+                "world_id": 2
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::unreadable-hash"
+              ],
+              "count": 160,
+              "example": {
+                "outcome_id": "400:expected-message",
+                "world_id": 14
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::unreadable-hash",
+                "login_flow::valid-token"
+              ],
+              "count": 148,
+              "example": {
+                "outcome_id": "token:customer-id:customer",
+                "world_id": 14
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::valid-token"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:admin-id:customer",
+                "world_id": 6
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::valid-token",
+                "login_flow::wrong-password"
+              ],
+              "count": 148,
+              "example": {
+                "outcome_id": "token:customer-id:customer",
+                "world_id": 10
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::wrong-password"
+              ],
+              "count": 140,
+              "example": {
+                "outcome_id": "400:expected-message",
+                "world_id": 10
+              }
+            }
+          ]
+        },
+        "failure_sensitivity": {
+          "admin_lookup_fails": {
+            "changes": [
+              {
+                "adds": [
+                  "500"
+                ],
+                "count": 1,
+                "example": {
+                  "failed_world_id": 24,
+                  "healthy_world_id": 22
+                },
+                "removes": [],
+                "request_case": "correct-password"
+              },
+              {
+                "adds": [
+                  "500"
+                ],
+                "count": 2,
+                "example": {
+                  "failed_world_id": 20,
+                  "healthy_world_id": 18
+                },
+                "removes": [],
+                "request_case": "unknown-account"
+              },
+              {
+                "adds": [
+                  "500"
+                ],
+                "count": 2,
+                "example": {
+                  "failed_world_id": 28,
+                  "healthy_world_id": 26
+                },
+                "removes": [],
+                "request_case": "wrong-password"
+              }
+            ],
+            "pairs_compared": 72,
+            "pairs_with_changed_outcomes": 5
+          },
+          "customer_lookup_fails": {
+            "changes": [
+              {
+                "adds": [
+                  "500"
+                ],
+                "count": 9,
+                "example": {
+                  "failed_world_id": 8,
+                  "healthy_world_id": 6
+                },
+                "removes": [],
+                "request_case": "correct-password"
+              },
+              {
+                "adds": [
+                  "500"
+                ],
+                "count": 18,
+                "example": {
+                  "failed_world_id": 4,
+                  "healthy_world_id": 2
+                },
+                "removes": [],
+                "request_case": "unknown-account"
+              },
+              {
+                "adds": [
+                  "500"
+                ],
+                "count": 18,
+                "example": {
+                  "failed_world_id": 12,
+                  "healthy_world_id": 10
+                },
+                "removes": [],
+                "request_case": "wrong-password"
+              }
+            ],
+            "pairs_compared": 72,
+            "pairs_with_changed_outcomes": 45
+          },
+          "signing_fails": {
+            "changes": [
+              {
+                "adds": [
+                  "500"
+                ],
+                "count": 10,
+                "example": {
+                  "failed_world_id": 7,
+                  "healthy_world_id": 6
+                },
+                "removes": [],
+                "request_case": "correct-password"
+              }
+            ],
+            "pairs_compared": 81,
+            "pairs_with_changed_outcomes": 10
+          }
+        }
+      },
+      "microsoft": {
+        "clause_coverage": {
+          "clauses": {
+            "login_flow::admin-role": {
+              "example_unique_rejection": null,
+              "implied_by_each_clause": [
+                "login_flow::valid-token"
+              ],
+              "rejected_pairs": 450,
+              "single_clause_removal_changes_relation": false,
+              "uniquely_rejected_pairs": 0
+            },
+            "login_flow::correct-password": {
+              "example_unique_rejection": {
+                "outcome_id": "400:expected-message",
+                "world_id": 6
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 160,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 160
+            },
+            "login_flow::email-role": {
+              "example_unique_rejection": null,
+              "implied_by_each_clause": [
+                "login_flow::valid-token"
+              ],
+              "rejected_pairs": 1008,
+              "single_clause_removal_changes_relation": false,
+              "uniquely_rejected_pairs": 0
+            },
+            "login_flow::missing-identity": {
+              "example_unique_rejection": {
+                "outcome_id": "400:other-message",
+                "world_id": 0
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 28,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 8
+            },
+            "login_flow::unknown-account": {
+              "example_unique_rejection": {
+                "outcome_id": "400:expected-message",
+                "world_id": 2
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 520,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 120
+            },
+            "login_flow::unreadable-hash": {
+              "example_unique_rejection": {
+                "outcome_id": "400:expected-message",
+                "world_id": 14
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 560,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 160
+            },
+            "login_flow::valid-token": {
+              "example_unique_rejection": {
+                "outcome_id": "token:admin-id:customer",
+                "world_id": 6
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 1580,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 108
+            },
+            "login_flow::wrong-password": {
+              "example_unique_rejection": {
+                "outcome_id": "400:expected-message",
+                "world_id": 10
+              },
+              "implied_by_each_clause": [],
+              "rejected_pairs": 520,
+              "single_clause_removal_changes_relation": true,
+              "uniquely_rejected_pairs": 120
+            }
+          },
+          "rejection_groups": [
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::email-role",
+                "login_flow::unknown-account",
+                "login_flow::valid-token"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 2
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::email-role",
+                "login_flow::unreadable-hash",
+                "login_flow::valid-token"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 14
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::email-role",
+                "login_flow::valid-token"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 6
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::email-role",
+                "login_flow::valid-token",
+                "login_flow::wrong-password"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 10
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::missing-identity",
+                "login_flow::valid-token"
+              ],
+              "count": 6,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 0
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::admin-role",
+                "login_flow::unknown-account",
+                "login_flow::valid-token"
+              ],
+              "count": 12,
+              "example": {
+                "outcome_id": "token:customer-id:admin",
+                "world_id": 18
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::correct-password"
+              ],
+              "count": 160,
+              "example": {
+                "outcome_id": "400:expected-message",
+                "world_id": 6
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::email-role",
+                "login_flow::unknown-account",
+                "login_flow::valid-token"
+              ],
+              "count": 144,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 2
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::email-role",
+                "login_flow::unreadable-hash",
+                "login_flow::valid-token"
+              ],
+              "count": 144,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 14
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::email-role",
+                "login_flow::valid-token"
+              ],
+              "count": 144,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 6
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::email-role",
+                "login_flow::valid-token",
+                "login_flow::wrong-password"
+              ],
+              "count": 144,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 10
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::missing-identity"
+              ],
+              "count": 8,
+              "example": {
+                "outcome_id": "400:other-message",
+                "world_id": 0
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::missing-identity",
+                "login_flow::valid-token"
+              ],
+              "count": 14,
+              "example": {
+                "outcome_id": "token:unreadable",
+                "world_id": 0
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::unknown-account"
+              ],
+              "count": 120,
+              "example": {
+                "outcome_id": "400:expected-message",
+                "world_id": 2
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::unknown-account",
+                "login_flow::valid-token"
+              ],
+              "count": 136,
+              "example": {
+                "outcome_id": "token:customer-id:customer",
+                "world_id": 2
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::unreadable-hash"
+              ],
+              "count": 160,
+              "example": {
+                "outcome_id": "400:expected-message",
+                "world_id": 14
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::unreadable-hash",
+                "login_flow::valid-token"
+              ],
+              "count": 148,
+              "example": {
+                "outcome_id": "token:customer-id:customer",
+                "world_id": 14
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::valid-token"
+              ],
+              "count": 108,
+              "example": {
+                "outcome_id": "token:admin-id:customer",
+                "world_id": 6
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::valid-token",
+                "login_flow::wrong-password"
+              ],
+              "count": 148,
+              "example": {
+                "outcome_id": "token:customer-id:customer",
+                "world_id": 10
+              }
+            },
+            {
+              "clauses": [
+                "login_flow::wrong-password"
+              ],
+              "count": 120,
+              "example": {
+                "outcome_id": "400:expected-message",
+                "world_id": 10
+              }
+            }
+          ]
+        },
+        "failure_sensitivity": {
+          "admin_lookup_fails": {
+            "changes": [],
+            "pairs_compared": 72,
+            "pairs_with_changed_outcomes": 0
+          },
+          "customer_lookup_fails": {
+            "changes": [],
+            "pairs_compared": 72,
+            "pairs_with_changed_outcomes": 0
+          },
+          "signing_fails": {
+            "changes": [],
+            "pairs_compared": 81,
+            "pairs_with_changed_outcomes": 0
+          }
+        }
+      }
+    },
+    "diagnostics": [
+      {
+        "clause_id": "login_flow::valid-token",
+        "interpreted": true,
+        "kind": "right_hand_matches_needs_parentheses",
+        "publication": "microsoft"
+      },
+      {
+        "clause_id": "login_flow::admin-role",
+        "interpreted": true,
+        "kind": "right_hand_matches_needs_parentheses",
+        "publication": "microsoft"
+      },
+      {
+        "clause_id": "login_flow::email-role",
+        "interpreted": true,
+        "kind": "unbound_pattern_name",
+        "names": [
+          "t"
+        ],
+        "publication": "microsoft"
+      },
+      {
+        "clause_id": "login_flow::valid-token",
+        "interpreted": true,
+        "kind": "right_hand_matches_needs_parentheses",
+        "publication": "github_next"
+      },
+      {
+        "clause_id": "login_flow::admin-role",
+        "interpreted": true,
+        "kind": "right_hand_matches_needs_parentheses",
+        "publication": "github_next"
+      },
+      {
+        "clause_id": "login_flow::email-role",
+        "interpreted": true,
+        "kind": "unbound_pattern_name",
+        "names": [
+          "t"
+        ],
+        "publication": "github_next"
+      }
+    ],
+    "empty_after_world_ids": [],
+    "empty_before_world_ids": [],
+    "method": "Finite enumeration over parsed clauses and selected parsed helper bodies",
+    "outcome_relation": "after_strict_subset",
+    "regions": [
+      {
+        "added": [],
+        "changed_clause_ids": [
+          "login_flow::unknown-account"
+        ],
+        "condition": {
+          "kind": "conjunction",
+          "terms": [
+            {
+              "field": "request_case",
+              "values": [
+                "unknown-account"
+              ]
+            },
+            {
+              "field": "lookup_fails",
+              "values": [
+                false
+              ]
+            }
+          ]
+        },
+        "identities": [
+          "both",
+          "email",
+          "username"
+        ],
+        "lookup_fails": false,
+        "removed": [
+          "500"
+        ],
+        "request_case": "unknown-account",
+        "signing_failure_values": [
+          false,
+          true
+        ],
+        "world_ids": [
+          2,
+          3,
+          18,
+          19,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49
+        ]
+      },
+      {
+        "added": [],
+        "changed_clause_ids": [
+          "login_flow::correct-password"
+        ],
+        "condition": {
+          "kind": "conjunction",
+          "terms": [
+            {
+              "field": "request_case",
+              "values": [
+                "correct-password"
+              ]
+            },
+            {
+              "field": "lookup_fails",
+              "values": [
+                false
+              ]
+            },
+            {
+              "field": "signing_fails",
+              "values": [
+                false
+              ]
+            }
+          ]
+        },
+        "identities": [
+          "both",
+          "email",
+          "username"
+        ],
+        "lookup_fails": false,
+        "removed": [
+          "500"
+        ],
+        "request_case": "correct-password",
+        "signing_failure_values": [
+          false
+        ],
+        "world_ids": [
+          6,
+          22,
+          66,
+          68,
+          70,
+          72,
+          74,
+          76,
+          78,
+          80
+        ]
+      },
+      {
+        "added": [],
+        "changed_clause_ids": [
+          "login_flow::wrong-password"
+        ],
+        "condition": {
+          "kind": "conjunction",
+          "terms": [
+            {
+              "field": "request_case",
+              "values": [
+                "wrong-password"
+              ]
+            },
+            {
+              "field": "lookup_fails",
+              "values": [
+                false
+              ]
+            }
+          ]
+        },
+        "identities": [
+          "both",
+          "email",
+          "username"
+        ],
+        "lookup_fails": false,
+        "removed": [
+          "500"
+        ],
+        "request_case": "wrong-password",
+        "signing_failure_values": [
+          false,
+          true
+        ],
+        "world_ids": [
+          10,
+          11,
+          26,
+          27,
+          98,
+          99,
+          100,
+          101,
+          102,
+          103,
+          104,
+          105,
+          106,
+          107,
+          108,
+          109,
+          110,
+          111,
+          112,
+          113
+        ]
+      }
+    ],
+    "result_candidate_count": 15,
+    "result_types": {
+      "400:expected-message": "400",
+      "400:other-message": "400",
+      "401": "401",
+      "500": "500",
+      "other-error": "other-error",
+      "token:admin-id:admin": "token",
+      "token:admin-id:customer": "token",
+      "token:admin-id:other-role": "token",
+      "token:customer-id:admin": "token",
+      "token:customer-id:customer": "token",
+      "token:customer-id:other-role": "token",
+      "token:other-id:admin": "token",
+      "token:other-id:customer": "token",
+      "token:other-id:other-role": "token",
+      "token:unreadable": "token"
+    },
+    "scope": "Abstract completed results of the supplied login_flow postconditions",
+    "status": "interpreted_publication_model",
+    "world_count": 162,
+    "world_result_pairs": 2430
+  },
+  "kind": "analysis",
+  "release_id": "21a7b6939d0e347c65e2ca244fc69b10666ff2d3d543431d3b1e062004d3df43"
+}
